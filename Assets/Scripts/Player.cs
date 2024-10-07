@@ -29,13 +29,13 @@ public class Player : MonoBehaviour
         transform.Translate(movement * moveSpeed * Time.deltaTime, Space.Self);
 
         float mouseX = Input.GetAxis("Mouse X");
-        transform.Rotate(Vector3.up, mouseX * rotationSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up, mouseX * rotationSpeed);
 
         float mouseY = Input.GetAxis("Mouse Y");
-        currentXRotation -= mouseY * verticalRotationSpeed * Time.deltaTime;
+        currentXRotation -= mouseY * verticalRotationSpeed;
         currentXRotation = Mathf.Clamp(currentXRotation, minXRotation, maxXRotation);
 
-        Vector3 clampedRotation = new Vector3(currentXRotation, transform.eulerAngles.y, 0f);
+        Vector3 clampedRotation = new Vector3(currentXRotation, transform.eulerAngles.y, transform.eulerAngles.z);
         transform.eulerAngles = clampedRotation;
     }
 }
