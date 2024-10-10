@@ -4,17 +4,40 @@ using UnityEngine;
 
 public class MainCharacterStats : Mob
 {
+    private int currentXPAmount;
+    private int level;
+    private int statisticsPoints;
+
+    public void GetXP(int value)
+    {
+        currentXPAmount += value;
+        CheckForLevelUp();
+    }
+
+    protected void CheckForLevelUp()
+    {
+        // if (currentXPAmount >= nessesaryXPAmount)
+        // {
+        //    LevelUp();
+        // }
+    }
+
+    protected void LevelUp()
+    {
+        level++;
+    }
+
     public override void TakeDamage(int _damage)
     {
         if (defense >= damage)
         {
-            hp--;
+            health--;
         }
         else
         {
-            hp -= damage - defense;
+            health -= damage - defense;
         }
-        if (hp <= 0)
+        if (health <= 0)
         {
             Die();
         }
@@ -22,13 +45,13 @@ public class MainCharacterStats : Mob
 
     protected override void Heal(int value)
     {
-        if (hp + value > maxHp) 
+        if (health + value > maxHp) 
         {
-            hp = maxHp;
+            health = maxHp;
         }
         else
         {
-            hp += value;
+            health += value;
         }
     }
 
