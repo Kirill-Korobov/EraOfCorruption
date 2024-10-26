@@ -52,10 +52,11 @@ public class BindButton : MonoBehaviour
     }
     private void Start()
     {
+        Cursor.visible = false;
         string cursorPath = $"{Application.persistentDataPath}/Settings.json";
         SaveSetting ss = new();
         ss = JsonUtility.FromJson<SaveSetting>(File.ReadAllText(cursorPath));
-        if (ss.imageCursor != "")
+        if (ss.customCursor)
         {
             Texture2D tx = new Texture2D(2, 2);
             tx.LoadImage(Convert.FromBase64String(ss.imageCursor));
@@ -63,16 +64,6 @@ public class BindButton : MonoBehaviour
             Sprite sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
 
             cursor.sprite = sp;
-        }
-        if (ss.customCursor)
-        {
-            cursor.gameObject.SetActive(true);
-            Cursor.visible = false;
-        }
-        else
-        {
-            cursor.gameObject.SetActive(false);
-            Cursor.visible = true;
         }
         cursor.rectTransform.sizeDelta = ss.cursorSizes;
     }

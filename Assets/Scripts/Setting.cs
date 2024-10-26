@@ -12,8 +12,10 @@ public class Setting : MonoBehaviour
     private float valueMusic;
     private float valueSong;
     private string path;
-    public bool ifSpriteIs;
+    private string pathFile;
+    private bool ifSpriteIs;
     private SaveSetting ss;
+    private Sprite sp;
 
     public TMP_Text[] txts;
     public Toggle mute;
@@ -24,6 +26,7 @@ public class Setting : MonoBehaviour
     public Toggle customCursor;
     public Image importCursor;
     public Image cursor;
+    public Image savedCursor;
 
     public Slider sensivity;
 
@@ -45,11 +48,12 @@ public class Setting : MonoBehaviour
         path = $"{Application.persistentDataPath}/Settings.json";
         ss = JsonUtility.FromJson<SaveSetting>(File.ReadAllText(path));
         LoadSaves();
+        Cursor.visible = false;
     }
     public void LoadSaves()
     {
         song.value = ss.song;
-        music.value = ss.music;
+        music.value = ss.music; 
 
 
         if (ss.music != 0 && ss.song != 0)
@@ -89,27 +93,13 @@ public class Setting : MonoBehaviour
             map.isOn = ss.mapPause;
         }
 
+
         if (ss.customCursor)
-        {
-            importCursor.gameObject.SetActive(true);
-            cursor.gameObject.SetActive(true);
-            Cursor.visible = false;
-        }
-        else
-        {
-            customCursor.isOn = false;
-            importCursor.gameObject.SetActive(false);
-            cursor.gameObject.SetActive(false);
-            Cursor.visible = true;
-        }
-
-
-        if (ss.imageCursor != "")
         {
             Texture2D tx = new Texture2D(2, 2);
             tx.LoadImage(Convert.FromBase64String(ss.imageCursor));
             Rect rt = new Rect(0, 0, tx.width, tx.height);
-            Sprite sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
+            sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
 
             cursor.sprite = sp;
         }
@@ -117,45 +107,46 @@ public class Setting : MonoBehaviour
         {
             ifSpriteIs = true;
             cursor.sprite = null;
+
+            importCursor.gameObject.SetActive(false);
+            customCursor.isOn = false;
         }
     }
     public void CustomCursor()
     {
-        Debug.Log(1);
         if (ifSpriteIs && customCursor.isOn != false)
         {
-            Debug.Log(2);
-            string path = EditorUtility.OpenFilePanel("", "", "png,jpg");
+            Cursor.visible = true;
+            pathFile = EditorUtility.OpenFilePanel("", "", "png,jpg");
+            Cursor.visible = false;
 
 
-            string extension = Path.GetExtension(path).ToLower();
+            string extension = Path.GetExtension(pathFile).ToLower();
 
             if (extension != ".png" && extension != ".jpg")
             {
                 customCursor.isOn = false;
             }
-            else if (path.Length != 0)
+            else if (pathFile.Length != 0)
             {
+                ss.extension = extension;
                 Texture2D tx = new Texture2D(2, 2);
-                tx.LoadImage(File.ReadAllBytes(path));
+                tx.LoadImage(File.ReadAllBytes(pathFile));
                 Rect rt = new Rect(0, 0, tx.width, tx.height);
-                Sprite sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
+                sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
 
                 cursor.sprite = sp;
                 ifSpriteIs = false;
 
-                Debug.Log(3);
                 if (customCursor.isOn)
                 {
+                    cursor.sprite = sp;
                     importCursor.gameObject.SetActive(true);
-                    cursor.gameObject.SetActive(true);
-                    Cursor.visible = false;
                 }
                 else
                 {
+                    cursor.sprite = savedCursor.sprite;
                     importCursor.gameObject.SetActive(false);
-                    cursor.gameObject.SetActive(false);
-                    Cursor.visible = true;
                 }
             }
             else
@@ -167,35 +158,36 @@ public class Setting : MonoBehaviour
         {
             if (customCursor.isOn)
             {
+                cursor.sprite = sp;
                 importCursor.gameObject.SetActive(true);
-                cursor.gameObject.SetActive(true);
-                Cursor.visible = false;
             }
             else
             {
+                cursor.sprite = savedCursor.sprite;
                 importCursor.gameObject.SetActive(false);
-                cursor.gameObject.SetActive(false);
-                Cursor.visible = true;
             }
         }
     }
 
     public void AddNewCustomCursor()
     {
-        string path = EditorUtility.OpenFilePanel("","", "png,jpg");
+        Cursor.visible = true;
+        pathFile = EditorUtility.OpenFilePanel("","", "png,jpg");
+        Cursor.visible = false;
 
-        string extension = Path.GetExtension(path).ToLower();
+        string extension = Path.GetExtension(pathFile).ToLower();
 
         if (extension != ".png" && extension != ".jpg")
         {
             customCursor.isOn = false;
         }
-        if (path.Length != 0)
+        if (pathFile.Length != 0)
         {
+            ss.extension = extension;
             Texture2D tx = new Texture2D(2, 2);
-            tx.LoadImage(File.ReadAllBytes(path));
+            tx.LoadImage(File.ReadAllBytes(pathFile));
             Rect rt = new Rect(0, 0, tx.width, tx.height);
-            Sprite sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
+            sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
 
             cursor.sprite = sp;
         }
@@ -262,7 +254,7 @@ public class Setting : MonoBehaviour
         LoadSaves();
         Save();
     }
-
+    
     public void Save()
     {
         if (!mute.isOn)
@@ -295,7 +287,8 @@ public class Setting : MonoBehaviour
             ss.mapPause = map.isOn;
         }
         ss.customCursor = customCursor.isOn;
-        string extension = Path.GetExtension(path).ToLower();
+
+        string extension = ss.extension;
         if (extension == ".png")
             ss.imageCursor = Convert.ToBase64String(cursor.sprite.texture.EncodeToPNG());
         else if (extension == ".jpg")
@@ -322,6 +315,7 @@ public class SaveSetting
     public bool mapPauseSaveDontUseHim;
     public bool customCursor;
     public string imageCursor;
+    public string extension;
 
     public void SetStandartSettings()
     {
