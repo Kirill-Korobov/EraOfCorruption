@@ -1,18 +1,18 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEditor;
 using System.IO;
 using UnityEngine.SceneManagement;
 using System;
-using System.Text;
 using TMPro;
+using SFB;
+using Unity.VisualScripting;
 
 public class Setting : MonoBehaviour
 {
     private float valueMusic;
     private float valueSong;
     private string path;
-    private string pathFile;
+    private string[] pathFile;
     private bool ifSpriteIs;
     private SaveSetting ss;
     private Sprite sp;
@@ -53,7 +53,8 @@ public class Setting : MonoBehaviour
     public void LoadSaves()
     {
         song.value = ss.song;
-        music.value = ss.music; 
+        music.value = ss.music;
+        
 
 
         if (ss.music != 0 && ss.song != 0)
@@ -83,7 +84,7 @@ public class Setting : MonoBehaviour
             map.gameObject.SetActive(false);
             pause.isOn = false;
             inventory.isOn = ss.inventoryPauseSaveDontUseHim;
-            quests.isOn = ss.inventoryPauseSaveDontUseHim;
+            quests.isOn = ss.questsPauseSaveDontUseHim;
             map.isOn = ss.mapPauseSaveDontUseHim;
         }
         else
@@ -117,42 +118,45 @@ public class Setting : MonoBehaviour
         if (ifSpriteIs && customCursor.isOn != false)
         {
             Cursor.visible = true;
-            pathFile = EditorUtility.OpenFilePanel("", "", "png,jpg");
-            Cursor.visible = false;
-
-
-            string extension = Path.GetExtension(pathFile).ToLower();
-
-            if (extension != ".png" && extension != ".jpg")
+            var extensions = new[] {new ExtensionFilter("Image Files", "png", "jpg")};
+            pathFile = StandaloneFileBrowser.OpenFilePanel("Виберіть зображення", "", extensions, false);
+            try
             {
-                customCursor.isOn = false;
-            }
-            else if (pathFile.Length != 0)
-            {
-                ss.extension = extension;
-                Texture2D tx = new Texture2D(2, 2);
-                tx.LoadImage(File.ReadAllBytes(pathFile));
-                Rect rt = new Rect(0, 0, tx.width, tx.height);
-                sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
+                string extension = Path.GetExtension(pathFile[0]).ToLower();
 
-                cursor.sprite = sp;
-                ifSpriteIs = false;
-
-                if (customCursor.isOn)
+                if (extension != ".png" && extension != ".jpg")
                 {
+                    customCursor.isOn = false;
+                }
+                else if (pathFile.Length > 0 && File.Exists(pathFile[0]))
+                {
+                    Cursor.visible = false;
+                    ss.extension = extension;
+                    Texture2D tx = new Texture2D(2, 2);
+                    tx.LoadImage(File.ReadAllBytes(pathFile[0]));
+                    Rect rt = new Rect(0, 0, tx.width, tx.height);
+                    sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
+
                     cursor.sprite = sp;
-                    importCursor.gameObject.SetActive(true);
-                }
-                else
-                {
-                    cursor.sprite = savedCursor.sprite;
-                    importCursor.gameObject.SetActive(false);
+                    ifSpriteIs = false;
+
+                    if (customCursor.isOn)
+                    {
+                        cursor.sprite = sp;
+                        importCursor.gameObject.SetActive(true);
+                    }
+                    else
+                    {
+                        cursor.sprite = savedCursor.sprite;
+                        importCursor.gameObject.SetActive(false);
+                    }
                 }
             }
-            else
+            catch (IndexOutOfRangeException)
             {
                 customCursor.isOn = false;
-            } 
+                Cursor.visible = false;
+            }
         }
         else
         {
@@ -171,25 +175,33 @@ public class Setting : MonoBehaviour
 
     public void AddNewCustomCursor()
     {
-        Cursor.visible = true;
-        pathFile = EditorUtility.OpenFilePanel("","", "png,jpg");
-        Cursor.visible = false;
-
-        string extension = Path.GetExtension(pathFile).ToLower();
-
-        if (extension != ".png" && extension != ".jpg")
+        try
         {
-            customCursor.isOn = false;
+            Cursor.visible = true;
+            var extensions = new[] { new ExtensionFilter("Image Files", "png", "jpg") };
+            pathFile = StandaloneFileBrowser.OpenFilePanel("Виберіть зображення", "", extensions, false);
+
+            string extension = Path.GetExtension(pathFile[0]).ToLower();
+
+            if (extension != ".png" && extension != ".jpg")
+            {
+                customCursor.isOn = false;
+            }
+            else if (pathFile.Length > 0 && File.Exists(pathFile[0]))
+            {
+                Cursor.visible = false;
+                ss.extension = extension;
+                Texture2D tx = new Texture2D(2, 2);
+                tx.LoadImage(File.ReadAllBytes(pathFile[0]));
+                Rect rt = new Rect(0, 0, tx.width, tx.height);
+                sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
+
+                cursor.sprite = sp;
+            }
         }
-        if (pathFile.Length != 0)
+        catch (IndexOutOfRangeException)
         {
-            ss.extension = extension;
-            Texture2D tx = new Texture2D(2, 2);
-            tx.LoadImage(File.ReadAllBytes(pathFile));
-            Rect rt = new Rect(0, 0, tx.width, tx.height);
-            sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
-
-            cursor.sprite = sp;
+            Cursor.visible = false;
         }
     }
 

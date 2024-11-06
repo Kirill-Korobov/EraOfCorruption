@@ -1,6 +1,9 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -19,7 +22,36 @@ public class BindButton : MonoBehaviour
     public TMP_Text[] texts;
 
     public Image cursor;
-    
+
+    private KeyBindsNames[] whatTheKeyBind =
+                {
+                    new KeyBindsNames(KeyCode.Mouse0, "LMB"),
+                    new KeyBindsNames(KeyCode.Mouse1, "RMB"),
+                    new KeyBindsNames(KeyCode.Mouse2, "MB3"),
+                    new KeyBindsNames(KeyCode.Mouse3, "MB4"),
+                    new KeyBindsNames(KeyCode.Mouse4, "MB5"),
+                    new KeyBindsNames(KeyCode.Mouse5, "MB6"),
+                    new KeyBindsNames(KeyCode.Mouse6, "MB7"),
+                    new KeyBindsNames(KeyCode.RightBracket, "["),
+                    new KeyBindsNames(KeyCode.LeftBracket, "]"),
+                    new KeyBindsNames(KeyCode.Semicolon, ";"),
+                    new KeyBindsNames(KeyCode.Quote, "'"),
+                    new KeyBindsNames(KeyCode.Backslash, "\\"),
+                    new KeyBindsNames(KeyCode.Comma, ","),
+                    new KeyBindsNames(KeyCode.Period, "."),
+                    new KeyBindsNames(KeyCode.Slash, "/"),
+                    new KeyBindsNames(KeyCode.Return, "Enter"),
+                    new KeyBindsNames(KeyCode.BackQuote, "`"),
+                    new KeyBindsNames(KeyCode.Minus, "-"),
+                    new KeyBindsNames(KeyCode.Equals, "="),
+                    new KeyBindsNames(KeyCode.KeypadEquals, "*"),
+                    new KeyBindsNames(KeyCode.KeypadDivide, "Numpad /"),
+                    new KeyBindsNames(KeyCode.KeypadPlus, "Numpad +"),
+                    new KeyBindsNames(KeyCode.KeypadMinus, "Numpad -"),
+                    new KeyBindsNames(KeyCode.KeypadEnter, "Numpad Enter"),
+                    new KeyBindsNames(KeyCode.KeypadPeriod,"Numpad .")
+                };
+
     public void Clicked(int a)
     {
         whatthenumber = a;
@@ -45,6 +77,7 @@ public class BindButton : MonoBehaviour
     }
     private void Awake()
     {
+        Debug.Log(Application.dataPath+Path.AltDirectorySeparatorChar);
         path = $"{Application.persistentDataPath}/KeyBinds.json";
         binds = JsonUtility.FromJson<Binds>(File.ReadAllText(path));
         kbn = binds.allBinds;
@@ -72,31 +105,16 @@ public class BindButton : MonoBehaviour
         for (int i = 0; i < keys.Length; i++)
         {
             KeyCode key = keys[i].ReturnKeyCode();
-            if (key == KeyCode.Mouse0) texts[i].text = "LMB";
-            else if (key == KeyCode.Mouse1) texts[i].text = "RMB";
-            else if (key == KeyCode.Mouse2) texts[i].text = "MB3";
-            else if (key == KeyCode.RightBracket) texts[i].text = "[";
-            else if (key == KeyCode.LeftBracket) texts[i].text = "]";
-            else if (key == KeyCode.RightBracket) texts[i].text = "[";
-            else if (key == KeyCode.Semicolon) texts[i].text = ";";
-            else if (key == KeyCode.Quote) texts[i].text = "'";
-            else if (key == KeyCode.Backslash) texts[i].text = "\\";
-            else if (key == KeyCode.Comma) texts[i].text = ",";
-            else if (key == KeyCode.Period) texts[i].text = ".";
-            else if (key == KeyCode.Slash) texts[i].text = "/";
-            else if (key == KeyCode.Return) texts[i].text = "Enter";
-            else if (key == KeyCode.BackQuote) texts[i].text = "`";
-            else if (key == KeyCode.Minus) texts[i].text = "-";
-            else if (key == KeyCode.Equals) texts[i].text = "=";
-            else if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0) texts[i].text = key.ToString().Replace("Keypad", "Numpad ");
-            else if (KeyCode.Alpha9 >= key && key >= KeyCode.Alpha0) texts[i].text = key.ToString().Replace("Alpha", "");
-            else if (key == KeyCode.KeypadEquals) texts[i].text = "*";
-            else if (key == KeyCode.KeypadDivide) texts[i].text = "Numpad /";
-            else if (key == KeyCode.KeypadPlus) texts[i].text = "Numpad +";
-            else if (key == KeyCode.KeypadMinus) texts[i].text = "Numpad -";
-            else if (key == KeyCode.KeypadEnter) texts[i].text = "Numpad Enter";
-            else if (key == KeyCode.KeypadPeriod) texts[i].text = "Numpad .";
-            else texts[i].text = key.ToString();
+            for (int j = 0; j < whatTheKeyBind.Length; j++)
+            {
+                if (whatTheKeyBind[j].bind == key)
+                {
+                    texts[whatthenumber].text = whatTheKeyBind[j].name;
+                }
+            }
+            if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0) texts[whatthenumber].text = key.ToString().Replace("Keypad", "Numpad ");
+            else if (KeyCode.Alpha9 >= key && key >= KeyCode.Alpha0) texts[whatthenumber].text = key.ToString().Replace("Alpha", "");
+            else texts[whatthenumber].text = key.ToString();
         }
     }
 
@@ -124,34 +142,15 @@ public class BindButton : MonoBehaviour
         {
             if (Input.GetKeyDown(key))
             {
-                if (Input.GetMouseButtonDown(0)) texts[whatthenumber].text = "LMB";
-                else if (Input.GetMouseButtonDown(1)) texts[whatthenumber].text = "RMB";
-                else if (Input.GetMouseButtonDown(2)) texts[whatthenumber].text = "MB3";
-                else if (key == KeyCode.Mouse3) texts[whatthenumber].text = "MB4";
-                else if (key == KeyCode.Mouse4) texts[whatthenumber].text = "MB5";
-                else if (key == KeyCode.Mouse5) texts[whatthenumber].text = "MB6";
-                else if (key == KeyCode.Mouse6) texts[whatthenumber].text = "MB7";
-                else if (key == KeyCode.RightBracket) texts[whatthenumber].text = "[";
-                else if (key == KeyCode.LeftBracket) texts[whatthenumber].text = "]";
-                else if (key == KeyCode.RightBracket) texts[whatthenumber].text = "[";
-                else if (key == KeyCode.Semicolon) texts[whatthenumber].text = ";";
-                else if (key == KeyCode.Quote) texts[whatthenumber].text = "'";
-                else if (key == KeyCode.Backslash) texts[whatthenumber].text = "\\";
-                else if (key == KeyCode.Comma) texts[whatthenumber].text = ",";
-                else if (key == KeyCode.Period) texts[whatthenumber].text = ".";
-                else if (key == KeyCode.Slash) texts[whatthenumber].text = "/";
-                else if (key == KeyCode.Return) texts[whatthenumber].text = "Enter";
-                else if (key == KeyCode.BackQuote) texts[whatthenumber].text = "`";
-                else if (key == KeyCode.Minus) texts[whatthenumber].text = "-";
-                else if (key == KeyCode.Equals) texts[whatthenumber].text = "=";
-                else if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0) texts[whatthenumber].text = key.ToString().Replace("Keypad", "Numpad ");
+                for(int i = 0; i < whatTheKeyBind.Length; i++)
+                {
+                    if (whatTheKeyBind[i].bind == key)
+                    {
+                        texts[whatthenumber].text = whatTheKeyBind[i].name;
+                    }
+                }
+                if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0) texts[whatthenumber].text = key.ToString().Replace("Keypad", "Numpad ");
                 else if (KeyCode.Alpha9 >= key && key >= KeyCode.Alpha0) texts[whatthenumber].text = key.ToString().Replace("Alpha", "");
-                else if (key == KeyCode.KeypadEquals) texts[whatthenumber].text = "*";
-                else if (key == KeyCode.KeypadDivide) texts[whatthenumber].text = "Numpad /";
-                else if (key == KeyCode.KeypadPlus) texts[whatthenumber].text = "Numpad +";
-                else if (key == KeyCode.KeypadMinus) texts[whatthenumber].text = "Numpad -";
-                else if (key == KeyCode.KeypadEnter) texts[whatthenumber].text = "Numpad Enter";
-                else if (key == KeyCode.KeypadPeriod) texts[whatthenumber].text = "Numpad .";
                 else texts[whatthenumber].text = key.ToString();
 
                 kbn[whatthenumber].SaveKeyCode(key);
