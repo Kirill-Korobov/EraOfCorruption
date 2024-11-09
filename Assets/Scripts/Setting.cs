@@ -301,10 +301,12 @@ public class Setting : MonoBehaviour
         ss.customCursor = customCursor.isOn;
 
         string extension = ss.extension;
+        cursor.gameObject.SetActive(true);
         if (extension == ".png")
             ss.imageCursor = Convert.ToBase64String(cursor.sprite.texture.EncodeToPNG());
         else if (extension == ".jpg")
             ss.imageCursor = Convert.ToBase64String(cursor.sprite.texture.EncodeToJPG());
+        cursor.gameObject.SetActive(false);
 
         string json = JsonUtility.ToJson(ss);
         File.WriteAllText(path, json);
@@ -340,5 +342,6 @@ public class SaveSetting
         mapPause = false;
         customCursor = false;
         imageCursor = "";
+        extension = "";
     }
 } 
