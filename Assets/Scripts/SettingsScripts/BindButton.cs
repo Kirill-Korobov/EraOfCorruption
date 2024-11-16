@@ -101,6 +101,7 @@ public class BindButton : MonoBehaviour
     }
     public void KeyBindsName(KeyBindsNames[] keys)
     {
+        bool stopIfs = false;
         for (int i = 0; i < keys.Length; i++)
         {
             KeyCode key = keys[i].ReturnKeyCode();
@@ -109,16 +110,18 @@ public class BindButton : MonoBehaviour
                 if (whatTheKeyBind[j].bind == key)
                 {
                     texts[whatthenumber].text = whatTheKeyBind[j].name;
+                    stopIfs = true;
+                    break;
                 }
             }
-            if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0) texts[whatthenumber].text = key.ToString().Replace("Keypad", "Numpad ");
-            else if (Input.GetMouseButtonDown(0)) texts[whatthenumber].text = "LMB";
-            else if (Input.GetMouseButtonDown(1)) texts[whatthenumber].text = "RMB";
-            else if (Input.GetMouseButtonDown(2)) texts[whatthenumber].text = "MB3";
-            else if (Input.GetMouseButtonDown(3)) texts[whatthenumber].text = "MB4";
-            else if (Input.GetMouseButtonDown(4)) texts[whatthenumber].text = "MB5";
-            else if (Input.GetMouseButtonDown(5)) texts[whatthenumber].text = "MB6";
-            else if (Input.GetMouseButtonDown(6)) texts[whatthenumber].text = "MB7";
+            if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0 && stopIfs) texts[whatthenumber].text = key.ToString().Replace("Keypad", "Numpad ");
+            else if (Input.GetMouseButtonDown(0) && stopIfs) texts[whatthenumber].text = "LMB";
+            else if (Input.GetMouseButtonDown(1) && stopIfs) texts[whatthenumber].text = "RMB";
+            else if (Input.GetMouseButtonDown(2) && stopIfs) texts[whatthenumber].text = "MB3";
+            else if (Input.GetMouseButtonDown(3) && stopIfs) texts[whatthenumber].text = "MB4";
+            else if (Input.GetMouseButtonDown(4) && stopIfs) texts[whatthenumber].text = "MB5";
+            else if (Input.GetMouseButtonDown(5) && stopIfs) texts[whatthenumber].text = "MB6";
+            else if (Input.GetMouseButtonDown(6) && stopIfs) texts[whatthenumber].text = "MB7";
             else if (KeyCode.Alpha9 >= key && key >= KeyCode.Alpha0) texts[whatthenumber].text = key.ToString().Replace("Alpha", "");
             else texts[whatthenumber].text = key.ToString();
         }
