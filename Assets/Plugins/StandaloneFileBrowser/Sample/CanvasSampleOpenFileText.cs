@@ -6,10 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using SFB;
+using System;
 
 [RequireComponent(typeof(Button))]
-public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
-    public RawImage output;
+public class CanvasSampleOpenFileText : MonoBehaviour, IPointerDownHandler {
+    public Text output;
 
 #if UNITY_WEBGL && !UNITY_EDITOR
     //
@@ -19,7 +20,7 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
     private static extern void UploadFile(string gameObjectName, string methodName, string filter, bool multiple);
 
     public void OnPointerDown(PointerEventData eventData) {
-        UploadFile(gameObject.name, "OnFileUpload", ".png, .jpg", false);
+        UploadFile(gameObject.name, "OnFileUpload", ".txt", false);
     }
 
     // Called from browser
@@ -32,22 +33,25 @@ public class CanvasSampleOpenFileImage : MonoBehaviour, IPointerDownHandler {
     //
     public void OnPointerDown(PointerEventData eventData) { }
 
+    [Obsolete]
     void Start() {
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
 
+    [Obsolete]
     private void OnClick() {
-        var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", ".png", false);
+        var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", "txt", false);
         if (paths.Length > 0) {
             StartCoroutine(OutputRoutine(new System.Uri(paths[0]).AbsoluteUri));
         }
     }
 #endif
 
+    [Obsolete]
     private IEnumerator OutputRoutine(string url) {
         var loader = new WWW(url);
         yield return loader;
-        output.texture = loader.texture;
+        output.text = loader.text;
     }
 }

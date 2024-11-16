@@ -9,6 +9,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Setting.unity
     guid: 5fba6d6cf5dfc92468399b86b9263438
   - enabled: 1
-    path: Assets/Scenes/SettingBinds.unity
+    path: Assets/UnusedAssets/Test/SettingBinds.unity
     guid: e531ce20ee49c394485381de2c325adf
   m_configObjects: {}
