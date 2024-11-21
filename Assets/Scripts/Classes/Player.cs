@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     private float horizontalInput;
     private float verticalInput;
     private float currentXRotation = 0f;
+
+    public int health {  get; private set; }
     // Start is called before the first frame update
     void Start()
     {
@@ -37,5 +39,9 @@ public class Player : MonoBehaviour
 
         Vector3 clampedRotation = new Vector3(currentXRotation, transform.eulerAngles.y, transform.eulerAngles.z);
         transform.eulerAngles = clampedRotation;
+    }
+    public void TakeDamage(int damage)
+    {
+        health -= damage;
     }
 }
