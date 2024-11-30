@@ -3,28 +3,49 @@ using UnityEngine;
 public class MC_LevelManager : MonoBehaviour
 {
     [SerializeField] private XPInfo _XPInfo;
-    private int level, currentXP;
+    [SerializeField] private StatisticsInfo statisticsInfo;
+    private int level, _XP;
+    private MC_StatisticsManager statisticsManager;
 
     private void Awake()
     {
-        // Set currentXP and level.
+        // Set XP and level.
     }
 
-    private int XP
+    public int Level
     {
         get
         {
-            return currentXP;
+            return level;
         }
         set
         {
             if (value < 0)
             {
-                currentXP = 0;
+                level = 0;
             }
             else
             {
-                currentXP = value;
+                level = value;
+            }
+        }
+    }
+
+    public int XP
+    {
+        get
+        {
+            return _XP;
+        }
+        set
+        {
+            if (value < 0)
+            {
+                _XP = 0;
+            }
+            else
+            {
+                _XP = value;
             }
             CheckForLevelUp();
         }
@@ -32,7 +53,7 @@ public class MC_LevelManager : MonoBehaviour
 
     private void CheckForLevelUp()
     {
-        if (currentXP >= _XPInfo.NessaseryXP[level - 1])
+        if (XP >= _XPInfo.NessaseryXP[level - 1])
         {
             LevelUp();
         }
@@ -41,7 +62,7 @@ public class MC_LevelManager : MonoBehaviour
     private void LevelUp()
     {
         XP -= _XPInfo.NessaseryXP[level - 1];
-        level++;
-        // Add statistics points.
+        Level++;
+        statisticsManager.StatisticPoints += statisticsInfo.StatisticPointsPerLevel;
     }
 }

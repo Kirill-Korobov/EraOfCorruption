@@ -9,7 +9,7 @@ public class MC_EnergyManager : MonoBehaviour
         // Set energy stats.
     }
 
-    private float Energy
+    public float CurrentEnergy
     {
         get
         {
@@ -17,7 +17,7 @@ public class MC_EnergyManager : MonoBehaviour
         }
         set
         {
-            if (value < 0)
+            if (value <= 0)
             {
                 currentEnergy = 0;
             }
@@ -32,13 +32,28 @@ public class MC_EnergyManager : MonoBehaviour
         }
     }
 
+    public float MaxEnergy
+    {
+        get
+        {
+            return maxEnergy;
+        }
+        set
+        {
+            if (value > 0)
+            {
+                maxEnergy = value;
+            }
+        }
+    }
+
     public void SpendEnergy(float value)
     {
-        Energy -= value;
+        CurrentEnergy -= value;
     }
 
     public void ReplenishEnergy(float value)
     {
-        Energy += value;
+        CurrentEnergy += value;
     }
 }

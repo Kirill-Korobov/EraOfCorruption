@@ -11,7 +11,7 @@ public class MC_ManaManager : MonoBehaviour
         // Set mana stats.
     }
 
-    private float Mana
+    public float CurrentMana
     {
         get
         {
@@ -19,7 +19,7 @@ public class MC_ManaManager : MonoBehaviour
         }
         set
         {
-            if (value < 0)
+            if (value <= 0)
             {
                 currentMana = 0;
             }
@@ -34,13 +34,28 @@ public class MC_ManaManager : MonoBehaviour
         }
     }
 
+    public float MaxMana
+    {
+        get
+        {
+            return maxMana;
+        }
+        set
+        {
+            if (value > 0)
+            {
+                maxMana = value;
+            }
+        }
+    }
+
     public void SpendMana(float value)
     {
-        Mana -= value;
+        CurrentMana -= value;
     }
 
     public void ReplenishMana(float value)
     {
-        Mana += value;
+        CurrentMana += value;
     }
 }

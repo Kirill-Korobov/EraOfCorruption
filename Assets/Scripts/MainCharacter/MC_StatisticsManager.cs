@@ -4,28 +4,28 @@ using UnityEngine;
 
 public class MC_StatisticsManager : MonoBehaviour
 {
-    private int statisticsPoints, _HPLevel, energyLevel, movementLevel, _XPMultiplierLevel, closeCombatLevel, rangedCombatLevel, magicCombatLevel;
+    private int statisticPoints, _HPLevel, energyLevel, movementLevel, _XPMultiplierLevel, closeCombatLevel, rangedCombatLevel, magicCombatLevel;
 
     private void Awake()
     {
-        // Set statistics points stats.
+        // Set statistic points stats.
     }
 
-    public int StatisticsPoints
+    public int StatisticPoints
     {
         get
         {
-            return statisticsPoints;
+            return statisticPoints;
         }
         set
         {
             if (value < 0)
             {
-                statisticsPoints = 0;
+                statisticPoints = 0;
             }
             else
             {
-                statisticsPoints = value;
+                statisticPoints = value;
             }
         }
     }
@@ -200,13 +200,13 @@ public class MC_StatisticsManager : MonoBehaviour
 
     public void ResetStats()
     {
-        statisticsPoints = _HPLevel + energyLevel + movementLevel + _XPMultiplierLevel + closeCombatLevel + rangedCombatLevel + magicCombatLevel;
-        _HPLevel = 0;
-        energyLevel = 0;
-        movementLevel = 0;
-        _XPMultiplierLevel = 0;
-        closeCombatLevel = 0;
-        rangedCombatLevel = 0;
-        magicCombatLevel = 0;
+        StatisticPoints += HPLevel + EnergyLevel + MovementLevel + XPMultiplierLevel + CloseCombatLevel + RangedCombatLevel + MagicCombatLevel;
+        HPLevel = 0;
+        EnergyLevel = 0;
+        MovementLevel = 0;
+        XPMultiplierLevel = 0;
+        CloseCombatLevel = 0;
+        RangedCombatLevel = 0;
+        MagicCombatLevel = 0;
     }
 }
