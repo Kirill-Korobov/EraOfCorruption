@@ -6,14 +6,23 @@ using UnityEngine;
 
 public class StatisticsInfo : ScriptableObject
 {
+    [SerializeField] private int statisticPointsPerLevel;
+    public int StatisticPointsPerLevel => statisticPointsPerLevel;
+
+    [SerializeField] private int maxStatisticLevelMultiplier;
+    public int MaxStatisticLevelMultiplier => maxStatisticLevelMultiplier;
+
     [SerializeField] private float[] _HPLevels;
     public float[] HPLevels => _HPLevels;
 
     [SerializeField] private float[] energyLevels;
     public float[] EnergyLevels => energyLevels;
 
-    [SerializeField] private float[] movementLevels;
-    public float[] MovementLevels => movementLevels;
+    [SerializeField] private float[] movementSpeedLevels;
+    public float[] MovementSpeedLevels => movementSpeedLevels;
+
+    [SerializeField] private int[] movementJumpNumberLevels;
+    public int[] MovementJumpNumberLevels => movementJumpNumberLevels;
 
     [SerializeField] private float[] _XPMultiplierLevels;
     public float[] XPMultiplierLevels => _XPMultiplierLevels;

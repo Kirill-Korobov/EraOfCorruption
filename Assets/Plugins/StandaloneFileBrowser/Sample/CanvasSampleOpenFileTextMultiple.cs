@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using SFB;
+using System;
 
 [RequireComponent(typeof(Button))]
 public class CanvasSampleOpenFileTextMultiple : MonoBehaviour, IPointerDownHandler {
@@ -32,11 +33,13 @@ public class CanvasSampleOpenFileTextMultiple : MonoBehaviour, IPointerDownHandl
     //
     public void OnPointerDown(PointerEventData eventData) { }
 
+    [Obsolete]
     void Start() {
         var button = GetComponent<Button>();
         button.onClick.AddListener(OnClick);
     }
 
+    [Obsolete]
     private void OnClick() {
         // var paths = StandaloneFileBrowser.OpenFilePanel("Title", "", "txt", true);
         var paths = StandaloneFileBrowser.OpenFilePanel("Open File", "", "", true);
@@ -50,6 +53,7 @@ public class CanvasSampleOpenFileTextMultiple : MonoBehaviour, IPointerDownHandl
     }
 #endif
 
+    [Obsolete]
     private IEnumerator OutputRoutine(string[] urlArr) {
         var outputText = "";
         for (int i = 0; i < urlArr.Length; i++) {
