@@ -139,7 +139,7 @@ public class BindButton : MonoBehaviour
             }
         }
 
-        if (cursor.gameObject.active == true)
+        if (cursor.gameObject.activeSelf == true)
         {
             cursor.transform.position = new Vector3(Input.mousePosition.x + (cursor.rectTransform.sizeDelta.x / 2), Input.mousePosition.y - (cursor.rectTransform.sizeDelta.y / 2));
         }

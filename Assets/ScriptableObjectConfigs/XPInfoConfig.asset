@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 559a647cfc922a048a15468c91a94189, type: 3}
   m_Name: XPInfoConfig
   m_EditorClassIdentifier: 
-  nessaseryXP: 
+  nessaseryXP: 64000000900100008403000040060000b80b0000

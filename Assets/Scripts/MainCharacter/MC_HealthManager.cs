@@ -10,22 +10,22 @@ public class MC_HealthManager : MonoBehaviour
         // Set health stats.
     }
 
-    private float Health
+    public float CurrentHealth
     {
-        get 
-        { 
-            return currentHealth; 
+        get
+        {
+            return currentHealth;
         }
         set
         {
-            if (value < 0)
+            if (value <= 0)
             {
                 currentHealth = 0;
                 Die();
             }
-            else if (value > maxHealth) 
+            else if (value > maxHealth)
             {
-                currentHealth = maxHealth; 
+                currentHealth = maxHealth;
             }
             else
             {
@@ -34,21 +34,51 @@ public class MC_HealthManager : MonoBehaviour
         }
     }
 
+    public float MaxHealth
+    {
+        get
+        {
+            return maxHealth;
+        }
+        set
+        {
+            if (value > 0)
+            {
+                maxHealth = value;
+            }       
+        }
+    }
+
+    public int Defense
+    {
+        get
+        {
+            return defense;
+        }
+        set
+        {
+            if (value >= 0)
+            {
+                defense = value;
+            }
+        }
+    }
+
     public void TakeDamage(float value)
     {
         if (defense >= value)
         {
-            Health -= 1;
+            CurrentHealth -= 1;
         }
         else
         {
-            Health -= value;
+            CurrentHealth -= value;
         }
     }
 
-    public void GetHealth(float value) 
+    public void GetHealth(float value)
     {
-        Health += value;
+        CurrentHealth += value;
     }
 
     private void Die()

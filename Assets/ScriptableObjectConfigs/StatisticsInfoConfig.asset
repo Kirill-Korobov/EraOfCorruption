@@ -12,9 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b00594761bfb5428b2f8eec9aa80ef, type: 3}
   m_Name: StatisticsInfoConfig
   m_EditorClassIdentifier: 
+  statisticPointsPerLevel: 0
+  maxStatisticLevelMultiplier: 2
   _HPLevels: []
   energyLevels: []
-  movementLevels: []
+  movementSpeedLevels: []
+  movementJumpNumberLevels: 
   _XPMultiplierLevels: []
   closeCombatLevels: []
   rangedCombatLevels: []
