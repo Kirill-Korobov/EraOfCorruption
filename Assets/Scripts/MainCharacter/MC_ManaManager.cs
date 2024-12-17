@@ -9,6 +9,10 @@ public class MC_ManaManager : MonoBehaviour
     private void Awake()
     {
         // Set mana stats.
+        if (MaxMana == 0)
+        {
+            MaxMana = 1;
+        }
     }
 
     public float CurrentMana
