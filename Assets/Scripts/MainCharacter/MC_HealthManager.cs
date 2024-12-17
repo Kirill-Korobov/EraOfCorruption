@@ -8,6 +8,10 @@ public class MC_HealthManager : MonoBehaviour
     private void Awake()
     {
         // Set health stats.
+        if (MaxHealth == 0)
+        {
+            MaxHealth = 1;
+        }
     }
 
     public float CurrentHealth
@@ -66,13 +70,13 @@ public class MC_HealthManager : MonoBehaviour
 
     public void TakeDamage(float value)
     {
-        if (defense >= value)
+        if (Defense >= value)
         {
             CurrentHealth -= 1;
         }
         else
         {
-            CurrentHealth -= value;
+            CurrentHealth -= value - Defense;
         }
     }
 

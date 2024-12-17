@@ -7,6 +7,10 @@ public class MC_EnergyManager : MonoBehaviour
     private void Awake()
     {
         // Set energy stats.
+        if (MaxEnergy == 0)
+        {
+            MaxEnergy = 1;
+        }
     }
 
     public float CurrentEnergy
