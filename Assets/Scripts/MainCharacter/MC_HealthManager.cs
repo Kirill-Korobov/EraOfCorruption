@@ -7,6 +7,8 @@ public class MC_HealthManager : MonoBehaviour
 
     private void Awake()
     {
+        MaxHealth = 100;
+        CurrentHealth = 100;
         // Set health stats.
     }
 
@@ -63,22 +65,26 @@ public class MC_HealthManager : MonoBehaviour
             }
         }
     }
-
+    public float hex = 1;
     public void TakeDamage(float value)
     {
-        if (defense >= value)
+        if (Defense >= value * hex)
         {
-            CurrentHealth -= 1;
+            CurrentHealth -= hex;
         }
         else
         {
-            CurrentHealth -= value;
+            CurrentHealth -= value*hex - Defense;
         }
     }
 
+    public bool cursed = false;
     public void GetHealth(float value)
     {
-        CurrentHealth += value;
+        if (!cursed)
+        {
+            CurrentHealth += value;
+        }
     }
 
     private void Die()
