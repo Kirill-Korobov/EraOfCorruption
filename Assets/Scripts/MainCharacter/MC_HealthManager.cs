@@ -10,6 +10,10 @@ public class MC_HealthManager : MonoBehaviour
         MaxHealth = 100;
         CurrentHealth = 100;
         // Set health stats.
+        if (MaxHealth == 0)
+        {
+            MaxHealth = 1;
+        }
     }
 
     public float CurrentHealth

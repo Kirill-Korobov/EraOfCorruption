@@ -23,6 +23,6 @@ public class MainGameCanvasOperator : MonoBehaviour
         energyText.text = $"{Mathf.Ceil(energyManager.CurrentEnergy)} / {Mathf.Ceil(energyManager.MaxEnergy)}";
         manaText.text = $"{Mathf.Ceil(manaManager.CurrentMana)} / {Mathf.Ceil(manaManager.MaxMana)}";
         _XPText.text = $"{Mathf.Ceil(levelManager.XP)} / {Mathf.Ceil(_XPInfo.NessaseryXP[levelManager.Level - 1])}";
-        levelText.text = $"Level {levelManager.Level.ToString()}";
+        levelText.text = $"Level {levelManager.Level}";
     }
 }
