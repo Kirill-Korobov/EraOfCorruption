@@ -23,7 +23,6 @@ public class EnemyAttack : MonoBehaviour
     {
         if (Time.time >= lastAttackTime + attackCooldown)
         {
-            //Ћог≥ка атаки
             Player _player = player.GetComponent<Player>();
             if (_player != null && _player.health > 0)
             {
