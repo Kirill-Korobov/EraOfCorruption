@@ -17,8 +17,7 @@ public class EnemyScriptableObject : ScriptableObject
     public float attackEffectChance;
 
     [Header("Drop methods")]
-    public GameObject[] dropItems;
-    public float dropChance; 
+    public DropItem[] dropItems;
 
     [Header("Death effect")]
     public GameObject deathEffect;
