@@ -4,15 +4,16 @@ using UnityEngine.SceneManagement;
 public class PauseMenuOperator : MonoBehaviour
 {
     [SerializeField] private Canvas settingsCanvas, achievementsCanvas;
+    [SerializeField] private PauseManager pauseManager;
 
     private void OnEnable()
     {
-        Time.timeScale = 0;
+        pauseManager.SetGamePaused();
     }
 
     private void OnDisable()
     {
-        Time.timeScale = 1;
+        pauseManager.SetGameNotPaused();
     }
 
     public void BackToGameButton()

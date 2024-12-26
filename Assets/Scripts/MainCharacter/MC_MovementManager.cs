@@ -4,6 +4,7 @@ public class MC_MovementManager : MonoBehaviour
 {
     private CharacterController characterController;
     [SerializeField] private Transform head;
+    [SerializeField] private PauseManager pauseManager;
     private float rotationY;
     private const float speedMultiplier = 5;
     private const float gravity = 9.8f;
@@ -47,14 +48,16 @@ public class MC_MovementManager : MonoBehaviour
     {
         // Rotation
 
-        // if not pause.
-        if (Input.GetMouseButton(1))
+        if (!pauseManager.pause)
         {
-            // must be multiplied by sensetivity.
-            gameObject.transform.Rotate(new Vector3(0, 1, 0), Input.GetAxis("Mouse X") * 10);
-            rotationY += Input.GetAxis("Mouse Y") * 10f;
-            rotationY = Mathf.Clamp(rotationY, -80, 80);
-            head.localEulerAngles = new Vector3(-rotationY, 0, 0);
+            if (Input.GetMouseButton(1))
+            {
+                // must be multiplied by sensetivity.
+                gameObject.transform.Rotate(new Vector3(0, 1, 0), Input.GetAxis("Mouse X") * 10);
+                rotationY += Input.GetAxis("Mouse Y") * 10f;
+                rotationY = Mathf.Clamp(rotationY, -80, 80);
+                head.localEulerAngles = new Vector3(-rotationY, 0, 0);
+            }
         }
 
         // Walking

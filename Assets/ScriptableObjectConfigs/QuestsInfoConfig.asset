@@ -20,9 +20,19 @@ MonoBehaviour:
     reusability: 1
   - name: Second quest
     requirementDescription: 
-    taskDescription: 
+    taskDescription: Do blbalbalbablbalba
     rewardDescription: 
     reusability: 1
+  - name: Third quest
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 0
+  - name: Third quest
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 0
   - name: Third quest
     requirementDescription: 
     taskDescription: 

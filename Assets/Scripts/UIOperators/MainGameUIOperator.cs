@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MainGameUIOperator : MonoBehaviour
 {
-    [SerializeField] private Canvas mainCanvas, pauseCanvas, inventoryCanvas, statisticsCanvas, mapCanvas, questCanvas;
+    [SerializeField] private Canvas mainCanvas, pauseCanvas, inventoryCanvas, statisticsCanvas, mapCanvas, questCanvas, _NPCQuestCanvas;
 
     private void Awake()
     {
@@ -18,7 +18,7 @@ public class MainGameUIOperator : MonoBehaviour
             {
                 SetAllCanvasesInactive();
             }
-            else
+            else if (!_NPCQuestCanvas.gameObject.activeSelf)
             {
                 pauseCanvas.gameObject.SetActive(true);
             }

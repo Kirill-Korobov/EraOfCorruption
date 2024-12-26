@@ -58,7 +58,6 @@ public class NPCQuestMenuOperator : MonoBehaviour
                 int bufferNumber = _NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i];
                 if (questStagesInfo.questStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.cantStart || questStagesInfo.questStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.canStart)
                 {
-
                     bufferQuests[questIndex].GetComponentInChildren<Button>().onClick.AddListener(() => StartQuestButton(bufferNumber));
                     bufferQuests[questIndex].GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Start";
                 }
