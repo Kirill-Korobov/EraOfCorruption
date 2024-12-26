@@ -4,6 +4,7 @@ public class NPCInteraction : MonoBehaviour
 {
     [SerializeField] private float maxInteractionDistance;
     [SerializeField] private NPCMenuOperator _NPCMenuOperator;
+    [SerializeField] private PauseManager pauseManager;
     private bool isInteracting;
     private GameObject[] NPCs;
     private GameObject nearestNPC, interactingNPC;
@@ -39,5 +40,6 @@ public class NPCInteraction : MonoBehaviour
     {
         isInteracting = false;
         interactingNPC = null;
+        pauseManager.SetGameNotPaused();
     }
 }

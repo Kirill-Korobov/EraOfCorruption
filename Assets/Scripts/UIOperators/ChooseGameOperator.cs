@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ChooseGameOperator : MonoBehaviour
 {
     public int selectedGameNumber;
+    [SerializeField] private GameStatsManager gameStatsManager;
     [SerializeField] private GameObject startMenuContent, emptySlotPrefab, filledSlotPrefab, createGameWindow, deleteGameConfirmationWindow;
     [SerializeField] private Toggle deleteGameConfirmationToggle;
     [SerializeField] private TMP_Text deleteGameConfirmationPasswordText;
@@ -15,14 +16,14 @@ public class ChooseGameOperator : MonoBehaviour
     private int deleteGameConfirmationPassword;
 
     private void OnEnable()
-    {     
-        if (GameStats.game1_GameIsCreated)
+    {
+        if (gameStatsManager.game1Stats.gameIsCreated)
         {
             slot1 = Instantiate(filledSlotPrefab, gameObject.transform);
             slot1.GetComponent<RectTransform>().anchoredPosition = slot1Position;
             slot1.GetComponent<Button>().onClick.AddListener(() => LoadGame());
-            slot1.GetComponentsInChildren<TMP_Text>()[0].text = GameStats.game1_GameName;
-            slot1.GetComponentsInChildren<TMP_Text>()[1].text = "Difficulty: " + GameStats.game1_Difficulty;
+            slot1.GetComponentsInChildren<TMP_Text>()[0].text = gameStatsManager.game1Stats.gameName;
+            slot1.GetComponentsInChildren<TMP_Text>()[1].text = "Difficulty: " + gameStatsManager.game1Stats.gameDifficulty;
             slot1.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => RubbishBinButton(1));
         }
         else
@@ -32,14 +33,13 @@ public class ChooseGameOperator : MonoBehaviour
             slot1.GetComponent<Button>().onClick.AddListener(() => OpenCreateGameWindow(1));
         }
 
-
-        if (GameStats.game2_GameIsCreated)
+        if (gameStatsManager.game2Stats.gameIsCreated)
         {
             slot2 = Instantiate(filledSlotPrefab, gameObject.transform);
             slot2.GetComponent<RectTransform>().anchoredPosition = slot2Position;
             slot2.GetComponent<Button>().onClick.AddListener(() => LoadGame());
-            slot2.GetComponentsInChildren<TMP_Text>()[0].text = GameStats.game2_GameName;
-            slot2.GetComponentsInChildren<TMP_Text>()[1].text = "Difficulty: " + GameStats.game2_Difficulty;
+            slot2.GetComponentsInChildren<TMP_Text>()[0].text = gameStatsManager.game2Stats.gameName;
+            slot2.GetComponentsInChildren<TMP_Text>()[1].text = "Difficulty: " + gameStatsManager.game2Stats.gameDifficulty;
             slot2.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => RubbishBinButton(2));
         }
         else
@@ -49,13 +49,13 @@ public class ChooseGameOperator : MonoBehaviour
             slot2.GetComponent<Button>().onClick.AddListener(() => OpenCreateGameWindow(2));
         }
 
-        if (GameStats.game3_GameIsCreated)
+        if (gameStatsManager.game3Stats.gameIsCreated)
         {
             slot3 = Instantiate(filledSlotPrefab, gameObject.transform);
             slot3.GetComponent<RectTransform>().anchoredPosition = slot3Position;
             slot3.GetComponent<Button>().onClick.AddListener(() => LoadGame());
-            slot3.GetComponentsInChildren<TMP_Text>()[0].text = GameStats.game3_GameName;
-            slot3.GetComponentsInChildren<TMP_Text>()[1].text = "Difficulty: " + GameStats.game3_Difficulty;
+            slot3.GetComponentsInChildren<TMP_Text>()[0].text = gameStatsManager.game3Stats.gameName;
+            slot3.GetComponentsInChildren<TMP_Text>()[1].text = "Difficulty: " + gameStatsManager.game3Stats.gameDifficulty;
             slot3.GetComponentsInChildren<Button>()[1].onClick.AddListener(() => RubbishBinButton(3));
         }
         else
@@ -81,12 +81,11 @@ public class ChooseGameOperator : MonoBehaviour
         deleteGameConfirmationPassword = Random.Range(10000000, 100000000);
         deleteGameConfirmationPasswordText.text = "Password: " + deleteGameConfirmationPassword.ToString();
         deleteGameConfirmationWindow.SetActive(true);
-
     }
 
     public void DeleteGameButton()
     {
-        if (deleteGameConfirmationToggle.isOn && deleteGameConfirmationInputField.text == deleteGameConfirmationPassword.ToString()) 
+        if (deleteGameConfirmationToggle.isOn && deleteGameConfirmationInputField.text == deleteGameConfirmationPassword.ToString())
         {
             DeleteGame();
         }
@@ -100,21 +99,15 @@ public class ChooseGameOperator : MonoBehaviour
     {
         if (selectedGameNumber == 1)
         {
-            GameStats.game1_GameIsCreated = false;
-            GameStats.game1_GameName = string.Empty;
-            GameStats.game1_Difficulty = GameStats.GameDifficulty.medium;
+            gameStatsManager.game1Stats.SetAllStatsToZero();
         }
         else if (selectedGameNumber == 2)
         {
-            GameStats.game2_GameIsCreated = false;
-            GameStats.game2_GameName = string.Empty;
-            GameStats.game2_Difficulty = GameStats.GameDifficulty.medium;
+            gameStatsManager.game2Stats.SetAllStatsToZero();
         }
         else if (selectedGameNumber == 3)
         {
-            GameStats.game3_GameIsCreated = false;
-            GameStats.game3_GameName = string.Empty;
-            GameStats.game3_Difficulty = GameStats.GameDifficulty.medium;
+            gameStatsManager.game3Stats.SetAllStatsToZero();
         }
         deleteGameConfirmationWindow.SetActive(false);
         gameObject.SetActive(false);
@@ -134,6 +127,7 @@ public class ChooseGameOperator : MonoBehaviour
 
     public void LoadGame()
     {
+        gameStatsManager.SaveStats();
         SceneManager.LoadScene("Loading");
     }
 
