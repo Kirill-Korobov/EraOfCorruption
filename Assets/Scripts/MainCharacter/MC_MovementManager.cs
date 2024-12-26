@@ -29,7 +29,7 @@ public class MC_MovementManager : MonoBehaviour
         // Set movement stats.
     }
 
-    private float Speed
+    public float Speed
     {
         get
         {
