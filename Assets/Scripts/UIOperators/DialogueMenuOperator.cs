@@ -84,7 +84,7 @@ public class DialogueMenuOperator : MonoBehaviour
         {
             bufferText += replicaText[i];
             dialogueText.text = bufferText;
-            yield return new WaitForSeconds(spawnReplicaCharInterval);
+            yield return new WaitForSecondsRealtime(spawnReplicaCharInterval);
         }
     }
 

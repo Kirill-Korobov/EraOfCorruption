@@ -1,7 +1,12 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MC_HealthManager : MonoBehaviour
 {
+    [SerializeField] private BloodyBackgroundBehaviour bloodyBackgroundBehaviour;
+    [SerializeField] private MC_SatietyManager satietyManager;
+    private Coroutine waitUntilHealthCanBeReplenished;
     private float currentHealth, maxHealth;
     private int defense;
 
@@ -10,9 +15,13 @@ public class MC_HealthManager : MonoBehaviour
         MaxHealth = 100;
         CurrentHealth = 100;
         // Set health stats.
-        if (MaxHealth == 0)
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            MaxHealth = 1;
+            TakeDamage(20);
         }
     }
 
@@ -51,7 +60,7 @@ public class MC_HealthManager : MonoBehaviour
             if (value > 0)
             {
                 maxHealth = value;
-            }       
+            }
         }
     }
 
@@ -69,20 +78,44 @@ public class MC_HealthManager : MonoBehaviour
             }
         }
     }
-    public float hex = 1;
+
+    [HideInInspector] public float hex = 1;
     public void TakeDamage(float value)
     {
+        float finalDamage;
         if (Defense >= value * hex)
         {
-            CurrentHealth -= hex;
+            finalDamage = 1;
         }
         else
         {
-            CurrentHealth -= value*hex - Defense;
+            finalDamage = value * hex - Defense;
         }
+        CurrentHealth -= finalDamage;
+        if (bloodyBackgroundBehaviour.bloodyBackgroundImage.color.a + finalDamage / maxHealth * bloodyBackgroundBehaviour.bloodMultiplier < bloodyBackgroundBehaviour.maxBloodyBackgroundOpacity)
+        {
+            bloodyBackgroundBehaviour.bloodyBackgroundImage.color += new Color(0f, 0f, 0f, finalDamage / maxHealth * bloodyBackgroundBehaviour.bloodMultiplier);
+        }
+        else
+        {
+            bloodyBackgroundBehaviour.bloodyBackgroundImage.color = new Color(1f, 0f, 0f, bloodyBackgroundBehaviour.maxBloodyBackgroundOpacity);
+        }
+        if (waitUntilHealthCanBeReplenished != null)
+        {
+            StopCoroutine(waitUntilHealthCanBeReplenished);
+        }
+        satietyManager.canReplenishHealth = false;
+        waitUntilHealthCanBeReplenished = StartCoroutine(WaitUntilHealthCanBeReplenished());
     }
 
-    public bool cursed = false;
+    private IEnumerator WaitUntilHealthCanBeReplenished()
+    {
+        yield return new WaitForSeconds(satietyManager.timeUntilHealthCanBeReplenished);
+        Debug.Log("lole");
+        satietyManager.canReplenishHealth = true;
+    }
+
+    [HideInInspector] public bool cursed = false;
     public void GetHealth(float value)
     {
         if (!cursed)
