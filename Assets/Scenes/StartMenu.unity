@@ -4154,7 +4154,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8841136706129498216, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
       propertyPath: m_text
-      value: 'Version: Beta'
+      value: 'Version:'
       objectReference: {fileID: 0}
     - target: {fileID: 8841136706129498216, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
       propertyPath: m_fontSize
@@ -4219,13 +4219,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8213774933761964696, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1479573581}
   m_SourcePrefab: {fileID: 100100000, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
 --- !u!224 &1479573579 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7332366300277397117, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
   m_PrefabInstance: {fileID: 1479573578}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1479573580 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8213774933761964696, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
+  m_PrefabInstance: {fileID: 1479573578}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1479573581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479573580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b1f78a19dfc13f46917a69a977c966e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameVersion: Beta
 --- !u!1 &1541831401
 GameObject:
   m_ObjectHideFlags: 0
@@ -4777,7 +4798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settingsCanvas: {fileID: 937862879}
   achievementsCanvas: {fileID: 972592944}
-  developersCanvas: {fileID: 0}
+  developersCanvas: {fileID: 1773054192}
   startMenuContent: {fileID: 1923663359}
   chooseGameWindow: {fileID: 107476873}
 --- !u!1 &1737998571

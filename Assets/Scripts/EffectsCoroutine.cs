@@ -11,6 +11,8 @@ public class EffectsCoroutine : MonoBehaviour
     [SerializeField] private MC_HealthManager healthManager;
     [SerializeField] private MC_MovementManager movementManager;
     [SerializeField] private MC_ManaManager manaManager;
+    [SerializeField] private StatisticsInfo statisticsInfo;
+    [SerializeField] private MC_LevelManager levelManager;
     [SerializeField] private Image[] effectsImage;
     [SerializeField] private Camera[] mainCamera = new Camera[3];
 
@@ -57,13 +59,13 @@ public class EffectsCoroutine : MonoBehaviour
         effectsImage[0].gameObject.SetActive(true);
         while (statEffects.PoisionCD * n < statEffects.PoisionTime)
         {
-            healthManager.CurrentHealth = healthManager.CurrentHealth - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.CurrentHealth / 100);
-            Debug.Log(healthManager.CurrentHealth);
+            healthManager.Health = healthManager.Health - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.Health / 100);
+            Debug.Log(healthManager.Health);
             yield return timer;
             n++;
         }
-        healthManager.CurrentHealth = healthManager.CurrentHealth - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.CurrentHealth / 100);
-        Debug.Log(healthManager.CurrentHealth);
+        healthManager.Health = healthManager.Health - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.Health / 100);
+        Debug.Log(healthManager.Health);
         effectsImage[0].gameObject.SetActive(false);
     }
     public void Weakness() => StartEffectCoroutine(() => WeaknessCoroutine(), 1);
@@ -112,11 +114,11 @@ public class EffectsCoroutine : MonoBehaviour
     private IEnumerator BurnCoroutine()
     {
         int i = 0;
-        if (healthManager.MaxHealth < 250)
+        if (statisticsInfo.MaxHPValues[levelManager.Level] < 250)
         {
             i = 0;
         }
-        else if (healthManager.MaxHealth < 500)
+        else if (statisticsInfo.MaxHPValues[levelManager.Level] < 500)
         {
             i = 1;
         }
@@ -129,11 +131,11 @@ public class EffectsCoroutine : MonoBehaviour
         effectsImage[5].gameObject.SetActive(true);
         while (statEffects.BurnCD * n < statEffects.BurnTime)
         {
-            healthManager.CurrentHealth = healthManager.CurrentHealth - statEffects.BurnDMG[i];
+            healthManager.Health = healthManager.Health - statEffects.BurnDMG[i];
             yield return timer;
             n++;
         }
-        healthManager.CurrentHealth = healthManager.CurrentHealth - statEffects.BurnDMG[i];
+        healthManager.Health = healthManager.Health - statEffects.BurnDMG[i];
         effectsImage[5].gameObject.SetActive(false);
     }
     public void Blindness() => StartEffectCoroutine(() => BlindnessCoroutine(), 6);

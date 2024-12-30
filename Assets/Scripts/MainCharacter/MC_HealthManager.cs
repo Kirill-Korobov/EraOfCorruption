@@ -4,17 +4,18 @@ using UnityEngine.UI;
 
 public class MC_HealthManager : MonoBehaviour
 {
+    private float health;
+    private int defense;
     [SerializeField] private BloodyBackgroundBehaviour bloodyBackgroundBehaviour;
     [SerializeField] private MC_SatietyManager satietyManager;
+    [SerializeField] private StatisticsInfo statisticsInfo;
+    [SerializeField] private MC_StatisticsManager statisticsManager;
     private Coroutine waitUntilHealthCanBeReplenished;
-    private float currentHealth, maxHealth;
-    private int defense;
 
     private void Awake()
     {
-        MaxHealth = 100;
-        CurrentHealth = 100;
         // Set health stats.
+        Health = 100;
     }
 
     private void Update()
@@ -25,41 +26,26 @@ public class MC_HealthManager : MonoBehaviour
         }
     }
 
-    public float CurrentHealth
+    public float Health
     {
         get
         {
-            return currentHealth;
+            return health;
         }
         set
         {
             if (value <= 0)
             {
-                currentHealth = 0;
+                health = 0;
                 Die();
             }
-            else if (value > maxHealth)
+            else if (value > statisticsInfo.MaxHPValues[statisticsManager.HPLevel])
             {
-                currentHealth = maxHealth;
+                health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel];
             }
             else
             {
-                currentHealth = value;
-            }
-        }
-    }
-
-    public float MaxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
-        set
-        {
-            if (value > 0)
-            {
-                maxHealth = value;
+                health = value;
             }
         }
     }
@@ -91,10 +77,10 @@ public class MC_HealthManager : MonoBehaviour
         {
             finalDamage = value * hex - Defense;
         }
-        CurrentHealth -= finalDamage;
-        if (bloodyBackgroundBehaviour.bloodyBackgroundImage.color.a + finalDamage / maxHealth * bloodyBackgroundBehaviour.bloodMultiplier < bloodyBackgroundBehaviour.maxBloodyBackgroundOpacity)
+        Health -= finalDamage;
+        if (bloodyBackgroundBehaviour.bloodyBackgroundImage.color.a + finalDamage / statisticsInfo.MaxHPValues[statisticsManager.HPLevel] * bloodyBackgroundBehaviour.bloodMultiplier < bloodyBackgroundBehaviour.maxBloodyBackgroundOpacity)
         {
-            bloodyBackgroundBehaviour.bloodyBackgroundImage.color += new Color(0f, 0f, 0f, finalDamage / maxHealth * bloodyBackgroundBehaviour.bloodMultiplier);
+            bloodyBackgroundBehaviour.bloodyBackgroundImage.color += new Color(0f, 0f, 0f, finalDamage / statisticsInfo.MaxHPValues[statisticsManager.HPLevel] * bloodyBackgroundBehaviour.bloodMultiplier);
         }
         else
         {
@@ -110,8 +96,7 @@ public class MC_HealthManager : MonoBehaviour
 
     private IEnumerator WaitUntilHealthCanBeReplenished()
     {
-        yield return new WaitForSeconds(satietyManager.timeUntilHealthCanBeReplenished);
-        Debug.Log("lole");
+        yield return new WaitForSeconds(statisticsInfo.TimeUntilHealthCanBeReplenished);
         satietyManager.canReplenishHealth = true;
     }
 
@@ -120,7 +105,7 @@ public class MC_HealthManager : MonoBehaviour
     {
         if (!cursed)
         {
-            CurrentHealth += value;
+            Health += value;
         }
     }
 

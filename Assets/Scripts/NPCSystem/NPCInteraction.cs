@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class NPCInteraction : MonoBehaviour
 {
-    [SerializeField] private float maxInteractionDistance;
     [SerializeField] private NPCMenuOperator _NPCMenuOperator;
     [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private StatisticsInfo statisticsInfo;
     private bool isInteracting;
     private GameObject[] NPCs;
     private GameObject nearestNPC, interactingNPC;
@@ -17,7 +17,7 @@ public class NPCInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && !isInteracting)
+        if (Input.GetKeyDown(KeyCode.Return) && !isInteracting && !pauseManager.pause)
         {
             for (int i = 0; i < NPCs.Length; i++)
             {
@@ -26,7 +26,7 @@ public class NPCInteraction : MonoBehaviour
                     nearestNPC = NPCs[i];
                 }
             }
-            if (Vector3.Distance(transform.position, nearestNPC.transform.position) <= maxInteractionDistance)
+            if (Vector3.Distance(transform.position, nearestNPC.transform.position) <= statisticsInfo.NPCMaxInteractionDistance)
             {
                 isInteracting = true;
                 _NPCMenuOperator.gameObject.SetActive(true);

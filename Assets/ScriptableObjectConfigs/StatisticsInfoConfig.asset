@@ -12,13 +12,196 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42b00594761bfb5428b2f8eec9aa80ef, type: 3}
   m_Name: StatisticsInfoConfig
   m_EditorClassIdentifier: 
-  statisticPointsPerLevel: 0
+  maxLevel: 5
+  statisticPointsPerLevel: 3
   maxStatisticLevelMultiplier: 2
-  _HPLevels: []
-  energyLevels: []
-  movementSpeedLevels: []
-  movementJumpNumberLevels: 
-  _XPMultiplierLevels: []
-  closeCombatLevels: []
-  rangedCombatLevels: []
-  magicCombatLevels: []
+  nessaseryXPValuesToLevelUp: 64000000900100008403000040060000c4090000100e00002413000000190000a41f000010270000
+  _XPMultiplierValues:
+  - 1
+  - 1.1
+  - 1.2
+  - 1.3
+  - 1.4
+  - 1.5
+  - 1.6
+  - 1.7
+  - 1.8
+  - 1.9
+  - 2
+  maxHPValues:
+  - 100
+  - 250
+  - 500
+  - 1000
+  - 2000
+  - 4000
+  - 7000
+  - 10000
+  - 15000
+  - 22500
+  - 30000
+  healthReplenishmentMultiplier: 0.005
+  timeUntilHealthCanBeReplenished: 5
+  maxEnergyValues:
+  - 75
+  - 200
+  - 300
+  - 400
+  - 500
+  - 600
+  - 700
+  - 800
+  - 900
+  - 1000
+  - 1250
+  energyReplenishmentMultiplier: 0.015
+  manaReplenishmentMultiplier: 0.015
+  satietyMaxValue: 48.5
+  satietySpendingMultiplier: 0.075
+  walkingSpeedValue: 5
+  runningSpeedMultiplierValues:
+  - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
+  runningEnergySpendingMultiplier: 1
+  jumpHeight: 0.03
+  jumpDuration: 0.75
+  timeBeforeFallingDuringJump: 0.025
+  jumpCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: -0.19917336
+      outSlope: -0.19917336
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.50043565
+      value: 0.90032655
+      inSlope: 0.00017368793
+      outSlope: 0.00017368793
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0.19952074
+      outSlope: 0.19952074
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  additionalJumpNumberValues: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a000000
+  jumpingEnergySpendingMultiplier: 10
+  everyNextAdditionalJumpEnergySpendingMultiplier: 2
+  gravityValue: 9.8
+  dashUnlockLevel: 5
+  dashDurationValue: 0.25
+  dashingSpeedMultiplierValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 35
+  - 40
+  - 45
+  - 50
+  - 55
+  - 60
+  dashingRechargeTimeValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 5
+  - 4
+  - 3
+  - 2
+  - 1
+  - 0.5
+  dashingEnergySpendingMultiplier: 3
+  teleportationUnlockLevel: 8
+  teleportationMaxDistanceValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 5
+  - 20
+  - 50
+  teleportationRechargeTimeValues:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 15
+  - 10
+  - 5
+  teleportationEnergySpendingMultiplier: 5
+  closeCombatStatsMultiplierValues: []
+  closeCombatAdditionalManaValues:
+  - 100
+  - 200
+  - 300
+  - 400
+  - 500
+  - 600
+  - 700
+  - 800
+  - 900
+  - 1000
+  - 1100
+  rangedCombatStatsMultiplierValues: []
+  rangedCombatAdditionalManaValues:
+  - 50
+  - 100
+  - 150
+  - 200
+  - 250
+  - 300
+  - 350
+  - 400
+  - 450
+  - 500
+  - 550
+  magicCombatStatsMultiplierValues: []
+  magicCombatAdditionalManaValues:
+  - 150
+  - 300
+  - 450
+  - 600
+  - 750
+  - 900
+  - 1050
+  - 1200
+  - 1350
+  - 1500
+  - 1650
+  _NPCMaxInteractionDistance: 5

@@ -28,13 +28,3 @@ MonoBehaviour:
     taskDescription: 
     rewardDescription: 
     reusability: 0
-  - name: Third quest
-    requirementDescription: 
-    taskDescription: 
-    rewardDescription: 
-    reusability: 0
-  - name: Third quest
-    requirementDescription: 
-    taskDescription: 
-    rewardDescription: 
-    reusability: 0

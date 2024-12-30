@@ -3,12 +3,11 @@ using UnityEngine;
 public class MC_SatietyManager : MonoBehaviour
 {
     private float satiety;
-    public float satietyMaxValue;
-    [SerializeField] private float healthReplenishmentMultiplier, energyReplenishmentMultiplier, manaReplenishmentMultiplier, satietySpendingMultiplier;
-    public float timeUntilHealthCanBeReplenished;
+    [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private MC_HealthManager healthManager;
     [SerializeField] private MC_EnergyManager energyManager;
     [SerializeField] private MC_ManaManager manaManager;
+    [SerializeField] private MC_StatisticsManager statisticsManager;
     [HideInInspector] public bool canReplenishHealth, canReplenishEnergy, canReplenishMana;
 
     private void Awake()
@@ -33,9 +32,9 @@ public class MC_SatietyManager : MonoBehaviour
             {
                 satiety = 0;
             }
-            else if (value > satietyMaxValue)
+            else if (value > statisticsInfo.SatietyMaxValue)
             {
-                satiety = satietyMaxValue;
+                satiety = statisticsInfo.SatietyMaxValue;
             }
             else
             {
@@ -56,29 +55,29 @@ public class MC_SatietyManager : MonoBehaviour
 
     private void Update()
     {
-        if (Satiety >= satietySpendingMultiplier * Time.deltaTime)
+        if (Satiety >= statisticsInfo.SatietySpendingMultiplier * Time.deltaTime)
         {
-            if (healthManager.CurrentHealth < healthManager.MaxHealth && canReplenishHealth)
+            if (healthManager.Health < statisticsInfo.MaxHPValues[statisticsManager.HPLevel] && canReplenishHealth)
             {
-                healthManager.GetHealth(healthManager.MaxHealth * healthReplenishmentMultiplier * Time.deltaTime);
-                Satiety -= satietySpendingMultiplier * Time.deltaTime;
+                healthManager.GetHealth(statisticsInfo.MaxHPValues[statisticsManager.HPLevel] * statisticsInfo.HealthReplenishmentMultiplier * Time.deltaTime);
+                Satiety -= statisticsInfo.SatietySpendingMultiplier * Time.deltaTime;
             }
         }
         else
         {
-            healthManager.TakeDamage(2 * healthManager.MaxHealth * healthReplenishmentMultiplier * Time.deltaTime);
+            healthManager.TakeDamage(2 * statisticsInfo.MaxHPValues[statisticsManager.HPLevel] * statisticsInfo.HealthReplenishmentMultiplier * Time.deltaTime);
         }
 
-        if (energyManager.CurrentEnergy < energyManager.MaxEnergy && Satiety >= satietySpendingMultiplier * Time.deltaTime && canReplenishEnergy)
+        if (energyManager.Energy < statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] && Satiety >= statisticsInfo.SatietySpendingMultiplier * Time.deltaTime && canReplenishEnergy)
         {
-            energyManager.ReplenishEnergy(energyManager.MaxEnergy * energyReplenishmentMultiplier * Time.deltaTime);
-            Satiety -= satietySpendingMultiplier * Time.deltaTime;
+            energyManager.ReplenishEnergy(statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] * statisticsInfo.EnergyReplenishmentMultiplier * Time.deltaTime);
+            Satiety -= statisticsInfo.SatietySpendingMultiplier * Time.deltaTime;
         }
 
-        if (manaManager.CurrentMana < manaManager.MaxMana && Satiety >= satietySpendingMultiplier * Time.deltaTime && canReplenishMana)
+        if (manaManager.Mana < (statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel]) && Satiety >= statisticsInfo.SatietySpendingMultiplier * Time.deltaTime && canReplenishMana)
         {
-            manaManager.ReplenishMana(manaManager.MaxMana * manaReplenishmentMultiplier * Time.deltaTime);
-            Satiety -= satietySpendingMultiplier * Time.deltaTime;
+            manaManager.ReplenishMana((statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel]) * statisticsInfo.ManaReplenishmentMultiplier * Time.deltaTime);
+            Satiety -= statisticsInfo.SatietySpendingMultiplier * Time.deltaTime;
         }
     }
 }

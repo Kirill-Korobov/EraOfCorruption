@@ -9,12 +9,6 @@ public class StatisticsOperator : MonoBehaviour
     [SerializeField] private TMP_Text statisticPointsText, _HPLevelText, energyLevelText, movementLevelText, _XPMultiplierLevelText, closeCombatLevelText, rangedCombatLevelText, magicCombatLevelText;
     private int _HPLevelIncrease, energyLevelIncrease, movementLevelIncrease, _XPMultiplierLevelIncrease, closeCombatLevelIncrease, rangedCombatLevelIncrease, magicCombatLevelIncrease;
 
-    private void Awake()
-    {
-        statisticsManager.StatisticPoints = 27;
-        levelManager.Level = 3;
-    }
-
     private void OnEnable()
     {
         RefreshUI();
@@ -107,59 +101,59 @@ public class StatisticsOperator : MonoBehaviour
         statisticPointsText.text = "Statistic points: " + statisticsManager.StatisticPoints.ToString();
         if (statisticsManager.HPLevel + _HPLevelIncrease == levelManager.Level * statisticsInfo.MaxStatisticLevelMultiplier)
         {
-            _HPLevelText.text = (statisticsManager.HPLevel + _HPLevelIncrease).ToString() + " (max)";
+            _HPLevelText.text = (statisticsManager.HPLevel + _HPLevelIncrease + 1).ToString() + " (max)";
         }
         else
         {
-            _HPLevelText.text = (statisticsManager.HPLevel + _HPLevelIncrease).ToString();
+            _HPLevelText.text = (statisticsManager.HPLevel + _HPLevelIncrease + 1).ToString();
         }
         if (statisticsManager.EnergyLevel + energyLevelIncrease == levelManager.Level * statisticsInfo.MaxStatisticLevelMultiplier)
         {
-            energyLevelText.text = (statisticsManager.EnergyLevel + energyLevelIncrease).ToString() + " (max)";
+            energyLevelText.text = (statisticsManager.EnergyLevel + energyLevelIncrease + 1).ToString() + " (max)";
         }
         else
         {
-            energyLevelText.text = (statisticsManager.EnergyLevel + energyLevelIncrease).ToString();
+            energyLevelText.text = (statisticsManager.EnergyLevel + energyLevelIncrease + 1).ToString();
         }
         if (statisticsManager.MovementLevel + movementLevelIncrease == levelManager.Level * statisticsInfo.MaxStatisticLevelMultiplier)
         {
-            movementLevelText.text = (statisticsManager.MovementLevel + movementLevelIncrease).ToString() + " (max)";
+            movementLevelText.text = (statisticsManager.MovementLevel + movementLevelIncrease + 1).ToString() + " (max)";
         }
         else
         {
-            movementLevelText.text = (statisticsManager.MovementLevel + movementLevelIncrease).ToString();
+            movementLevelText.text = (statisticsManager.MovementLevel + movementLevelIncrease + 1).ToString();
         }
         if (statisticsManager.XPMultiplierLevel + _XPMultiplierLevelIncrease == levelManager.Level * statisticsInfo.MaxStatisticLevelMultiplier)
         {
-            _XPMultiplierLevelText.text = (statisticsManager.XPMultiplierLevel + _XPMultiplierLevelIncrease).ToString() + " (max)";
+            _XPMultiplierLevelText.text = (statisticsManager.XPMultiplierLevel + _XPMultiplierLevelIncrease + 1).ToString() + " (max)";
         }
         else
         {
-            _XPMultiplierLevelText.text = (statisticsManager.XPMultiplierLevel + _XPMultiplierLevelIncrease).ToString();
+            _XPMultiplierLevelText.text = (statisticsManager.XPMultiplierLevel + _XPMultiplierLevelIncrease + 1).ToString();
         }
         if (statisticsManager.CloseCombatLevel + closeCombatLevelIncrease == levelManager.Level * statisticsInfo.MaxStatisticLevelMultiplier)
         {
-            closeCombatLevelText.text = (statisticsManager.CloseCombatLevel + closeCombatLevelIncrease).ToString() + " (max)";
+            closeCombatLevelText.text = (statisticsManager.CloseCombatLevel + closeCombatLevelIncrease + 1).ToString() + " (max)";
         }
         else
         {
-            closeCombatLevelText.text = (statisticsManager.CloseCombatLevel + closeCombatLevelIncrease).ToString();
+            closeCombatLevelText.text = (statisticsManager.CloseCombatLevel + closeCombatLevelIncrease + 1).ToString();
         }
         if (statisticsManager.RangedCombatLevel + rangedCombatLevelIncrease == levelManager.Level * statisticsInfo.MaxStatisticLevelMultiplier)
         {
-            rangedCombatLevelText.text = (statisticsManager.RangedCombatLevel + rangedCombatLevelIncrease).ToString() + " (max)";
+            rangedCombatLevelText.text = (statisticsManager.RangedCombatLevel + rangedCombatLevelIncrease + 1).ToString() + " (max)";
         }
         else
         {
-            rangedCombatLevelText.text = (statisticsManager.RangedCombatLevel + rangedCombatLevelIncrease).ToString();
+            rangedCombatLevelText.text = (statisticsManager.RangedCombatLevel + rangedCombatLevelIncrease + 1).ToString();
         }
         if (statisticsManager.MagicCombatLevel + magicCombatLevelIncrease == levelManager.Level * statisticsInfo.MaxStatisticLevelMultiplier)
         {
-            magicCombatLevelText.text = (statisticsManager.MagicCombatLevel + magicCombatLevelIncrease).ToString() + " (max)";
+            magicCombatLevelText.text = (statisticsManager.MagicCombatLevel + magicCombatLevelIncrease + 1).ToString() + " (max)";
         }
         else
         {
-            magicCombatLevelText.text = (statisticsManager.MagicCombatLevel + magicCombatLevelIncrease).ToString();
+            magicCombatLevelText.text = (statisticsManager.MagicCombatLevel + magicCombatLevelIncrease + 1).ToString();
         }
     }
 
