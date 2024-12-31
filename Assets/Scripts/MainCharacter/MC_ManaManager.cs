@@ -60,6 +60,6 @@ public class MC_ManaManager : MonoBehaviour
 
     public void ReplenishMana(float value)
     {
-        CurrentMana += value;
+        CurrentMana += value * StaticEffects.hunger;
     }
 }

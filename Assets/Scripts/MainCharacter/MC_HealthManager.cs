@@ -70,15 +70,16 @@ public class MC_HealthManager : MonoBehaviour
         }
     }
     public float hex = 1;
+    public float penetration = 1;
     public void TakeDamage(float value)
     {
-        if (Defense >= value * hex)
+        if (Defense * penetration >= value * hex)
         {
             CurrentHealth -= hex;
         }
         else
         {
-            CurrentHealth -= value*hex - Defense;
+            CurrentHealth -= value*hex - Defense * penetration;
         }
     }
 
@@ -87,7 +88,7 @@ public class MC_HealthManager : MonoBehaviour
     {
         if (!cursed)
         {
-            CurrentHealth += value;
+            CurrentHealth += value * StaticEffects.hunger;
         }
     }
 

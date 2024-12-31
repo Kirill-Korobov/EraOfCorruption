@@ -58,6 +58,6 @@ public class MC_EnergyManager : MonoBehaviour
 
     public void ReplenishEnergy(float value)
     {
-        CurrentEnergy += value;
+        CurrentEnergy += value * StaticEffects.hunger;
     }
 }

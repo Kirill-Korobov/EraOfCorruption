@@ -42,7 +42,7 @@ public class MC_MovementManager : MonoBehaviour
             }
         }
     }
-
+    public float walkSpeed = 1;
     private void Update()
     {
         // Rotation
@@ -63,22 +63,22 @@ public class MC_MovementManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                characterController.Move(transform.forward * Time.deltaTime * speedMultiplier);
+                characterController.Move(transform.forward * Time.deltaTime * speedMultiplier * walkSpeed);
                 // minus energy.
             }
             if (Input.GetKey(KeyCode.A))
             {
-                characterController.Move(-transform.right * Time.deltaTime * speedMultiplier);
+                characterController.Move(-transform.right * Time.deltaTime * speedMultiplier * walkSpeed);
                 // minus energy.
             }
             if (Input.GetKey(KeyCode.S))
             {
-                characterController.Move(-transform.forward * Time.deltaTime * speedMultiplier);
+                characterController.Move(-transform.forward * Time.deltaTime * speedMultiplier * walkSpeed);
                 // minus energy.
             }
             if (Input.GetKey(KeyCode.D))
             {
-                characterController.Move(transform.right * Time.deltaTime * speedMultiplier);
+                characterController.Move(transform.right * Time.deltaTime * speedMultiplier * walkSpeed);
                 // minus energy.
             }
         }

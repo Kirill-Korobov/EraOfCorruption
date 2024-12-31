@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -73,21 +74,34 @@ public class BindButton : MonoBehaviour
     */
     public void Exit()
     {
-        SceneManager.LoadScene("Setting");
+        //idk
     }
     private void Awake()
     {
+        string json = "";
         path = $"{Application.persistentDataPath}/KeyBinds.json";
-        binds = JsonUtility.FromJson<Binds>(File.ReadAllText(path));
+        binds.SetStandartKeyBindWithoutText();
         kbn = binds.allBinds;
-        KeyBindsName(kbn);
+        Save();
+        using (var reader = new StreamReader(path))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null) { json += line; }
+        }
+        kbn = JsonUtility.FromJson<Binds>(json).allBinds;
     }
     private void Start()
     {
         Cursor.visible = false;
         string cursorPath = $"{Application.persistentDataPath}/Settings.json";
-        SaveSetting ss = new();
-        ss = JsonUtility.FromJson<SaveSetting>(File.ReadAllText(cursorPath));
+        SaveSetting ss = new SaveSetting();
+        string json = "";
+        using (var reader = new StreamReader(path))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null) { json += line; }
+        }
+        ss = JsonUtility.FromJson<SaveSetting>(json);
         if (ss.customCursor)
         {
             Texture2D tx = new Texture2D(2, 2);
@@ -186,19 +200,25 @@ public class BindButton : MonoBehaviour
     {
         Binds bind = new();
         bind.allBinds = kbn;
-        string json = JsonUtility.ToJson(bind);
-        File.WriteAllText(path,json);
+
+        using (var writer = new StreamWriter(path))
+        {
+            writer.WriteLine(JsonUtility.ToJson(bind));
+        }
+        //LoadedSettings.LoadBinds(bind.allBinds);
     }
 }
 
 [Serializable]
 public class Binds
 {
-    public KeyBindsNames[] allBinds = new KeyBindsNames[2];
+    public KeyBindsNames[] allBinds = new KeyBindsNames[28];
 
-    private KeyCode[] standartBind = {KeyCode.Mouse0,KeyCode.W};
-    private string[] standartString = { "LMB", "W"};
-    private string[] standartname = {"Attack", "Forward"};
+    private KeyCode[] standartBind = { KeyCode.Mouse0, KeyCode.F1, KeyCode.W, KeyCode.D, KeyCode.A, KeyCode.S, KeyCode.LeftShift, KeyCode.Space, KeyCode.Q, KeyCode.Tab, KeyCode.E, KeyCode.R, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9, KeyCode.Alpha0, KeyCode.F, KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.Return, KeyCode.Escape };
+    private string[] standartString = { "LMB", "F1", "W", "D", "A", "S", "LeftShift", "Space", "Q", "Tab", "E", "R", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "F", "Z", "X", "C", "Enter", "Esc" };
+
+    private string[] standartname = {"Attack", "Mute", "Forward", "Right", "Left", "Back", "Run","Jump", "Dash", "Teleport", "Take", "Drop", "1Inventory", "2Inventory", "3Inventory", "4Inventory", "5Inventory", "6Inventory", "7Inventory", "8Inventory", "9Inventory", "0Inventory", "OpenInventory", "OpenMenu", "OpenStats", "OpenQuests", "NPC", "Escape"};
+    
 
     public void CheckAnothereBinds(KeyCode key, TMP_Text[] text, int nowThis)
     {
