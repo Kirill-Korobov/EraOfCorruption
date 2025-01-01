@@ -38,6 +38,8 @@ public class NPCInteraction : MonoBehaviour
 
     public void FinishInteraction()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         isInteracting = false;
         interactingNPC = null;
         pauseManager.SetGameNotPaused();

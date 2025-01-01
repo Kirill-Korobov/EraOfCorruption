@@ -163,6 +163,8 @@ public class StatisticsOperator : MonoBehaviour
         SetAllIncreasesZero();
         RefreshUI();
         gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void SaveButton()
@@ -198,5 +200,7 @@ public class StatisticsOperator : MonoBehaviour
         SetAllIncreasesZero();
         RefreshUI();
         gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }

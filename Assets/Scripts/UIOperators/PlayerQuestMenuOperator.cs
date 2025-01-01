@@ -94,5 +94,7 @@ public class PlayerQuestMenuOperator : MonoBehaviour
     public void CloseMenuButton()
     {
         gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 }
