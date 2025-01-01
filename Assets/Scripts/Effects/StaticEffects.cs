@@ -10,6 +10,7 @@ public static class StaticEffects
     public static bool vampirismHP;
     public static bool vampirismMana;
     public static float vampirismHPRate;
+    public static float hunger;
     public static bool shock;
     public static EffectsCoroutine coroutines;
 

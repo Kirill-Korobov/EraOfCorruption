@@ -16,5 +16,33 @@ MonoBehaviour:
   poisionTime: 20
   poisionCD: 5
   poisionDIS: 10
-  weaknessTime: 0
-  weaknessRate: 0
+  weaknessTime: 30
+  weaknessRate: 50
+  slownessTime: 50
+  slownessRate: 50
+  hungerTime: 120
+  hungerRate: 50
+  penetrationTime: 50
+  penetrationRate: 50
+  burnDMG: 04000000
+  burnTime: 20
+  burnCD: 1
+  blindnessTime: 600
+  blindnessRate: 300
+  cursedTime: 50
+  hexTime: 50
+  hexRate: 50
+  regeneration: 10
+  regenerationTime: 60
+  regenerationCD: 5
+  strengthTime: 50
+  strengthRate: 5
+  speedTime: 514
+  speedRate: 150
+  vampirismHP: 50
+  vampirismHPTime: 5
+  vampirismMana: 50
+  vampirismManaTime: 5
+  resistanceRate: 50
+  resistanceTime: 50
+  shocksTime: 50
