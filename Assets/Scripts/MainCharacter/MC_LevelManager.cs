@@ -2,14 +2,29 @@ using UnityEngine;
 
 public class MC_LevelManager : MonoBehaviour
 {
-    [SerializeField] private XPInfo _XPInfo;
     [SerializeField] private StatisticsInfo statisticsInfo;
+    [SerializeField] private MC_StatisticsManager statisticsManager;
+    [SerializeField] private LevelUpTextBehaviour levelUpTextBehaviour;
+    [SerializeField] private MC_HealthManager healthManager;
+    [SerializeField] private MC_EnergyManager energyManager;
+    [SerializeField] private MC_ManaManager manaManager;
+    [SerializeField] private MC_SatietyManager satietyManager;
     private int level, _XP;
-    private MC_StatisticsManager statisticsManager;
+    private Coroutine showLevelUpTextCoroutine;
 
     private void Awake()
     {
         // Set XP and level.
+        Level = 0;
+        XP = 0;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            IncreaseXP(100);
+        }
     }
 
     public int Level
@@ -51,9 +66,14 @@ public class MC_LevelManager : MonoBehaviour
         }
     }
 
+    public void IncreaseXP(int value)
+    {
+        XP += (int)(value * statisticsInfo.XPMultiplierValues[statisticsManager.XPMultiplierLevel]);
+    }
+
     private void CheckForLevelUp()
     {
-        if (XP >= _XPInfo.NessaseryXP[level - 1])
+        if (Level != statisticsInfo.MaxLevel && XP >= statisticsInfo.NessaseryXPValuesToLevelUp[Level])
         {
             LevelUp();
         }
@@ -61,7 +81,17 @@ public class MC_LevelManager : MonoBehaviour
 
     private void LevelUp()
     {
-        XP -= _XPInfo.NessaseryXP[level - 1];
+        if (showLevelUpTextCoroutine != null)
+        {
+            StopCoroutine(showLevelUpTextCoroutine);
+        }
+        levelUpTextBehaviour.makeTransparent = false;
+        showLevelUpTextCoroutine = StartCoroutine(levelUpTextBehaviour.ShowLevelUpText());
+        healthManager.Health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel];
+        energyManager.Energy = statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
+        manaManager.Mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
+        satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
+        XP -= statisticsInfo.NessaseryXPValuesToLevelUp[Level];
         Level++;
         statisticsManager.StatisticPoints += statisticsInfo.StatisticPointsPerLevel;
     }

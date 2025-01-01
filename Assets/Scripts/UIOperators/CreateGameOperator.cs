@@ -4,46 +4,58 @@ using UnityEngine.UI;
 
 public class CreateGameOperator : MonoBehaviour
 {
+    [SerializeField] private GameStatsManager gameStatsManager;
     [SerializeField] private ChooseGameOperator chooseGameOperator;
     [SerializeField] private GameObject chooseGameWindow;
     [SerializeField] private InputField enterGameNameInputField;
-    [SerializeField] private TMP_Text easyDifficultyText, mediumDifficultyText, hardDifficultyText, crazyDifficultyText;
+    [SerializeField] private TMP_Text easyDifficultyText, mediumDifficultyText, hardDifficultyText, crazyDifficultyText, incorrectInputErrorText;
+    [SerializeField] private DifficultyColorsInfo difficultyColorsInfo;
+    [SerializeField] private int gameNameMaxLength;
+    private Coroutine showIncorrectInputTextCoroutine;
     private string currentGameName;
-    private GameStats.GameDifficulty currentGameDifficulty;
+    private GameDifficulty currentGameDifficulty;
 
     private void OnEnable()
     {
         enterGameNameInputField.text = string.Empty;
-        currentGameDifficulty = GameStats.GameDifficulty.medium;
+        currentGameDifficulty = GameDifficulty.medium;
         easyDifficultyText.gameObject.SetActive(false);
         mediumDifficultyText.gameObject.SetActive(true);
         hardDifficultyText.gameObject.SetActive(false);
         crazyDifficultyText.gameObject.SetActive(false);
+        easyDifficultyText.color = difficultyColorsInfo.EasyDifficultyColor;
+        easyDifficultyText.GetComponentsInChildren<TMP_Text>()[1].color = difficultyColorsInfo.EasyDifficultyColor;
+        mediumDifficultyText.color = difficultyColorsInfo.MediumDifficultyColor;
+        mediumDifficultyText.GetComponentsInChildren<TMP_Text>()[1].color = difficultyColorsInfo.MediumDifficultyColor;
+        hardDifficultyText.color = difficultyColorsInfo.HardDifficultyColor;
+        hardDifficultyText.GetComponentsInChildren<TMP_Text>()[1].color = difficultyColorsInfo.HardDifficultyColor;
+        crazyDifficultyText.color = difficultyColorsInfo.CrazyDifficultyColor; 
+        crazyDifficultyText.GetComponentsInChildren<TMP_Text>()[1].color = difficultyColorsInfo.CrazyDifficultyColor;
     }
 
     public void PreviousDifficultyButton()
     {
-        if (currentGameDifficulty == GameStats.GameDifficulty.eazy)
+        if (currentGameDifficulty == GameDifficulty.eazy)
         {
-            currentGameDifficulty = GameStats.GameDifficulty.crazy;
+            currentGameDifficulty = GameDifficulty.crazy;
             easyDifficultyText.gameObject.SetActive(false);
             crazyDifficultyText.gameObject.SetActive(true);
         }
-        else if (currentGameDifficulty == GameStats.GameDifficulty.medium)
+        else if (currentGameDifficulty == GameDifficulty.medium)
         {
-            currentGameDifficulty = GameStats.GameDifficulty.eazy;
+            currentGameDifficulty = GameDifficulty.eazy;
             mediumDifficultyText.gameObject.SetActive(false);
             easyDifficultyText.gameObject.SetActive(true);
         }
-        else if (currentGameDifficulty == GameStats.GameDifficulty.hard)
+        else if (currentGameDifficulty == GameDifficulty.hard)
         {
-            currentGameDifficulty = GameStats.GameDifficulty.medium;
+            currentGameDifficulty = GameDifficulty.medium;
             hardDifficultyText.gameObject.SetActive(false);
             mediumDifficultyText.gameObject.SetActive(true);
         }
-        else if (currentGameDifficulty == GameStats.GameDifficulty.crazy)
+        else if (currentGameDifficulty == GameDifficulty.crazy)
         {
-            currentGameDifficulty = GameStats.GameDifficulty.hard;
+            currentGameDifficulty = GameDifficulty.hard;
             crazyDifficultyText.gameObject.SetActive(false);
             hardDifficultyText.gameObject.SetActive(true);
         }
@@ -51,27 +63,27 @@ public class CreateGameOperator : MonoBehaviour
 
     public void NextDifficultyButton()
     {
-        if (currentGameDifficulty == GameStats.GameDifficulty.eazy)
+        if (currentGameDifficulty == GameDifficulty.eazy)
         {
-            currentGameDifficulty = GameStats.GameDifficulty.medium;
+            currentGameDifficulty = GameDifficulty.medium;
             easyDifficultyText.gameObject.SetActive(false);
             mediumDifficultyText.gameObject.SetActive(true);
         }
-        else if (currentGameDifficulty == GameStats.GameDifficulty.medium)
+        else if (currentGameDifficulty == GameDifficulty.medium)
         {
-            currentGameDifficulty = GameStats.GameDifficulty.hard;
+            currentGameDifficulty = GameDifficulty.hard;
             mediumDifficultyText.gameObject.SetActive(false);
             hardDifficultyText.gameObject.SetActive(true);
         }
-        else if (currentGameDifficulty == GameStats.GameDifficulty.hard)
+        else if (currentGameDifficulty == GameDifficulty.hard)
         {
-            currentGameDifficulty = GameStats.GameDifficulty.crazy;
+            currentGameDifficulty = GameDifficulty.crazy;
             hardDifficultyText.gameObject.SetActive(false);
             crazyDifficultyText.gameObject.SetActive(true);
         }
-        else if (currentGameDifficulty == GameStats.GameDifficulty.crazy)
+        else if (currentGameDifficulty == GameDifficulty.crazy)
         {
-            currentGameDifficulty = GameStats.GameDifficulty.eazy;
+            currentGameDifficulty = GameDifficulty.eazy;
             crazyDifficultyText.gameObject.SetActive(false);
             easyDifficultyText.gameObject.SetActive(true);
         }
@@ -84,28 +96,36 @@ public class CreateGameOperator : MonoBehaviour
 
     public void CreateGameButton()
     {
-        if (currentGameName.Length != 0 && currentGameName.Length <= 20)
+        if (currentGameName != null && currentGameName.Length != 0 && currentGameName.Length <= gameNameMaxLength)
         {
             if (chooseGameOperator.selectedGameNumber == 1)
             {
-                GameStats.game1_GameIsCreated = true;
-                GameStats.game1_GameName = currentGameName;
-                GameStats.game1_Difficulty = currentGameDifficulty;
+                gameStatsManager.game1Stats.slotStats.gameIsCreated = true;
+                gameStatsManager.game1Stats.slotStats.gameName = currentGameName;
+                gameStatsManager.game1Stats.slotStats.gameDifficulty = currentGameDifficulty;
             }
             else if (chooseGameOperator.selectedGameNumber == 2)
             {
-                GameStats.game2_GameIsCreated = true;
-                GameStats.game2_GameName = currentGameName;
-                GameStats.game2_Difficulty = currentGameDifficulty;
+                gameStatsManager.game2Stats.slotStats.gameIsCreated = true;
+                gameStatsManager.game2Stats.slotStats.gameName = currentGameName;
+                gameStatsManager.game2Stats.slotStats.gameDifficulty = currentGameDifficulty;
             }
             else if (chooseGameOperator.selectedGameNumber == 3)
             {
-                GameStats.game3_GameIsCreated = true;
-                GameStats.game3_GameName = currentGameName;
-                GameStats.game3_Difficulty = currentGameDifficulty;
+                gameStatsManager.game3Stats.slotStats.gameIsCreated = true;
+                gameStatsManager.game3Stats.slotStats.gameName = currentGameName;
+                gameStatsManager.game3Stats.slotStats.gameDifficulty = currentGameDifficulty;
             }
             CloseCreateGameWindow();
-        } 
+        }
+        else
+        {
+            if (showIncorrectInputTextCoroutine != null)
+            {
+                StopCoroutine(showIncorrectInputTextCoroutine);
+            }
+            showIncorrectInputTextCoroutine = StartCoroutine(incorrectInputErrorText.GetComponent<IncorrectInputErrorTextBehaviour>().ShowIncorrectInputText());
+        }
     }
 
     public void CloseCreateGameWindow()

@@ -17,9 +17,9 @@ public class QuestStagesInfo : MonoBehaviour
     private void Awake()
     {
         questStages = new QuestStages[questsInfo._QuestInfo.Length];
-        questStages[0] = QuestStages.canStart;
+        questStages[0] = QuestStages.canFinish;
         questStages[1] = QuestStages.inProgress;
-        questStages[2] = QuestStages.canFinish;
+        questStages[2] = QuestStages.inProgress;
         // Initialize.
     }
 }

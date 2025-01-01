@@ -11,32 +11,88 @@ public class LoadingOperator : MonoBehaviour
     [SerializeField] private TMP_Text adviceText;
     [SerializeField] private AdviceInfo adviceInfo;
     [SerializeField] private BackgroundSpritesInfo backgroundSpritesInfo;
-    private int currentAdviceIndex;
+    [SerializeField] private float timeBeforeSwitchingAdvice, timeBeforeSwitchingBackground;
+    private int[] adviceOrder, backgroundOrder;
+    private int bufferRandomIndex1, bufferRandomIndex2, bufferIndex, currentAdviceIndex, currentBackgroundIndex;
 
     private void Start()
     {
         LoadSceneAsync("MainGame");
-        backgroundImage.sprite = backgroundSpritesInfo.BackgroundSprites[Random.Range(0, backgroundSpritesInfo.BackgroundSprites.Length)];
-        currentAdviceIndex = Random.Range(0, adviceInfo.PiecesOfAdvice.Length);
-        adviceText.text = adviceInfo.PiecesOfAdvice[currentAdviceIndex];
+        adviceOrder = new int[adviceInfo.PiecesOfAdvice.Length];
+        for (int i = 0; i < adviceOrder.Length; i++)
+        {
+            adviceOrder[i] = i;
+        }
+        if (adviceInfo.PiecesOfAdvice.Length >= 2)
+        {
+            for (int i = 0; i < adviceInfo.PiecesOfAdvice.Length; i++)
+            {
+                bufferRandomIndex1 = Random.Range(0, adviceInfo.PiecesOfAdvice.Length);
+                while (true)
+                {
+                    bufferRandomIndex2 = Random.Range(0, adviceInfo.PiecesOfAdvice.Length);
+                    if (bufferRandomIndex1 != bufferRandomIndex2)
+                    {
+                        break;
+                    }
+                }
+                bufferIndex = adviceOrder[bufferRandomIndex1];
+                adviceOrder[bufferRandomIndex1] = adviceOrder[bufferRandomIndex2];
+                adviceOrder[bufferRandomIndex2] = bufferIndex;
+            }
+        }
         StartCoroutine(ChangeAdviceCoroutine());
+        backgroundOrder = new int[backgroundSpritesInfo.BackgroundSprites.Length];
+        for (int i = 0; i < backgroundOrder.Length; i++)
+        {
+            backgroundOrder[i] = i;
+        }
+        if (backgroundSpritesInfo.BackgroundSprites.Length >= 2)
+        {
+            for (int i = 0; i < backgroundSpritesInfo.BackgroundSprites.Length; i++)
+            {
+                bufferRandomIndex1 = Random.Range(0, backgroundSpritesInfo.BackgroundSprites.Length);
+                while (true)
+                {
+                    bufferRandomIndex2 = Random.Range(0, backgroundSpritesInfo.BackgroundSprites.Length);
+                    if (bufferRandomIndex1 != bufferRandomIndex2)
+                    {
+                        break;
+                    }
+                }
+                bufferIndex = backgroundOrder[bufferRandomIndex1];
+                backgroundOrder[bufferRandomIndex1] = backgroundOrder[bufferRandomIndex2];
+                backgroundOrder[bufferRandomIndex2] = bufferIndex;
+            }
+        }
+        StartCoroutine(ChangeBackgroundCoroutine());
     }
 
     private IEnumerator ChangeAdviceCoroutine()
     {
         while (true)
         {
-            yield return new WaitForSeconds(10);
-            while (true)
+            currentAdviceIndex = 0;
+            for (int i = 0; i < adviceOrder.Length; i++)
             {
-                int bufferNumber = Random.Range(0, adviceInfo.PiecesOfAdvice.Length);
-                if (bufferNumber != currentAdviceIndex) 
-                {
-                    currentAdviceIndex = bufferNumber;
-                    break;
-                }
+                adviceText.text = adviceInfo.PiecesOfAdvice[adviceOrder[currentAdviceIndex]];
+                yield return new WaitForSeconds(timeBeforeSwitchingAdvice);
+                currentAdviceIndex++;
             }
-            adviceText.text = adviceInfo.PiecesOfAdvice[currentAdviceIndex];
+        }
+    }
+
+    private IEnumerator ChangeBackgroundCoroutine()
+    {
+        while (true)
+        {
+            currentBackgroundIndex = 0;
+            for (int i = 0; i < backgroundOrder.Length; i++)
+            {
+                backgroundImage.sprite = backgroundSpritesInfo.BackgroundSprites[backgroundOrder[currentBackgroundIndex]];
+                yield return new WaitForSeconds(timeBeforeSwitchingBackground);
+                currentBackgroundIndex++;
+            }
         }
     }
 
