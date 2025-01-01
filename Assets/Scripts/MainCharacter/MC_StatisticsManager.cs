@@ -9,6 +9,7 @@ public class MC_StatisticsManager : MonoBehaviour
     private void Awake()
     {
         // Set statistic points stats.
+        StatisticPoints = 0;
     }
 
     public int StatisticPoints

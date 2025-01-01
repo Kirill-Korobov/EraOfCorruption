@@ -4,6 +4,7 @@ using UnityEngine.UI;
 
 public class NPCMenuOperator : MonoBehaviour
 {
+    [SerializeField] private PauseManager pauseManager;
     [SerializeField] private DialogueMenuOperator dialogueMenuOperator;
     [SerializeField] private NPCQuestMenuOperator _NPCQuestMenuOperator;
     [SerializeField] private NPCInteraction _NPCInteraction;
@@ -46,6 +47,9 @@ public class NPCMenuOperator : MonoBehaviour
 
     public void StartInteraction(int _NPCID)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        pauseManager.SetGamePaused();
         gameObject.SetActive(true);
         interactingNPCID = _NPCID;
         if (_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes.Length == 0 && _NPCsInfo._NPCsInfo[interactingNPCID].tradesIndexes.Length == 0)
