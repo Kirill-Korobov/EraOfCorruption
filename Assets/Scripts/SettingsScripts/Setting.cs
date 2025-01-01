@@ -6,6 +6,7 @@ using System;
 using TMPro;
 using SFB;
 using Unity.VisualScripting;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class Setting : MonoBehaviour
 {
@@ -34,6 +35,7 @@ public class Setting : MonoBehaviour
     public Toggle inventory;
     public Toggle quests;
     public Toggle map;
+    public Toggle stats;
 
     [Obsolete]
     private void Update()
@@ -42,11 +44,23 @@ public class Setting : MonoBehaviour
         {
             cursor.transform.position = new Vector3(Input.mousePosition.x + (cursor.rectTransform.sizeDelta.x / 2), Input.mousePosition.y - (cursor.rectTransform.sizeDelta.y / 2));
         }
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Mute();
+            Save();
+        }
+        
     }
     private void Start()
     {
         path = $"{Application.persistentDataPath}/Settings.json";
-        ss = JsonUtility.FromJson<SaveSetting>(File.ReadAllText(path));
+        string json = "";
+        using (var reader = new StreamReader(path))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null) { json += line; }
+        }
+        ss = JsonUtility.FromJson<SaveSetting>(json);
         LoadSaves();
         Cursor.visible = false;
     }
@@ -77,21 +91,24 @@ public class Setting : MonoBehaviour
         sensivity.value = ss.sensivity;
 
 
-        if (!ss.inventoryPause && !ss.questsPause && !ss.mapPause)
+        if (!ss.inventoryPause && !ss.questsPause && !ss.mapPause && !ss.statsPause)
         {
             inventory.gameObject.SetActive(false);
             quests.gameObject.SetActive(false);
             map.gameObject.SetActive(false);
+            stats.gameObject.SetActive(false);
             pause.isOn = false;
             inventory.isOn = ss.inventoryPauseSaveDontUseHim;
             quests.isOn = ss.questsPauseSaveDontUseHim;
             map.isOn = ss.mapPauseSaveDontUseHim;
+            stats.isOn = ss.statsPauseSaveDontUseHim;
         }
         else
         {
             inventory.isOn = ss.inventoryPause;
             quests.isOn = ss.questsPause;
             map.isOn = ss.mapPause;
+            stats.isOn = ss.statsPause;
         }
 
 
@@ -207,7 +224,7 @@ public class Setting : MonoBehaviour
 
     public void Binds()
     {
-        SceneManager.LoadScene("SettingBinds");
+        // canvas
     }
 
     public void Mute()
@@ -251,12 +268,14 @@ public class Setting : MonoBehaviour
             inventory.gameObject.SetActive(true);
             quests.gameObject.SetActive(true);
             map.gameObject.SetActive(true);
+            stats.gameObject.SetActive(true);
         }
         else
         {
             inventory.gameObject.SetActive(false);
             quests.gameObject.SetActive(false);
             map.gameObject.SetActive(false);
+            stats.gameObject.SetActive(false);
         }
         
     }
@@ -288,15 +307,18 @@ public class Setting : MonoBehaviour
             ss.inventoryPause = false;
             ss.questsPause = false;
             ss.mapPause = false;
+            ss.statsPause = false;
             ss.inventoryPauseSaveDontUseHim = inventory.isOn;
             ss.questsPauseSaveDontUseHim = quests.isOn;
             ss.mapPauseSaveDontUseHim = map.isOn;
+            ss.statsPauseSaveDontUseHim = stats.isOn;
         }
         else
         {
             ss.inventoryPause = inventory.isOn;
             ss.questsPause = quests.isOn;
             ss.mapPause = map.isOn;
+            ss.statsPause = stats.isOn;
         }
         ss.customCursor = customCursor.isOn;
 
@@ -309,7 +331,11 @@ public class Setting : MonoBehaviour
         cursor.gameObject.SetActive(false);
 
         string json = JsonUtility.ToJson(ss);
-        File.WriteAllText(path, json);
+        using (var writer = new StreamWriter(path))
+        {
+            writer.WriteLine(JsonUtility.ToJson(ss));
+        }
+        // LoadedSettings.LoadSettings(ss);
     }
 }
 
@@ -324,9 +350,11 @@ public class SaveSetting
     public bool inventoryPause;
     public bool questsPause;
     public bool mapPause;
+    public bool statsPause;
     public bool inventoryPauseSaveDontUseHim;
     public bool questsPauseSaveDontUseHim;
     public bool mapPauseSaveDontUseHim;
+    public bool statsPauseSaveDontUseHim;
     public bool customCursor;
     public string imageCursor;
     public string extension;
