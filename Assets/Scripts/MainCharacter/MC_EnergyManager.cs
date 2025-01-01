@@ -2,49 +2,62 @@ using UnityEngine;
 
 public class MC_EnergyManager : MonoBehaviour
 {
-    private float energy;
-    [SerializeField] private StatisticsInfo statisticsInfo;
-    [SerializeField] private MC_StatisticsManager statisticsManager;
+    private float currentEnergy, maxEnergy;
 
     private void Awake()
     {
         // Set energy stats.
-        if (statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] == 0)
+        if (MaxEnergy == 0)
         {
-            statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] = 1;
+            MaxEnergy = 1;
         }
     }
 
-    public float Energy
+    public float CurrentEnergy
     {
         get
         {
-            return energy;
+            return currentEnergy;
         }
         set
         {
             if (value <= 0)
             {
-                energy = 0;
+                currentEnergy = 0;
             }
-            else if (value > statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel])
+            else if (value > maxEnergy)
             {
-                energy = statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
+                currentEnergy = maxEnergy;
             }
             else
             {
-                energy = value;
+                currentEnergy = value;
+            }
+        }
+    }
+
+    public float MaxEnergy
+    {
+        get
+        {
+            return maxEnergy;
+        }
+        set
+        {
+            if (value > 0)
+            {
+                maxEnergy = value;
             }
         }
     }
 
     public void SpendEnergy(float value)
     {
-        Energy -= value;
+        CurrentEnergy -= value;
     }
 
     public void ReplenishEnergy(float value)
     {
-        Energy += value;
+        CurrentEnergy += value * StaticEffects.hunger;
     }
 }

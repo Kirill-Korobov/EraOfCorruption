@@ -1,46 +1,65 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MC_ManaManager : MonoBehaviour
 {
-    private float mana;
-    [SerializeField] private StatisticsInfo statisticsInfo;
-    [SerializeField] private MC_StatisticsManager statisticsManager;
+    private float currentMana, maxMana;
 
     private void Awake()
     {
         // Set mana stats.
+        if (MaxMana == 0)
+        {
+            MaxMana = 1;
+        }
     }
 
-    public float Mana
+    public float CurrentMana
     {
         get
         {
-            return mana;
+            return currentMana;
         }
         set
         {
             if (value <= 0)
             {
-                mana = 0;
+                currentMana = 0;
             }
-            else if (value > statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel])
+            else if (value > maxMana)
             {
-                mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
+                currentMana = maxMana;
             }
             else
             {
-                mana = value;
+                currentMana = value;
+            }
+        }
+    }
+
+    public float MaxMana
+    {
+        get
+        {
+            return maxMana;
+        }
+        set
+        {
+            if (value > 0)
+            {
+                maxMana = value;
             }
         }
     }
 
     public void SpendMana(float value)
     {
-        Mana -= value;
+        CurrentMana -= value;
     }
 
     public void ReplenishMana(float value)
     {
-        Mana += value;
+        CurrentMana += value * StaticEffects.hunger;
     }
 }
