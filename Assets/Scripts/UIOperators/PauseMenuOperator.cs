@@ -19,6 +19,8 @@ public class PauseMenuOperator : MonoBehaviour
     public void BackToGameButton()
     {
         gameObject.SetActive(false);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void SettingsButton()

@@ -1,34 +1,37 @@
+using System.Collections;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
 public class MC_MovementManager : MonoBehaviour
 {
-    private CharacterController characterController;
-    [SerializeField] private Transform head;
-    [SerializeField] private PauseManager pauseManager;
     private float rotationY;
-    private const float speedMultiplier = 5;
-    private const float gravity = 9.8f;
-    private float velocity;
-    private float speed = 5;
-    private float jumpSpeed = 10f;
-    private float maxJumpDuration = 1f;
-    private int maxJumpNumber = 5;
-    private float currentJumpDuration;
-    private int currentJumpNumber;
+    [SerializeField] private Transform head;
+    private CharacterController characterController;
+    [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private StatisticsInfo statisticsInfo;
+    [SerializeField] private MC_StatisticsManager statisticsManager;
+    [SerializeField] private MC_LevelManager levelManager;
+    [SerializeField] private MC_EnergyManager energyManager;
+    [SerializeField] private MC_SatietyManager satietyManager;
     private bool isJumping = false;
-    private bool fallDuringJump;
+    private int currentJumpNumber;
+    private Coroutine jumpCoroutine;
     private Vector3 dashDirection;
-    private float dashSpeed = 50f;
-    private float dashDuration = 0.2f;
     private float currentDashDuration;
-    private bool isDashing = false;  
+    private float currentDashRechargeTime;
+    private bool isDashing = false;
+    private float currentTeleportationRechargeTime;
 
     private void Awake()
     {
         characterController = GetComponent<CharacterController>();
-        // Set movement stats.
+        currentDashRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
+        currentTeleportationRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
     }
 
+    // Delete this(To Dmytro):
+
+    private float speed = 5;
     public float Speed
     {
         get
@@ -44,134 +47,176 @@ public class MC_MovementManager : MonoBehaviour
         }
     }
 
+    // Stop deleting.
+
     private void Update()
     {
+        satietyManager.canReplenishEnergy = true;
+
         // Rotation
 
         if (!pauseManager.pause)
         {
-            if (Input.GetMouseButton(1))
-            {
-                // must be multiplied by sensetivity.
-                gameObject.transform.Rotate(new Vector3(0, 1, 0), Input.GetAxis("Mouse X") * 10);
-                rotationY += Input.GetAxis("Mouse Y") * 10f;
-                rotationY = Mathf.Clamp(rotationY, -80, 80);
-                head.localEulerAngles = new Vector3(-rotationY, 0, 0);
-            }
+            // must be multiplied by sensetivity.
+            gameObject.transform.Rotate(new Vector3(0, 1, 0), Input.GetAxis("Mouse X") * 10);
+            rotationY += Input.GetAxis("Mouse Y") * 10f;
+            rotationY = Mathf.Clamp(rotationY, -80, 80);
+            head.localEulerAngles = new Vector3(-rotationY, 0, 0);
         }
 
         // Walking
 
-        if (!isDashing && !Input.GetKey(KeyCode.LeftControl) && !Input.GetKey(KeyCode.LeftControl))
+        if (!isDashing && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
         {
             if (Input.GetKey(KeyCode.W))
             {
-                characterController.Move(transform.forward * Time.deltaTime * speedMultiplier);
-                // minus energy.
+                characterController.Move(transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                characterController.Move(-transform.right * Time.deltaTime * speedMultiplier);
-                // minus energy.
+                characterController.Move(-transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                characterController.Move(-transform.forward * Time.deltaTime * speedMultiplier);
-                // minus energy.
+                characterController.Move(-transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                characterController.Move(transform.right * Time.deltaTime * speedMultiplier);
-                // minus energy.
+                characterController.Move(transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime);
             }
         }
 
         // Running
 
-        if (!isDashing && (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.LeftControl)))
+        if (!isDashing && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && energyManager.Energy >= statisticsInfo.RunningEnergySpendingMultiplier * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime)
         {
             if (Input.GetKey(KeyCode.W))
             {
-                characterController.Move(transform.forward * speed * Time.deltaTime * speedMultiplier);
-                // minus energy.
+                characterController.Move(transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                characterController.Move(-transform.right * speed * Time.deltaTime * speedMultiplier);
-                // minus energy.
+                characterController.Move(-transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                characterController.Move(-transform.forward * speed * Time.deltaTime * speedMultiplier);
-                // minus energy.
+                characterController.Move(-transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                characterController.Move(transform.right * speed * Time.deltaTime * speedMultiplier);
-                // minus energy.
+                characterController.Move(transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+            }
+            if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S) && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) && !(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) && !(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) && !(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D)))
+            {            
+                energyManager.SpendEnergy(statisticsInfo.RunningEnergySpendingMultiplier * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+                satietyManager.canReplenishEnergy = false;
             }
         }
 
         // Gravity
-       
-        
-        if ((!characterController.isGrounded && !isJumping && !isDashing) || fallDuringJump)
+
+        if (!characterController.isGrounded && !isJumping && !isDashing)
         {
-            velocity = -gravity * Time.deltaTime;
-            characterController.Move(transform.up * velocity);
+            characterController.Move(-transform.up * statisticsInfo.GravityValue * Time.deltaTime);
         }
 
         // Jumping
 
-        if (!isDashing)
+        if (characterController.isGrounded)
         {
-            if (characterController.isGrounded)
+            currentJumpNumber = 0;
+        }
+        if (!isDashing && ((Input.GetKey(KeyCode.Space) && characterController.isGrounded && energyManager.Energy >= statisticsInfo.JumpingEnergySpendingMultiplier) || (Input.GetKeyDown(KeyCode.Space) && energyManager.Energy >= statisticsInfo.JumpingEnergySpendingMultiplier * Mathf.Pow(2, currentJumpNumber))))
+        {
+            if (!characterController.isGrounded)
             {
-                isJumping = false;
-                currentJumpDuration = 0f;
-                currentJumpNumber = 0;
-                fallDuringJump = false;
-            }
-            if (Input.GetKeyDown(KeyCode.Space) && characterController.isGrounded && !isJumping)
-            {
-                isJumping = true;
-                currentJumpDuration = 0f;
-                currentJumpNumber = 1;
-                fallDuringJump = false;
-            }
-            else if (Input.GetKeyDown(KeyCode.Space) && isJumping && currentJumpNumber < maxJumpNumber)
-            {
-                currentJumpDuration = 0f;
                 currentJumpNumber++;
-                fallDuringJump = false;
             }
-            if (isJumping && !fallDuringJump)
+            if (currentJumpNumber <= statisticsInfo.AdditionalJumpNumberValues[statisticsManager.MovementLevel])
             {
-                characterController.Move(transform.up * jumpSpeed * Time.deltaTime);
-                currentJumpDuration += Time.deltaTime;
-            }
-            if (currentJumpDuration >= maxJumpDuration || !Input.GetKey(KeyCode.Space))
-            {
-                fallDuringJump = true;
+                if (jumpCoroutine != null)
+                {
+                    StopCoroutine(jumpCoroutine);
+                }
+                jumpCoroutine = StartCoroutine(Jump());
+                energyManager.SpendEnergy(statisticsInfo.JumpingEnergySpendingMultiplier * Mathf.Pow(2, currentJumpNumber));
+                satietyManager.canReplenishEnergy = false;
             }
         }
 
-        // Dash
+        // Dashing
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (statisticsManager.MovementLevel >= statisticsInfo.DashUnlockLevel)
         {
-            isDashing = true;
-            currentDashDuration = 0f;
-            dashDirection = transform.forward;
+            if (Input.GetKeyDown(KeyCode.Q) && currentDashRechargeTime <= 0f)
+            {
+                isDashing = true;
+                dashDirection = transform.forward;
+            }
+            if (isDashing)
+            {
+                if (energyManager.Energy >= statisticsInfo.DashingEnergySpendingMultiplier * statisticsInfo.DashingSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime)
+                {
+                    characterController.Move(dashDirection * statisticsInfo.DashingSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+                    energyManager.SpendEnergy(statisticsInfo.DashingEnergySpendingMultiplier * statisticsInfo.DashingSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+                    satietyManager.canReplenishEnergy = false;
+                    currentDashDuration += Time.deltaTime;
+                }
+                else
+                {
+                    isDashing = false;
+                    currentDashDuration = 0f;
+                    currentDashRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
+                }
+            }
+            else
+            {
+                currentDashRechargeTime -= Time.deltaTime;
+            }
+            if (currentDashDuration >= statisticsInfo.DashingDurationValue)
+            {
+                isDashing = false;
+                currentDashDuration = 0f;
+                currentDashRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
+            }
         }
-        if (isDashing)
+
+        // Teleportation
+
+        if (Input.GetKeyDown(KeyCode.Tab) && statisticsManager.MovementLevel >= statisticsInfo.TeleportationUnlockLevel && currentTeleportationRechargeTime <= 0)
         {
-            characterController.Move(dashDirection * dashSpeed * Time.deltaTime);
-            currentDashDuration += Time.deltaTime;
+            Ray ray = new Ray(head.transform.position, head.forward);
+            if (Physics.Raycast(ray, out RaycastHit hit))
+            {
+                if (statisticsInfo.TeleportationMaxDistanceValues[statisticsManager.MovementLevel] >= hit.distance && energyManager.Energy >= statisticsInfo.TeleportationEnergySpendingMultiplier * Vector3.Distance(transform.position, hit.point))
+                {
+                    energyManager.SpendEnergy(statisticsInfo.TeleportationEnergySpendingMultiplier * Vector3.Distance(transform.position, hit.point));
+                    characterController.Move(hit.point - transform.position);
+                    satietyManager.canReplenishEnergy = false;
+                    currentTeleportationRechargeTime = statisticsInfo.TeleportationRechargeTimeValues[statisticsManager.MovementLevel];
+                }
+            }
         }
-        if (currentDashDuration >= dashDuration)
+        currentTeleportationRechargeTime -= Time.deltaTime;
+    }
+
+    private IEnumerator Jump()
+    {
+        isJumping = true;
+        float progress = 0f;
+        while (progress < 0.5f)
         {
-            isDashing = false;
+            progress += Time.deltaTime / statisticsInfo.JumpDuration;
+            characterController.Move(Vector3.Lerp(Vector3.zero, new Vector3(0, statisticsInfo.JumpHeight, 0), statisticsInfo.JumpCurve.Evaluate(progress / (statisticsInfo.JumpHeight * statisticsInfo.JumpDuration))));
+            yield return null;
         }
+        yield return new WaitForSeconds(statisticsInfo.TimeBeforeFallingDuringJump);
+        while (progress < 1f)
+        {
+            progress += Time.deltaTime / statisticsInfo.JumpDuration;
+            characterController.Move(Vector3.Lerp(Vector3.zero, new Vector3(0, -statisticsInfo.JumpHeight, 0), statisticsInfo.JumpCurve.Evaluate(progress / (statisticsInfo.JumpHeight * statisticsInfo.JumpDuration))));
+            yield return null;
+        }
+        isJumping = false;
     }
 }

@@ -47,6 +47,8 @@ public class NPCMenuOperator : MonoBehaviour
 
     public void StartInteraction(int _NPCID)
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         pauseManager.SetGamePaused();
         gameObject.SetActive(true);
         interactingNPCID = _NPCID;

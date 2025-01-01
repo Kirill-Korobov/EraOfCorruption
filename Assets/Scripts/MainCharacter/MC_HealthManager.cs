@@ -1,57 +1,52 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MC_HealthManager : MonoBehaviour
 {
-    private float currentHealth, maxHealth;
+    private float health;
     private int defense;
+    [SerializeField] private BloodyBackgroundBehaviour bloodyBackgroundBehaviour;
+    [SerializeField] private MC_SatietyManager satietyManager;
+    [SerializeField] private StatisticsInfo statisticsInfo;
+    [SerializeField] private MC_StatisticsManager statisticsManager;
+    private Coroutine waitUntilHealthCanBeReplenished;
 
     private void Awake()
     {
-        MaxHealth = 100;
-        CurrentHealth = 100;
         // Set health stats.
-        if (MaxHealth == 0)
+        Health = 100;
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            MaxHealth = 1;
+            TakeDamage(20);
         }
     }
 
-    public float CurrentHealth
+    public float Health
     {
         get
         {
-            return currentHealth;
+            return health;
         }
         set
         {
             if (value <= 0)
             {
-                currentHealth = 0;
+                health = 0;
                 Die();
             }
-            else if (value > maxHealth)
+            else if (value > statisticsInfo.MaxHPValues[statisticsManager.HPLevel])
             {
-                currentHealth = maxHealth;
+                health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel];
             }
             else
             {
-                currentHealth = value;
+                health = value;
             }
-        }
-    }
-
-    public float MaxHealth
-    {
-        get
-        {
-            return maxHealth;
-        }
-        set
-        {
-            if (value > 0)
-            {
-                maxHealth = value;
-            }       
         }
     }
 
@@ -69,25 +64,48 @@ public class MC_HealthManager : MonoBehaviour
             }
         }
     }
-    public float hex = 1;
+
+    [HideInInspector] public float hex = 1;
     public void TakeDamage(float value)
     {
+        float finalDamage;
         if (Defense >= value * hex)
         {
-            CurrentHealth -= hex;
+            finalDamage = 1;
         }
         else
         {
-            CurrentHealth -= value*hex - Defense;
+            finalDamage = value * hex - Defense;
         }
+        Health -= finalDamage;
+        if (bloodyBackgroundBehaviour.bloodyBackgroundImage.color.a + finalDamage / statisticsInfo.MaxHPValues[statisticsManager.HPLevel] * bloodyBackgroundBehaviour.bloodMultiplier < bloodyBackgroundBehaviour.maxBloodyBackgroundOpacity)
+        {
+            bloodyBackgroundBehaviour.bloodyBackgroundImage.color += new Color(0f, 0f, 0f, finalDamage / statisticsInfo.MaxHPValues[statisticsManager.HPLevel] * bloodyBackgroundBehaviour.bloodMultiplier);
+        }
+        else
+        {
+            bloodyBackgroundBehaviour.bloodyBackgroundImage.color = new Color(1f, 0f, 0f, bloodyBackgroundBehaviour.maxBloodyBackgroundOpacity);
+        }
+        if (waitUntilHealthCanBeReplenished != null)
+        {
+            StopCoroutine(waitUntilHealthCanBeReplenished);
+        }
+        satietyManager.canReplenishHealth = false;
+        waitUntilHealthCanBeReplenished = StartCoroutine(WaitUntilHealthCanBeReplenished());
     }
 
-    public bool cursed = false;
+    private IEnumerator WaitUntilHealthCanBeReplenished()
+    {
+        yield return new WaitForSeconds(statisticsInfo.TimeUntilHealthCanBeReplenished);
+        satietyManager.canReplenishHealth = true;
+    }
+
+    [HideInInspector] public bool cursed = false;
     public void GetHealth(float value)
     {
         if (!cursed)
         {
-            CurrentHealth += value;
+            Health += value;
         }
     }
 

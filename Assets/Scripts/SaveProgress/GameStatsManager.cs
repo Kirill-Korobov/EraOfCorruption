@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameStatsManager : MonoBehaviour
 {
     private string game1StatsSavePath, game2StatsSavePath, game3StatsSavePath;
-    public GameStats game1Stats, game2Stats, game3Stats;
+    [HideInInspector] public GameStats game1Stats, game2Stats, game3Stats;
 
     private void Awake()
     {
@@ -16,13 +16,11 @@ public class GameStatsManager : MonoBehaviour
         if (File.Exists(game1StatsSavePath))
         {
             string json = string.Empty;
-
             using (var reader = new StreamReader(game1StatsSavePath))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null) { json += line; }
             }
-
             game1Stats = JsonUtility.FromJson<GameStats>(json);
         }
         else
@@ -37,13 +35,11 @@ public class GameStatsManager : MonoBehaviour
         if (File.Exists(game2StatsSavePath))
         {
             string json = string.Empty;
-
             using (var reader = new StreamReader(game2StatsSavePath))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null) { json += line; }
             }
-
             game2Stats = JsonUtility.FromJson<GameStats>(json);
         }
         else
@@ -58,13 +54,11 @@ public class GameStatsManager : MonoBehaviour
         if (File.Exists(game3StatsSavePath))
         {
             string json = string.Empty;
-
             using (var reader = new StreamReader(game3StatsSavePath))
             {
                 string line;
                 while ((line = reader.ReadLine()) != null) { json += line; }
             }
-
             game3Stats = JsonUtility.FromJson<GameStats>(json);
         }
         else
@@ -94,6 +88,17 @@ public class GameStatsManager : MonoBehaviour
     }
 }
 
+[Serializable]
+public class GameStats
+{
+    public SlotStats slotStats;
+
+    public void SetAllStatsToZero()
+    {
+        slotStats.SetAllStatsToZero();
+    }
+}
+
 public enum GameDifficulty
 {
     eazy,
@@ -103,7 +108,7 @@ public enum GameDifficulty
 }
 
 [Serializable]
-public class GameStats
+public class SlotStats
 {
     public bool gameIsCreated;
     public string gameName;

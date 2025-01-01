@@ -7,6 +7,8 @@ public class StartMenuOperator : MonoBehaviour
 
     private void Awake()
     {
+        startMenuContent.SetActive(true);
+        chooseGameWindow.SetActive(false);
         settingsCanvas.gameObject.SetActive(false);
         achievementsCanvas.gameObject.SetActive(false);
         developersCanvas.gameObject.SetActive(false);
@@ -20,16 +22,19 @@ public class StartMenuOperator : MonoBehaviour
 
     public void OpenSettings()
     {
+        startMenuContent.SetActive(false);
         settingsCanvas.gameObject.SetActive(true);
     }
 
     public void OpenAchievements()
     {
+        startMenuContent.SetActive(false);
         achievementsCanvas.gameObject.SetActive(true);
     }
 
     public void OpenDevelopers()
     {
+        startMenuContent.SetActive(false);
         developersCanvas.gameObject.SetActive(true);
     }
 
