@@ -66,16 +66,17 @@ public class MC_HealthManager : MonoBehaviour
     }
 
     [HideInInspector] public float hex = 1;
+    [HideInInspector] public float penetration = 1;
     public void TakeDamage(float value)
     {
         float finalDamage;
-        if (Defense >= value * hex)
+        if (Defense * penetration>= value * hex)
         {
             finalDamage = 1;
         }
         else
         {
-            finalDamage = value * hex - Defense;
+            finalDamage = value * hex - Defense * penetration;
         }
         Health -= finalDamage;
         if (bloodyBackgroundBehaviour.bloodyBackgroundImage.color.a + finalDamage / statisticsInfo.MaxHPValues[statisticsManager.HPLevel] * bloodyBackgroundBehaviour.bloodMultiplier < bloodyBackgroundBehaviour.maxBloodyBackgroundOpacity)

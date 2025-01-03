@@ -44,7 +44,7 @@ public class Setting : MonoBehaviour
         {
             cursor.transform.position = new Vector3(Input.mousePosition.x + (cursor.rectTransform.sizeDelta.x / 2), Input.mousePosition.y - (cursor.rectTransform.sizeDelta.y / 2));
         }
-        if (Input.GetKey(KeyCode.Escape))
+        if (Input.GetKeyDown(LoadedSettings.mute))
         {
             Mute();
             Save();
@@ -71,7 +71,7 @@ public class Setting : MonoBehaviour
         
 
 
-        if (ss.music != 0 && ss.song != 0)
+        if (!ss.mute)
         {
             music.value = ss.music;
             song.value = ss.song;
@@ -292,6 +292,7 @@ public class Setting : MonoBehaviour
         {
             ss.song = song.value;
             ss.music = music.value;
+            
         }
         else
         {
@@ -300,6 +301,7 @@ public class Setting : MonoBehaviour
             ss.songSaveDontUseHim = song.value;
             ss.musicSaveDontUseHim = music.value;
         }
+        ss.mute = mute.isOn;
         ss.cursorSizes = cursor.rectTransform.sizeDelta;
         ss.sensivity = sensivity.value;
         if (!pause.isOn)
@@ -335,7 +337,7 @@ public class Setting : MonoBehaviour
         {
             writer.WriteLine(JsonUtility.ToJson(ss));
         }
-        // LoadedSettings.LoadSettings(ss);
+        LoadedSettings.LoadSettings(ss);
     }
 }
 
@@ -358,6 +360,7 @@ public class SaveSetting
     public bool customCursor;
     public string imageCursor;
     public string extension;
+    public bool mute;
 
     public void SetStandartSettings()
     {
