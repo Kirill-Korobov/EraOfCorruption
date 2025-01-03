@@ -29,24 +29,6 @@ public class MC_MovementManager : MonoBehaviour
         currentTeleportationRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
     }
 
-    // Delete this(To Dmytro):
-
-    private float speed = 5;
-    public float Speed
-    {
-        get
-        {
-            return speed;
-        }
-        set
-        {
-            if (value > 0)
-            {
-                speed = value;
-            }
-        }
-    }
-
     // Stop deleting.
     [HideInInspector] public float walkSpeed;
     private void Update()

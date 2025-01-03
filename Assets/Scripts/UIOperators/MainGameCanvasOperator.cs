@@ -15,7 +15,7 @@ public class MainGameCanvasOperator : MonoBehaviour
     [SerializeField] private TMP_Text healthText, energyText, manaText, satietyText, _XPText, levelText;
 
     private void Update()
-    {
+    { 
         healthBar.fillAmount = healthManager.Health / statisticsInfo.MaxHPValues[statisticsManager.HPLevel];
         energyBar.fillAmount = energyManager.Energy / statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
         manaBar.fillAmount = manaManager.Mana / (statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel]);
