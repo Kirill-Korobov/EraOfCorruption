@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameStatsManager : MonoBehaviour
 {
+    public static int currentGame;
     private string game1StatsSavePath, game2StatsSavePath, game3StatsSavePath;
+    [SerializeField] private StatisticsInfo statisticsInfo;
     [HideInInspector] public GameStats game1Stats, game2Stats, game3Stats;
 
     private void Awake()
@@ -12,6 +14,10 @@ public class GameStatsManager : MonoBehaviour
         game1StatsSavePath = $"{Application.persistentDataPath}/Game1Stats.json";
         game2StatsSavePath = $"{Application.persistentDataPath}/Game2Stats.json";
         game3StatsSavePath = $"{Application.persistentDataPath}/Game3Stats.json";
+
+        game1Stats.statisticsInfo = statisticsInfo;
+        game2Stats.statisticsInfo = statisticsInfo;
+        game3Stats.statisticsInfo = statisticsInfo;
 
         if (File.Exists(game1StatsSavePath))
         {
@@ -86,16 +92,24 @@ public class GameStatsManager : MonoBehaviour
             writer.WriteLine(JsonUtility.ToJson(game3Stats));
         }
     }
+
+    private void OnApplicationQuit()
+    {
+        SaveStats();
+    }
 }
 
 [Serializable]
 public class GameStats
 {
     public SlotStats slotStats;
+    public MainCharacterStats mainCharacterStats;
 
+    [HideInInspector] public StatisticsInfo statisticsInfo;
     public void SetAllStatsToZero()
     {
         slotStats.SetAllStatsToZero();
+        mainCharacterStats.statisticsInfo = statisticsInfo; mainCharacterStats.SetAllStatsToZero();
     }
 }
 
@@ -119,5 +133,49 @@ public class SlotStats
         gameIsCreated = false;
         gameName = string.Empty;
         gameDifficulty = GameDifficulty.medium;
+    }
+}
+
+[Serializable]
+public class MainCharacterStats
+{
+    public float health;
+    public float energy;
+    public float mana;
+    public float satiety;
+    public int level;
+    public int _XP;
+    public int statisticPoints;
+    public int _HPLevel;
+    public int energyLevel;
+    public int movementLevel;
+    public int _XPMultiplierLevel;
+    public int closeCombatLevel;
+    public int rangedCombatLevel;
+    public int magicCombatLevel;
+    public int currentPerspective;
+    public float shoulderOffsetZ;
+    public float remainingRespawnTime;
+
+    [HideInInspector] public StatisticsInfo statisticsInfo;
+    public void SetAllStatsToZero()
+    {
+        health = statisticsInfo.MaxHPValues[0];
+        energy = statisticsInfo.MaxEnergyValues[0];
+        mana = statisticsInfo.ÑloseCombatAdditionalManaValues[0] + statisticsInfo.RangedCombatAdditionalManaValues[0] + statisticsInfo.MagicCombatAdditionalManaValues[0];
+        satiety = statisticsInfo.SatietyMaxValue;
+        level = 0;
+        _XP = 0;
+        statisticPoints = 0;
+        _HPLevel = 0;
+        energyLevel = 0;
+        movementLevel = 0;
+        _XPMultiplierLevel = 0;
+        closeCombatLevel = 0;
+        rangedCombatLevel = 0;
+        magicCombatLevel = 0;
+        currentPerspective = 1;
+        shoulderOffsetZ = 5f;
+        remainingRespawnTime = 0f;
     }
 }

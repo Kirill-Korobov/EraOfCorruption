@@ -2258,21 +2258,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8521e1d79e7ffb744a6f31af33930c62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statisticsInfo: {fileID: 11400000, guid: 6c5dc736a5085904f959026a09be595a, type: 2}
   game1Stats:
     slotStats:
       gameIsCreated: 0
       gameName: 
       gameDifficulty: 0
+    mainCharacterStats:
+      health: 0
+      energy: 0
+      mana: 0
+      satiety: 0
+      level: 0
+      _XP: 0
+      statisticPoints: 0
+      _HPLevel: 0
+      energyLevel: 0
+      movementLevel: 0
+      _XPMultiplierLevel: 0
+      closeCombatLevel: 0
+      rangedCombatLevel: 0
+      magicCombatLevel: 0
+      currentPerspective: 0
+      statisticsInfo: {fileID: 0}
+    statisticsInfo: {fileID: 0}
   game2Stats:
     slotStats:
       gameIsCreated: 0
       gameName: 
       gameDifficulty: 0
+    mainCharacterStats:
+      health: 0
+      energy: 0
+      mana: 0
+      satiety: 0
+      level: 0
+      _XP: 0
+      statisticPoints: 0
+      _HPLevel: 0
+      energyLevel: 0
+      movementLevel: 0
+      _XPMultiplierLevel: 0
+      closeCombatLevel: 0
+      rangedCombatLevel: 0
+      magicCombatLevel: 0
+      currentPerspective: 0
+      statisticsInfo: {fileID: 0}
+    statisticsInfo: {fileID: 0}
   game3Stats:
     slotStats:
       gameIsCreated: 0
       gameName: 
       gameDifficulty: 0
+    mainCharacterStats:
+      health: 0
+      energy: 0
+      mana: 0
+      satiety: 0
+      level: 0
+      _XP: 0
+      statisticPoints: 0
+      _HPLevel: 0
+      energyLevel: 0
+      movementLevel: 0
+      _XPMultiplierLevel: 0
+      closeCombatLevel: 0
+      rangedCombatLevel: 0
+      magicCombatLevel: 0
+      currentPerspective: 0
+      statisticsInfo: {fileID: 0}
+    statisticsInfo: {fileID: 0}
 --- !u!1 &868311225
 GameObject:
   m_ObjectHideFlags: 0

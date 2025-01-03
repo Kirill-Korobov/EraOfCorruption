@@ -17,7 +17,15 @@ public class NPCInteraction : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) && !isInteracting && !pauseManager.pause)
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            TryToInteract();
+        }
+    }
+
+    public void TryToInteract()
+    {
+        if (!isInteracting && !pauseManager.pause)
         {
             for (int i = 0; i < NPCs.Length; i++)
             {

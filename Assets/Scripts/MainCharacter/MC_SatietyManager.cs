@@ -2,20 +2,34 @@ using UnityEngine;
 
 public class MC_SatietyManager : MonoBehaviour
 {
-    private float satiety;
     [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private MC_HealthManager healthManager;
     [SerializeField] private MC_EnergyManager energyManager;
     [SerializeField] private MC_ManaManager manaManager;
     [SerializeField] private MC_StatisticsManager statisticsManager;
+    [SerializeField] private GameStatsManager gameStatsManager;
     [HideInInspector] public bool canReplenishHealth, canReplenishEnergy, canReplenishMana;
+    private GameStats currentGameStats;
 
-    private void Awake()
+    private void Start()
     {
-        // Set satiety stats.
-        Satiety = 50;
-
-        canReplenishHealth = true;
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
+        Satiety = currentGameStats.mainCharacterStats.satiety;
+        StartCoroutine(healthManager.WaitUntilHealthCanBeReplenished());
         canReplenishEnergy = true;
         canReplenishMana = true;
     }
@@ -24,21 +38,21 @@ public class MC_SatietyManager : MonoBehaviour
     {
         get
         {
-            return satiety;
+            return currentGameStats.mainCharacterStats.satiety;
         }
         set
         {
             if (value <= 0)
             {
-                satiety = 0;
+                currentGameStats.mainCharacterStats.satiety = 0;
             }
             else if (value > statisticsInfo.SatietyMaxValue)
             {
-                satiety = statisticsInfo.SatietyMaxValue;
+                currentGameStats.mainCharacterStats.satiety = statisticsInfo.SatietyMaxValue;
             }
             else
             {
-                satiety = value;
+                currentGameStats.mainCharacterStats.satiety = value;
             }
         }
     }

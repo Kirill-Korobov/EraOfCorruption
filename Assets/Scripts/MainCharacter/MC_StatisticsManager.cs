@@ -1,32 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MC_StatisticsManager : MonoBehaviour
 {
-    private int statisticPoints, _HPLevel, energyLevel, movementLevel, _XPMultiplierLevel, closeCombatLevel, rangedCombatLevel, magicCombatLevel;
+    [SerializeField] private GameStatsManager gameStatsManager;
+    private GameStats currentGameStats;
 
     private void Awake()
     {
-        // Set statistic points stats.
-        StatisticPoints = 0;
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
+        StatisticPoints = currentGameStats.mainCharacterStats.statisticPoints;
+        HPLevel = currentGameStats.mainCharacterStats._HPLevel;
+        EnergyLevel = currentGameStats.mainCharacterStats.energyLevel;
+        MovementLevel = currentGameStats.mainCharacterStats.movementLevel;
+        XPMultiplierLevel = currentGameStats.mainCharacterStats._XPMultiplierLevel;
+        CloseCombatLevel = currentGameStats.mainCharacterStats.closeCombatLevel;
+        RangedCombatLevel = currentGameStats.mainCharacterStats.rangedCombatLevel;
+        MagicCombatLevel = currentGameStats.mainCharacterStats.magicCombatLevel;
     }
 
     public int StatisticPoints
     {
         get
         {
-            return statisticPoints;
+            return currentGameStats.mainCharacterStats.statisticPoints;
         }
         set
         {
             if (value < 0)
             {
-                statisticPoints = 0;
+                currentGameStats.mainCharacterStats.statisticPoints = 0;
             }
             else
             {
-                statisticPoints = value;
+                currentGameStats.mainCharacterStats.statisticPoints = value;
             }
         }
     }
@@ -35,17 +55,17 @@ public class MC_StatisticsManager : MonoBehaviour
     {
         get
         {
-            return _HPLevel;
+            return currentGameStats.mainCharacterStats._HPLevel;
         }
         set
         {
             if (value < 0)
             {
-                _HPLevel = 0;
+                currentGameStats.mainCharacterStats._HPLevel = 0;
             }
             else
             {
-                _HPLevel = value;
+                currentGameStats.mainCharacterStats._HPLevel = value;
             }
         }
     }
@@ -54,17 +74,17 @@ public class MC_StatisticsManager : MonoBehaviour
     {
         get
         {
-            return energyLevel;
+            return currentGameStats.mainCharacterStats.energyLevel;
         }
         set
         {
             if (value < 0)
             {
-                energyLevel = 0;
+                currentGameStats.mainCharacterStats.energyLevel = 0;
             }
             else
             {
-                energyLevel = value;
+                currentGameStats.mainCharacterStats.energyLevel = value;
             }
         }
     }
@@ -73,17 +93,17 @@ public class MC_StatisticsManager : MonoBehaviour
     {
         get
         {
-            return movementLevel;
+            return currentGameStats.mainCharacterStats.movementLevel;
         }
         set
         {
             if (value < 0)
             {
-                movementLevel = 0;
+                currentGameStats.mainCharacterStats.movementLevel = 0;
             }
             else
             {
-                movementLevel = value;
+                currentGameStats.mainCharacterStats.movementLevel = value;
             }
         }
     }
@@ -92,17 +112,17 @@ public class MC_StatisticsManager : MonoBehaviour
     {
         get
         {
-            return _XPMultiplierLevel;
+            return currentGameStats.mainCharacterStats._XPMultiplierLevel;
         }
         set
         {
             if (value < 0)
             {
-                _XPMultiplierLevel = 0;
+                currentGameStats.mainCharacterStats._XPMultiplierLevel = 0;
             }
             else
             {
-                _XPMultiplierLevel = value;
+                currentGameStats.mainCharacterStats._XPMultiplierLevel = value;
             }
         }
     }
@@ -111,17 +131,17 @@ public class MC_StatisticsManager : MonoBehaviour
     {
         get
         {
-            return closeCombatLevel;
+            return currentGameStats.mainCharacterStats.closeCombatLevel;
         }
         set
         {
             if (value < 0)
             {
-                closeCombatLevel = 0;
+                currentGameStats.mainCharacterStats.closeCombatLevel = 0;
             }
             else
             {
-                closeCombatLevel = value;
+                currentGameStats.mainCharacterStats.closeCombatLevel = value;
             }
         }
     }
@@ -130,17 +150,17 @@ public class MC_StatisticsManager : MonoBehaviour
     {
         get
         {
-            return rangedCombatLevel;
+            return currentGameStats.mainCharacterStats.rangedCombatLevel;
         }
         set
         {
             if (value < 0)
             {
-                rangedCombatLevel = 0;
+                currentGameStats.mainCharacterStats.rangedCombatLevel = 0;
             }
             else
             {
-                rangedCombatLevel = value;
+                currentGameStats.mainCharacterStats.rangedCombatLevel = value;
             }
         }
     }
@@ -149,17 +169,17 @@ public class MC_StatisticsManager : MonoBehaviour
     {
         get
         {
-            return magicCombatLevel;
+            return currentGameStats.mainCharacterStats.magicCombatLevel;
         }
         set
         {
             if (value < 0)
             {
-                magicCombatLevel = 0;
+                currentGameStats.mainCharacterStats.magicCombatLevel = 0;
             }
             else
             {
-                magicCombatLevel = value;
+                currentGameStats.mainCharacterStats.magicCombatLevel = value;
             }
         }
     }
