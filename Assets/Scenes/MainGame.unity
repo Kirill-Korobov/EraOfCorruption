@@ -1590,7 +1590,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 889147020}
   pauseManager: {fileID: 1610975635}
-  statisticsInfo: {fileID: 11400000, guid: 6c5dc736a5085904f959026a09be595a, type: 2}
+  statisticsInfo: {fileID: 0}
   statisticsManager: {fileID: 101226818}
   levelManager: {fileID: 101226817}
   energyManager: {fileID: 101226815}
@@ -9672,8 +9672,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809028025}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.10434782, y: 0.0028133993, z: -0.0002951847, w: 0.9945369}
-  m_LocalPosition: {x: 499.97232, y: 2.5380547, z: 495.1077}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 500, y: 1.5, z: 500}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
