@@ -17,12 +17,12 @@ MonoBehaviour:
     requirementDescription: Be alive
     taskDescription: Kill a boss
     rewardDescription: Nothing lol
-    reusability: 1
+    reusability: 0
   - name: Second quest
     requirementDescription: 
     taskDescription: Do blbalbalbablbalba
     rewardDescription: 
-    reusability: 1
+    reusability: 0
   - name: Third quest
     requirementDescription: 
     taskDescription: 

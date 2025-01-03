@@ -8,10 +8,11 @@ public class NPCQuestMenuOperator : MonoBehaviour
     [SerializeField] private QuestsInfo questsInfo;
     [SerializeField] private NPCsInfo _NPCsInfo;
     [SerializeField] private TMP_Text titleText;
-    [SerializeField] private GameObject _NPCQuestPrefab, content, requirementsNotMetText;
+    [SerializeField] private GameObject _NPCQuestPrefab, content;
     [SerializeField] private VerticalLayoutGroup contentVerticalLayoutGroup;
     [SerializeField] private QuestRewards questRewards;
-    private Animator requirementsNotMetTextAnimator;
+    [SerializeField] private RequirementsNotMetTextBehaviour requirementsNotMetTextBehaviour;
+    private Coroutine showRequirementsNotMetTextCoroutine;
     private GameObject[] bufferQuests;
     private RectTransform contentRectTransform;
     private int interactingNPCID, questNumber, questIndex;
@@ -20,7 +21,6 @@ public class NPCQuestMenuOperator : MonoBehaviour
     {
         interactingNPCID = -1;
         contentRectTransform = content.GetComponent<RectTransform>();
-        requirementsNotMetTextAnimator = requirementsNotMetText.GetComponent<Animator>();
     }
 
     public void SpawnQuests(int _interactingNPCID)
@@ -95,14 +95,12 @@ public class NPCQuestMenuOperator : MonoBehaviour
         }
         else if (questStagesInfo.questStages[_questIndex] == QuestStages.cantStart)
         {
-            requirementsNotMetText.gameObject.SetActive(true);
-            requirementsNotMetTextAnimator.Play("RequirementsNotMetTextAnimation", 0, 0);
+            if (showRequirementsNotMetTextCoroutine != null)
+            {
+                StopCoroutine(showRequirementsNotMetTextCoroutine);
+            }
+            showRequirementsNotMetTextCoroutine = StartCoroutine(requirementsNotMetTextBehaviour.ShowRequirementsNotMetText());
         }
-    }
-
-    public void DeactivateRequirementsNotMetText()
-    {
-        requirementsNotMetText.gameObject.SetActive(false);
     }
 
     private void StartQuest(int _questIndex)

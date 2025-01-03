@@ -31,7 +31,7 @@ public class DialogueMenuOperator : MonoBehaviour
             else if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0))
             {
                 currentReplicaIndex++;
-                if (currentReplicaIndex > dialoguesInfo._DialoguesInfo[interactingNPCID].dialogue.Length - 1)
+                if (currentReplicaIndex > dialoguesInfo._DialoguesInfo[_NPCsInfo._NPCsInfo[interactingNPCID].dialogueIndex].dialogue.Length - 1)
                 {
                     FinishDialogue();
                 }
@@ -41,8 +41,8 @@ public class DialogueMenuOperator : MonoBehaviour
                     {
                         StopCoroutine(updateDialogueTextCoroutine);
                     }
-                    updateDialogueTextCoroutine = StartCoroutine(UpdateDialogueTextCoroutine(dialoguesInfo._DialoguesInfo[interactingNPCID].dialogue[currentReplicaIndex].replicaText));
-                    if (dialoguesInfo._DialoguesInfo[interactingNPCID].dialogue[currentReplicaIndex].speaker == Speaker.MainCharacter)
+                    updateDialogueTextCoroutine = StartCoroutine(UpdateDialogueTextCoroutine(dialoguesInfo._DialoguesInfo[_NPCsInfo._NPCsInfo[interactingNPCID].dialogueIndex].dialogue[currentReplicaIndex].replicaText));
+                    if (dialoguesInfo._DialoguesInfo[_NPCsInfo._NPCsInfo[interactingNPCID].dialogueIndex].dialogue[currentReplicaIndex].speaker == Speaker.MainCharacter)
                     {
                         mainCharacterSpeakerNameGameObject.SetActive(true);
                         _NPCSpeakerGameObject.SetActive(false);
@@ -64,8 +64,8 @@ public class DialogueMenuOperator : MonoBehaviour
         mainCharacterSpeakerNameText.text = "You";
         _NPCSpeakerNameText.text = _NPCsInfo._NPCsInfo[interactingNPCID].name;
         currentReplicaIndex = 0;
-        updateDialogueTextCoroutine = StartCoroutine(UpdateDialogueTextCoroutine(dialoguesInfo._DialoguesInfo[interactingNPCID].dialogue[currentReplicaIndex].replicaText));
-        if (dialoguesInfo._DialoguesInfo[interactingNPCID].dialogue[currentReplicaIndex].speaker == Speaker.MainCharacter)
+        updateDialogueTextCoroutine = StartCoroutine(UpdateDialogueTextCoroutine(dialoguesInfo._DialoguesInfo[_NPCsInfo._NPCsInfo[interactingNPCID].dialogueIndex].dialogue[currentReplicaIndex].replicaText));
+        if (dialoguesInfo._DialoguesInfo[_NPCsInfo._NPCsInfo[interactingNPCID].dialogueIndex].dialogue[currentReplicaIndex].speaker == Speaker.MainCharacter)
         {
             mainCharacterSpeakerNameGameObject.SetActive(true);
             _NPCSpeakerGameObject.SetActive(false);
