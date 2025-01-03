@@ -17,10 +17,7 @@ public class LoadScripts_Meneger : MonoBehaviour
     private void Awake()
     {
         LoadedSettings.lsm = this;
-        LoadedSettings.imageCursor = imageCursor;
-    }
-    private void Start()
-    {
+
 
         string path = $"{Application.persistentDataPath}/Settings.json";
         string json = "";
@@ -41,6 +38,9 @@ public class LoadScripts_Meneger : MonoBehaviour
         Load(ss);
         LoadBinds(kbn);
     }
+    private void Start()
+    {
+    }
     public void Load(SaveSetting ss)
     {
         Sprite sp;
@@ -52,11 +52,11 @@ public class LoadScripts_Meneger : MonoBehaviour
             Rect rt = new Rect(0, 0, tx.width, tx.height);
             sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
 
-            LoadedSettings.imageCursor.sprite = sp;
+            LoadedSettings.imageCursor = sp;
         }
         else
         {
-            LoadedSettings.imageCursor.sprite = null;
+            LoadedSettings.imageCursor = null;
 
             imageCursor.gameObject.SetActive(false);
         }
@@ -69,6 +69,7 @@ public class LoadScripts_Meneger : MonoBehaviour
         LoadedSettings.song = ss.song;
         LoadedSettings.music = ss.music;
         LoadedSettings.sensivity = ss.sensivity;
+        LoadedSettings.muteSongs = ss.mute;
     }
     public void LoadBinds(KeyBindsNames[] kbn)
     {

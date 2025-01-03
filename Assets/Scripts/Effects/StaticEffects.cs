@@ -74,4 +74,9 @@ public static class StaticEffects
     {
         coroutines.Resistance();
     }
+
+    public static void Save()
+    {
+
+    }
 }

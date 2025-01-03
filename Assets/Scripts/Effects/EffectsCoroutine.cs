@@ -21,7 +21,6 @@ public class EffectsCoroutine : MonoBehaviour
 
     private Action[] resets;
     private float speed;
-    private float speedWalk;
     private float[] blindess = new float[3];
     private int defense;
 
@@ -30,7 +29,7 @@ public class EffectsCoroutine : MonoBehaviour
     private void Awake()
     {
 
-        speed = movementManager.Speed;
+        speed = movementManager.walkSpeed;
         //float speedWalk = movementManager.walkSpeed;
         resets = new Action[16];
         resets[0] = PoisonStop;
@@ -224,14 +223,12 @@ public class EffectsCoroutine : MonoBehaviour
     private void SlownessCoroutine()
     {
         effectsImage[2].gameObject.SetActive(true);
-        movementManager.Speed = statEffects.SlownessRate * movementManager.Speed / 100;
-        //movementManager.walkSpeed = statEffects.SlownessRate * movementManager.walkSpeed / 100;
+        movementManager.walkSpeed = statEffects.SlownessRate * movementManager.walkSpeed / 100;
     }
 
     private void SlownessStop()
     {
-        movementManager.Speed = speed;
-        //movementManager.walkSpeed = speedWalk;
+        movementManager.walkSpeed = speed;
         effectsImage[2].gameObject.SetActive(false);
     }
     public void Hunger() => StartEffectCoroutine(() => HungerCoroutine(), 3, statEffects.HungerTime);

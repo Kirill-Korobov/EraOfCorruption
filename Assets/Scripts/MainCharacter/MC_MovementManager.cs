@@ -29,26 +29,8 @@ public class MC_MovementManager : MonoBehaviour
         currentTeleportationRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
     }
 
-    // Delete this(To Dmytro):
-
-    private float speed = 5;
-    public float Speed
-    {
-        get
-        {
-            return speed;
-        }
-        set
-        {
-            if (value > 0)
-            {
-                speed = value;
-            }
-        }
-    }
-
     // Stop deleting.
-
+    [HideInInspector] public float walkSpeed;
     private void Update()
     {
         satietyManager.canReplenishEnergy = true;
@@ -59,19 +41,19 @@ public class MC_MovementManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                characterController.Move(transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime);
+                characterController.Move(transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                characterController.Move(-transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime);
+                characterController.Move(-transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                characterController.Move(-transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime);
+                characterController.Move(-transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                characterController.Move(transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime);
+                characterController.Move(transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
             }
         }
 
@@ -81,19 +63,19 @@ public class MC_MovementManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                characterController.Move(transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+                characterController.Move(transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                characterController.Move(-transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+                characterController.Move(-transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                characterController.Move(-transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+                characterController.Move(-transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                characterController.Move(transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+                characterController.Move(transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
             }
             if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S) && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) && !(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) && !(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) && !(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D)))
             {            
@@ -146,7 +128,7 @@ public class MC_MovementManager : MonoBehaviour
             {
                 if (energyManager.Energy >= statisticsInfo.DashingEnergySpendingMultiplier * statisticsInfo.DashingSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime)
                 {
-                    characterController.Move(dashDirection * statisticsInfo.DashingSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
+                    characterController.Move(dashDirection * statisticsInfo.DashingSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
                     energyManager.SpendEnergy(statisticsInfo.DashingEnergySpendingMultiplier * statisticsInfo.DashingSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime);
                     satietyManager.canReplenishEnergy = false;
                     currentDashDuration += Time.deltaTime;
