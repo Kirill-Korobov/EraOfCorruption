@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.IO;
 using System.Xml.Serialization;
 using TMPro;
 using UnityEngine;
@@ -20,15 +21,55 @@ public class EffectsCoroutine : MonoBehaviour
     private Coroutine[] effectsCoroutineTimer = new Coroutine[16];
 
     private Action[] resets;
+    private Action[] start;
+    private Func<IEnumerator>[] startCoroutine;
     private float speed;
     private float speedWalk;
     private float[] blindess = new float[3];
     private int defense;
+    private int[] timers = new int[16];
+    private string path;
 
+    public void Save()
+    {
+        SaveTimersEffects ste = new SaveTimersEffects();
+        ste.timers = timers;
 
+        using (var writer = new StreamWriter(path))
+        {
+            writer.WriteLine(JsonUtility.ToJson(ste));
+        }
+
+        gameObject.SetActive(false);
+    }
 
     private void Awake()
     {
+
+        path = $"{Application.persistentDataPath}/Effects.json";
+        string json = "";
+        using (var reader = new StreamReader(path))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null) { json += line; }
+        }
+        timers = JsonUtility.FromJson<SaveTimersEffects>(json).timers;
+
+        for (int i = 0; i < timers.Length; i++)
+        {
+            if (timers[i] != 0)
+            {
+                if (start[i] != null)
+                {
+                    StartEffectCoroutine(start[i], i, timers[i]);
+                }
+                else
+                {
+                    StartEffectCoroutine(startCoroutine[i],i,timers[i]);
+                }
+            }
+        }
+
 
         speed = movementManager.Speed;
         float speedWalk = movementManager.walkSpeed;
@@ -36,6 +77,7 @@ public class EffectsCoroutine : MonoBehaviour
         resets[0] = PoisonStop;
         resets[1] = WeaknessStop;
         resets[2] = SlownessStop;
+        resets[3] = HungerStop;
         StaticEffects.weaknessRate = 1;
         StaticEffects.strengthRate = 1;
         StaticEffects.hunger = 1;
@@ -73,9 +115,10 @@ public class EffectsCoroutine : MonoBehaviour
                 effectsTexts[i].text = $"{minutes}:{seconds}";
             }
             else
-            {
+            {       
                 effectsTexts[i].text = $"{minutes}:0{seconds}";
             }
+            timers[i]--;
             yield return new WaitForSeconds(1);
         }
         if (i == 0 || i == 5 || i == 9)
@@ -152,6 +195,7 @@ public class EffectsCoroutine : MonoBehaviour
     {
         if (effectsCoroutine[i] == null)
         {
+            timers[i] = timer;
             effectsCoroutine[i] = StartCoroutine(coroutineMethod());
             effectsCoroutineTimer[i] = StartCoroutine(ShowATimer(i, timer));
             EffectsPosition.SetImageAsync(effectsImage[i]);
@@ -160,15 +204,17 @@ public class EffectsCoroutine : MonoBehaviour
         
         else
         {
-            StopCoroutine(effectsCoroutineTimer[i]);
+            timers[i] = timer;
+            StopCoroutine(effectsCoroutineTimer[i]);    
             effectsCoroutineTimer[i] = StartCoroutine(ShowATimer(i, timer));
             return;
         }
     }
     public void StartEffectCoroutine(Action coroutineMethod, int i, int timer)
     {
-        if (effectsCoroutine[i] == null)
+        if (effectsCoroutineTimer[i] == null)
         {
+            timers[i] += timer;
             coroutineMethod();
             effectsCoroutineTimer[i] = StartCoroutine(ShowATimer(i, timer));
             EffectsPosition.SetImageAsync(effectsImage[i]);
@@ -177,6 +223,7 @@ public class EffectsCoroutine : MonoBehaviour
 
         else
         {
+            timers[i] += timer;
             StopCoroutine(effectsCoroutineTimer[i]);
             effectsCoroutineTimer[i] = StartCoroutine(ShowATimer(i, timer));
             return;
@@ -193,7 +240,7 @@ public class EffectsCoroutine : MonoBehaviour
         effectsImage[0].gameObject.SetActive(true);
         while (true)
         {
-            healthManager.CurrentHealth = healthManager.CurrentHealth - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.CurrentHealth / 100);
+            healthManager.Health = healthManager.Health - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.Health / 100);
             n++;
             while (statEffects.PoisionCD * n > timer)
             {
@@ -260,11 +307,11 @@ public class EffectsCoroutine : MonoBehaviour
     private IEnumerator BurnCoroutine()
     {
         int i;
-        if (healthManager.MaxHealth < 250)
+        if (healthManager.Health < 250)
         {
             i = 0;
         }
-        else if (healthManager.MaxHealth < 500)
+        else if (healthManager.Health < 500)
         {
             i = 1;
         }
@@ -278,7 +325,7 @@ public class EffectsCoroutine : MonoBehaviour
         WaitForSeconds a = new WaitForSeconds(statEffects.BurnCD);
         while (true)
         {
-            healthManager.CurrentHealth -= statEffects.BurnDMG[i];
+            healthManager.Health -= statEffects.BurnDMG[i];
             n++;
             while (statEffects.PoisionCD * n > timer)
             {
@@ -439,4 +486,10 @@ public class EffectsCoroutine : MonoBehaviour
         effectsImage[15].gameObject.SetActive(false);
     }
 
+    class SaveTimersEffects
+    {
+        public int[] timers;
+    }
 }
+
+

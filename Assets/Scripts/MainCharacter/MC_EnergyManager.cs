@@ -8,7 +8,6 @@ public class MC_EnergyManager : MonoBehaviour
 
     private void Awake()
     {
-        // Set energy stats.
         if (statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] == 0)
         {
             statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] = 1;

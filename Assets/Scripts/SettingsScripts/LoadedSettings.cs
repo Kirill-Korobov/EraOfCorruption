@@ -15,9 +15,10 @@ public static class LoadedSettings
     public static bool mapPause;
     public static bool statsPause;
     public static bool customCursor;
-    public static Image imageCursor;
+    public static Sprite imageCursor;
     public static string extension;
     public static LoadScripts_Meneger lsm;
+    public static bool muteSongs;
 
     public static KeyCode attack;
     public static KeyCode mute;
