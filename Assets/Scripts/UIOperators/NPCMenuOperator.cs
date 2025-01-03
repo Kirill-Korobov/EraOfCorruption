@@ -139,13 +139,11 @@ public class NPCMenuOperator : MonoBehaviour
         DeleteStartMenuSpawnedButtons();
         questMenu.SetActive(true);
         _NPCQuestMenuOperator.SpawnQuests(interactingNPCID);
-        _NPCQuestMenuOperator.DeactivateRequirementsNotMetText();
     }
 
     public void CloseQuestMenu()
     {
         _NPCQuestMenuOperator.DeleteQuests();
-        _NPCQuestMenuOperator.DeactivateRequirementsNotMetText();
         OpenStartMenu();
     }
 

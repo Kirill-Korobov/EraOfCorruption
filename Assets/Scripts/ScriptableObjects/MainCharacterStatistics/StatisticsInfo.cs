@@ -37,6 +37,9 @@ public class StatisticsInfo : ScriptableObject
     [SerializeField] private float timeUntilHealthCanBeReplenished;
     public float TimeUntilHealthCanBeReplenished => timeUntilHealthCanBeReplenished;
 
+    [SerializeField] private float respawnTime;
+    public float RespawnTime => respawnTime;
+
     // Energy
     [Header("Energy")]
 
@@ -63,6 +66,20 @@ public class StatisticsInfo : ScriptableObject
 
     // Movement
     [Header("Movement")]
+
+    // Rotation
+
+    [SerializeField] private float maxHeadRotationY;
+    public float MaxHeadRotationY => maxHeadRotationY;
+
+    [SerializeField] private float minShoulderOffsetZValue;
+    public float MinShoulderOffsetZValue => minShoulderOffsetZValue;
+
+    [SerializeField] private float maxShoulderOffsetZValue;
+    public float MaxShoulderOffsetZValue => maxShoulderOffsetZValue;
+
+    [SerializeField] private float shoulderOffsetYMultiplier;
+    public float ShoulderOffsetYMultiplier => shoulderOffsetYMultiplier;
 
     // Walking
 

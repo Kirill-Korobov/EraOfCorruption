@@ -31,7 +31,7 @@ public class EffectsCoroutine : MonoBehaviour
     {
 
         speed = movementManager.Speed;
-        float speedWalk = movementManager.walkSpeed;
+        //float speedWalk = movementManager.walkSpeed;
         resets = new Action[16];
         resets[0] = PoisonStop;
         resets[1] = WeaknessStop;
@@ -193,7 +193,7 @@ public class EffectsCoroutine : MonoBehaviour
         effectsImage[0].gameObject.SetActive(true);
         while (true)
         {
-            healthManager.CurrentHealth = healthManager.CurrentHealth - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.CurrentHealth / 100);
+            //healthManager.CurrentHealth = healthManager.CurrentHealth - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.CurrentHealth / 100);
             n++;
             while (statEffects.PoisionCD * n > timer)
             {
@@ -225,13 +225,13 @@ public class EffectsCoroutine : MonoBehaviour
     {
         effectsImage[2].gameObject.SetActive(true);
         movementManager.Speed = statEffects.SlownessRate * movementManager.Speed / 100;
-        movementManager.walkSpeed = statEffects.SlownessRate * movementManager.walkSpeed / 100;
+        //movementManager.walkSpeed = statEffects.SlownessRate * movementManager.walkSpeed / 100;
     }
 
     private void SlownessStop()
     {
         movementManager.Speed = speed;
-        movementManager.walkSpeed = speedWalk;
+        //movementManager.walkSpeed = speedWalk;
         effectsImage[2].gameObject.SetActive(false);
     }
     public void Hunger() => StartEffectCoroutine(() => HungerCoroutine(), 3, statEffects.HungerTime);
@@ -248,18 +248,18 @@ public class EffectsCoroutine : MonoBehaviour
     public void Partialpenetration() => StartEffectCoroutine(() => PartialpenetrationCoroutine(), 4, statEffects.PenetrationTime);
     private void PartialpenetrationCoroutine()
     {
-        healthManager.penetration = statEffects.PenetrationRate / 100;
+        //healthManager.penetration = statEffects.PenetrationRate / 100;
         effectsImage[4].gameObject.SetActive(true);
     }
     private void PartialpenetrationStop()
     {
-        healthManager.penetration = 1;
+        //healthManager.penetration = 1;
         effectsImage[4].gameObject.SetActive(false);
     }
     public void Burn() => StartEffectCoroutine(() => BurnCoroutine(), 5, statEffects.BurnTime);
     private IEnumerator BurnCoroutine()
     {
-        int i;
+        /*int i;
         if (healthManager.MaxHealth < 250)
         {
             i = 0;
@@ -271,14 +271,14 @@ public class EffectsCoroutine : MonoBehaviour
         else
         {
             i = 2;
-        }
+        }*/
         float timer = statEffects.BurnCD;
         int n = 0;
         effectsImage[5].gameObject.SetActive(true);
         WaitForSeconds a = new WaitForSeconds(statEffects.BurnCD);
         while (true)
         {
-            healthManager.CurrentHealth -= statEffects.BurnDMG[i];
+            //healthManager.CurrentHealth -= statEffects.BurnDMG[i];
             n++;
             while (statEffects.PoisionCD * n > timer)
             {

@@ -2,34 +2,50 @@ using UnityEngine;
 
 public class MC_ManaManager : MonoBehaviour
 {
-    private float mana;
     [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private MC_StatisticsManager statisticsManager;
+    [SerializeField] private GameStatsManager gameStatsManager;
+    private GameStats currentGameStats;
 
-    private void Awake()
+    private void Start()
     {
-        // Set mana stats.
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
+        Mana = currentGameStats.mainCharacterStats.mana;
     }
 
     public float Mana
     {
         get
         {
-            return mana;
+            return currentGameStats.mainCharacterStats.mana;
         }
         set
         {
             if (value <= 0)
             {
-                mana = 0;
+                currentGameStats.mainCharacterStats.mana = 0;
             }
             else if (value > statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel])
             {
-                mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
+                currentGameStats.mainCharacterStats.mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
             }
             else
             {
-                mana = value;
+                currentGameStats.mainCharacterStats.mana = value;
             }
         }
     }

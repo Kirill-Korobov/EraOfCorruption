@@ -9,14 +9,29 @@ public class MC_LevelManager : MonoBehaviour
     [SerializeField] private MC_EnergyManager energyManager;
     [SerializeField] private MC_ManaManager manaManager;
     [SerializeField] private MC_SatietyManager satietyManager;
-    private int level, _XP;
+    [SerializeField] private GameStatsManager gameStatsManager;
     private Coroutine showLevelUpTextCoroutine;
+    private GameStats currentGameStats;
 
-    private void Awake()
+    private void Start()
     {
-        // Set XP and level.
-        Level = 0;
-        XP = 0;
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
+        Level = currentGameStats.mainCharacterStats.level;
+        XP = currentGameStats.mainCharacterStats._XP;
     }
 
     private void Update()
@@ -31,17 +46,17 @@ public class MC_LevelManager : MonoBehaviour
     {
         get
         {
-            return level;
+            return currentGameStats.mainCharacterStats.level;
         }
         set
         {
             if (value < 0)
             {
-                level = 0;
+                currentGameStats.mainCharacterStats.level = 0;
             }
             else
             {
-                level = value;
+                currentGameStats.mainCharacterStats.level = value;
             }
         }
     }
@@ -50,17 +65,17 @@ public class MC_LevelManager : MonoBehaviour
     {
         get
         {
-            return _XP;
+            return currentGameStats.mainCharacterStats._XP;
         }
         set
         {
             if (value < 0)
             {
-                _XP = 0;
+                currentGameStats.mainCharacterStats._XP = 0;
             }
             else
             {
-                _XP = value;
+                currentGameStats.mainCharacterStats._XP = value;
             }
             CheckForLevelUp();
         }

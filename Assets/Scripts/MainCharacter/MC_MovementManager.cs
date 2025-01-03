@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MC_MovementManager : MonoBehaviour
 {
-    private float rotationY;
     [SerializeField] private Transform head;
     private CharacterController characterController;
     [SerializeField] private PauseManager pauseManager;
@@ -22,8 +21,9 @@ public class MC_MovementManager : MonoBehaviour
     private bool isDashing = false;
     private float currentTeleportationRechargeTime;
 
-    private void Awake()
+    private void Start()
     {
+        // Set main character`s position.
         characterController = GetComponent<CharacterController>();
         currentDashRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
         currentTeleportationRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
@@ -52,17 +52,6 @@ public class MC_MovementManager : MonoBehaviour
     private void Update()
     {
         satietyManager.canReplenishEnergy = true;
-
-        // Rotation
-
-        if (!pauseManager.pause)
-        {
-            // must be multiplied by sensetivity.
-            gameObject.transform.Rotate(new Vector3(0, 1, 0), Input.GetAxis("Mouse X") * 10);
-            rotationY += Input.GetAxis("Mouse Y") * 10f;
-            rotationY = Mathf.Clamp(rotationY, -80, 80);
-            head.localEulerAngles = new Vector3(-rotationY, 0, 0);
-        }
 
         // Walking
 
