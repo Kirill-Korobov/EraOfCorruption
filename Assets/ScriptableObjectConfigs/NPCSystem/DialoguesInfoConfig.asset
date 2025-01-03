@@ -34,3 +34,14 @@ MonoBehaviour:
       speaker: 0
     - replicaText: 7777777777777777
       speaker: 1
+  - dialogue:
+    - replicaText: aaaaa
+      speaker: 0
+    - replicaText: aaaoaaoaoaooao
+      speaker: 1
+    - replicaText: aaaaaaaAaaAaaaAaaa
+      speaker: 0
+    - replicaText: AAaAAAAaaAAAAAAA
+      speaker: 1
+    - replicaText: AAAAAAAAAAAAAAAAAA
+      speaker: 0

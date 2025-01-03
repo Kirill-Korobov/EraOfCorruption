@@ -22,7 +22,7 @@ public class ChooseGameOperator : MonoBehaviour
         {
             slot1 = Instantiate(filledSlotPrefab, gameObject.transform);
             slot1.GetComponent<RectTransform>().anchoredPosition = slot1Position;
-            slot1.GetComponent<Button>().onClick.AddListener(() => LoadGame());
+            slot1.GetComponent<Button>().onClick.AddListener(() => LoadGame(1));
             slot1.GetComponentsInChildren<TMP_Text>()[0].text = gameStatsManager.game1Stats.slotStats.gameName;
             switch(gameStatsManager.game1Stats.slotStats.gameDifficulty)
             {
@@ -56,7 +56,7 @@ public class ChooseGameOperator : MonoBehaviour
         {
             slot2 = Instantiate(filledSlotPrefab, gameObject.transform);
             slot2.GetComponent<RectTransform>().anchoredPosition = slot2Position;
-            slot2.GetComponent<Button>().onClick.AddListener(() => LoadGame());
+            slot2.GetComponent<Button>().onClick.AddListener(() => LoadGame(2));
             slot2.GetComponentsInChildren<TMP_Text>()[0].text = gameStatsManager.game2Stats.slotStats.gameName;
             switch (gameStatsManager.game2Stats.slotStats.gameDifficulty)
             {
@@ -90,7 +90,7 @@ public class ChooseGameOperator : MonoBehaviour
         {
             slot3 = Instantiate(filledSlotPrefab, gameObject.transform);
             slot3.GetComponent<RectTransform>().anchoredPosition = slot3Position;
-            slot3.GetComponent<Button>().onClick.AddListener(() => LoadGame());
+            slot3.GetComponent<Button>().onClick.AddListener(() => LoadGame(3));
             slot3.GetComponentsInChildren<TMP_Text>()[0].text = gameStatsManager.game3Stats.slotStats.gameName;
             switch (gameStatsManager.game3Stats.slotStats.gameDifficulty)
             {
@@ -180,9 +180,9 @@ public class ChooseGameOperator : MonoBehaviour
         startMenuContent.SetActive(true);
     }
 
-    public void LoadGame()
+    public void LoadGame(int gameNumber)
     {
-        // Delete next line, when save system will be written.
+        GameStatsManager.currentGame = gameNumber;
         gameStatsManager.SaveStats();
         SceneManager.LoadScene("Loading");
     }

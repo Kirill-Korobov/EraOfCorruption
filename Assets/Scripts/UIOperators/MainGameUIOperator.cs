@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class MainGameUIOperator : MonoBehaviour
 {
-    [SerializeField] private Canvas mainCanvas, pauseCanvas, inventoryCanvas, statisticsCanvas, mapCanvas, questCanvas, _NPCQuestCanvas, settingsCanvas, achievementsCanvas;
+    public Canvas mainCanvas;
+    [SerializeField] private Canvas deathCanvas, pauseCanvas, inventoryCanvas, statisticsCanvas, mapCanvas, questCanvas, _NPCQuestCanvas, settingsCanvas, achievementsCanvas;
 
     private void Awake()
     {
@@ -14,88 +15,91 @@ public class MainGameUIOperator : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (!deathCanvas.gameObject.activeSelf)
         {
-            if (settingsCanvas.gameObject.activeSelf || achievementsCanvas.gameObject.activeSelf)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                settingsCanvas.gameObject.SetActive(false);
-                achievementsCanvas.gameObject.SetActive(false);
+                if (settingsCanvas.gameObject.activeSelf || achievementsCanvas.gameObject.activeSelf)
+                {
+                    settingsCanvas.gameObject.SetActive(false);
+                    achievementsCanvas.gameObject.SetActive(false);
+                }
+                else if (pauseCanvas.gameObject.activeSelf || inventoryCanvas.gameObject.activeSelf || statisticsCanvas.gameObject.activeSelf || mapCanvas.gameObject.activeSelf || questCanvas.gameObject.activeSelf)
+                {
+                    SetAllCanvasesInactive();
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
+                else if (!_NPCQuestCanvas.gameObject.activeSelf)
+                {
+                    pauseCanvas.gameObject.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
             }
-            else if (pauseCanvas.gameObject.activeSelf || inventoryCanvas.gameObject.activeSelf || statisticsCanvas.gameObject.activeSelf || mapCanvas.gameObject.activeSelf || questCanvas.gameObject.activeSelf)
+            if (Input.GetKeyDown(KeyCode.F))
             {
-                SetAllCanvasesInactive();
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                if (!inventoryCanvas.gameObject.activeSelf)
+                {
+                    SetAllCanvasesInactive();
+                    inventoryCanvas.gameObject.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    inventoryCanvas.gameObject.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
             }
-            else if (!_NPCQuestCanvas.gameObject.activeSelf)
-            {   
-                pauseCanvas.gameObject.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (!inventoryCanvas.gameObject.activeSelf)
+            if (Input.GetKeyDown(KeyCode.Z))
             {
-                SetAllCanvasesInactive();
-                inventoryCanvas.gameObject.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                if (!mapCanvas.gameObject.activeSelf)
+                {
+                    SetAllCanvasesInactive();
+                    mapCanvas.gameObject.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    mapCanvas.gameObject.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
             }
-            else
+            if (Input.GetKeyDown(KeyCode.X))
             {
-                inventoryCanvas.gameObject.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                if (!statisticsCanvas.gameObject.activeSelf)
+                {
+                    SetAllCanvasesInactive();
+                    statisticsCanvas.gameObject.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    statisticsCanvas.gameObject.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
             }
-        }
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            if (!mapCanvas.gameObject.activeSelf)
+            if (Input.GetKeyDown(KeyCode.C))
             {
-                SetAllCanvasesInactive();
-                mapCanvas.gameObject.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                mapCanvas.gameObject.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            if (!statisticsCanvas.gameObject.activeSelf)
-            {
-                SetAllCanvasesInactive();
-                statisticsCanvas.gameObject.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                statisticsCanvas.gameObject.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            if (!questCanvas.gameObject.activeSelf)
-            {
-                SetAllCanvasesInactive();
-                questCanvas.gameObject.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
-            else
-            {
-                questCanvas.gameObject.SetActive(false);
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
+                if (!questCanvas.gameObject.activeSelf)
+                {
+                    SetAllCanvasesInactive();
+                    questCanvas.gameObject.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                }
+                else
+                {
+                    questCanvas.gameObject.SetActive(false);
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                }
             }
         }
     }

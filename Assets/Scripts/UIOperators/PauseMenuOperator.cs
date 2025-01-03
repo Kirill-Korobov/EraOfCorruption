@@ -5,6 +5,7 @@ public class PauseMenuOperator : MonoBehaviour
 {
     [SerializeField] private Canvas settingsCanvas, achievementsCanvas;
     [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private GameStatsManager gameStatsManager;
 
     private void OnEnable()
     {
@@ -35,7 +36,7 @@ public class PauseMenuOperator : MonoBehaviour
 
     public void SaveAndExitButton()
     {
-        // Save progress.
+        gameStatsManager.SaveStats();
         SceneManager.LoadScene("StartMenu");
     }
 }

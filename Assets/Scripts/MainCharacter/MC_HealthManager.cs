@@ -1,26 +1,49 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MC_HealthManager : MonoBehaviour
 {
-    private float health;
     private int defense;
     [SerializeField] private BloodyBackgroundBehaviour bloodyBackgroundBehaviour;
+    [SerializeField] private MC_EnergyManager energyManager;
+    [SerializeField] private MC_ManaManager manaManager;
     [SerializeField] private MC_SatietyManager satietyManager;
     [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private MC_StatisticsManager statisticsManager;
-    private Coroutine waitUntilHealthCanBeReplenished;
+    [SerializeField] private GameStatsManager gameStatsManager;
+    [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private MainGameUIOperator mainGameUIOperator;
+    [SerializeField] private Canvas deathCanvas;
+    [SerializeField] private TMP_Text remainingRespawnTimeText, moneyLossText;
+    private Coroutine waitUntilHealthCanBeReplenished, dieCoroutine;
+    private GameStats currentGameStats;
 
-    private void Awake()
+    private void Start()
     {
-        // Set health stats.
-        Health = 100;
+        deathCanvas.gameObject.SetActive(false);
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
+        Health = currentGameStats.mainCharacterStats.health;
+        RemainingRespawnTime = currentGameStats.mainCharacterStats.remainingRespawnTime;
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.H))
         {
             TakeDamage(20);
         }
@@ -30,22 +53,25 @@ public class MC_HealthManager : MonoBehaviour
     {
         get
         {
-            return health;
+            return currentGameStats.mainCharacterStats.health;
         }
         set
         {
             if (value <= 0)
             {
-                health = 0;
-                Die();
+                currentGameStats.mainCharacterStats.health = 0;
+                if (dieCoroutine == null)
+                {
+                    dieCoroutine = StartCoroutine(DieCoroutine());
+                }
             }
             else if (value > statisticsInfo.MaxHPValues[statisticsManager.HPLevel])
             {
-                health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel];
+                currentGameStats.mainCharacterStats.health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel];
             }
             else
             {
-                health = value;
+                currentGameStats.mainCharacterStats.health = value;
             }
         }
     }
@@ -61,6 +87,25 @@ public class MC_HealthManager : MonoBehaviour
             if (value >= 0)
             {
                 defense = value;
+            }
+        }
+    }
+
+    public float RemainingRespawnTime
+    {
+        get
+        {
+            return currentGameStats.mainCharacterStats.remainingRespawnTime;
+        }
+        set
+        {
+            if (value <= 0)
+            {
+                currentGameStats.mainCharacterStats.remainingRespawnTime = 0;
+            }
+            else
+            {
+                currentGameStats.mainCharacterStats.remainingRespawnTime = value;
             }
         }
     }
@@ -94,7 +139,7 @@ public class MC_HealthManager : MonoBehaviour
         waitUntilHealthCanBeReplenished = StartCoroutine(WaitUntilHealthCanBeReplenished());
     }
 
-    private IEnumerator WaitUntilHealthCanBeReplenished()
+    public IEnumerator WaitUntilHealthCanBeReplenished()
     {
         yield return new WaitForSeconds(statisticsInfo.TimeUntilHealthCanBeReplenished);
         satietyManager.canReplenishHealth = true;
@@ -109,9 +154,37 @@ public class MC_HealthManager : MonoBehaviour
         }
     }
 
-    private void Die()
+    private IEnumerator DieCoroutine()
     {
-        Debug.Log("You died.");
-        // Respawn.
+        pauseManager.SetGamePaused();
+        mainGameUIOperator.mainCanvas.gameObject.SetActive(false);
+        // Turn off all effects.
+        // Minus money.
+        // Destroy all enemies and bosses.
+        deathCanvas.gameObject.SetActive(true);
+        // Enter loss money value.
+        moneyLossText.text = $"Loss of money: {0}";
+        if (RemainingRespawnTime <= 0)
+        {
+            RemainingRespawnTime = statisticsInfo.RespawnTime;
+        }
+
+        while (RemainingRespawnTime > 0)
+        {
+            RemainingRespawnTime -= Time.unscaledDeltaTime;
+            remainingRespawnTimeText.text = $"You`ll respawn in {Mathf.CeilToInt(RemainingRespawnTime).ToString("f0")} seconds";
+            yield return null;
+        }
+
+        deathCanvas.gameObject.SetActive(false);
+        mainGameUIOperator.mainCanvas.gameObject.SetActive(true);
+        bloodyBackgroundBehaviour.bloodyBackgroundImage.color = new Color(bloodyBackgroundBehaviour.bloodyBackgroundImage.color.r, bloodyBackgroundBehaviour.bloodyBackgroundImage.color.g, bloodyBackgroundBehaviour.bloodyBackgroundImage.color.b, 0f);
+        pauseManager.SetGameNotPaused();
+        Health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel] / 2;
+        energyManager.Energy = statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
+        manaManager.Mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
+        satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
+        // Set main character`s position.
+        dieCoroutine = null;
     }
 }
