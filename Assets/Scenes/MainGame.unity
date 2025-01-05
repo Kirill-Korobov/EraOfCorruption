@@ -1590,11 +1590,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   head: {fileID: 889147020}
   pauseManager: {fileID: 1610975635}
-  statisticsInfo: {fileID: 0}
+  statisticsInfo: {fileID: 11400000, guid: 6c5dc736a5085904f959026a09be595a, type: 2}
   statisticsManager: {fileID: 101226818}
   levelManager: {fileID: 101226817}
   energyManager: {fileID: 101226815}
   satietyManager: {fileID: 101226820}
+  walkSpeed: 0
 --- !u!143 &101226813
 CharacterController:
   m_ObjectHideFlags: 0
@@ -1648,7 +1649,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2420168be9a27e478662eb06caffda7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameStatsManager: {fileID: 2050306587}
   statisticsInfo: {fileID: 11400000, guid: 6c5dc736a5085904f959026a09be595a, type: 2}
   statisticsManager: {fileID: 101226818}
 --- !u!114 &101226816
@@ -1676,6 +1676,7 @@ MonoBehaviour:
   remainingRespawnTimeText: {fileID: 1552086468}
   moneyLossText: {fileID: 2052005970}
   hex: 1
+  penetration: 1
   cursed: 0
 --- !u!114 &101226817
 MonoBehaviour:

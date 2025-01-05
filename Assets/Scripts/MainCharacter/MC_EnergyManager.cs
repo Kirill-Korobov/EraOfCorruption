@@ -6,7 +6,7 @@ public class MC_EnergyManager : MonoBehaviour
     [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private MC_StatisticsManager statisticsManager;
 
-    private void Awake()
+    private void Start()
     {
         if (statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] == 0)
         {
