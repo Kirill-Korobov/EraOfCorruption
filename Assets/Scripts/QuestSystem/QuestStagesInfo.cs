@@ -1,25 +1,39 @@
 using UnityEngine;
 
-public enum QuestStages
-{
-    cantStart,
-    canStart,
-    inProgress,
-    canFinish,
-    isFinished
-}
-
 public class QuestStagesInfo : MonoBehaviour
 {
-    [SerializeField] private QuestsInfo questsInfo;
-    [HideInInspector] public QuestStages[] questStages;
+    [SerializeField] private GameStatsManager gameStatsManager;
+    private GameStats currentGameStats;
 
-    private void Awake()
+    private void Start()
     {
-        questStages = new QuestStages[questsInfo._QuestInfo.Length];
-        questStages[0] = QuestStages.canFinish;
-        questStages[1] = QuestStages.inProgress;
-        questStages[2] = QuestStages.inProgress;
-        // Initialize.
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
+        _QuestStages = currentGameStats.questStagesStats.questStages;
+    }
+
+    public QuestStages[] _QuestStages
+    {
+        get
+        {
+            return currentGameStats.questStagesStats.questStages;
+        }
+        set
+        {
+            currentGameStats.questStagesStats.questStages = value;
+        }
     }
 }

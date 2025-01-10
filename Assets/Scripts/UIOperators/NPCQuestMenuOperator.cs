@@ -29,7 +29,7 @@ public class NPCQuestMenuOperator : MonoBehaviour
         questNumber = 0;
         for (int i = 0; i < _NPCsInfo._NPCsInfo[interactingNPCID].questIndexes.Length; i++)
         {
-            if (questStagesInfo.questStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] != QuestStages.isFinished)
+            if (questStagesInfo._QuestStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] != QuestStages.isFinished)
             {
                 questNumber++;
             }
@@ -40,7 +40,7 @@ public class NPCQuestMenuOperator : MonoBehaviour
         bufferQuests = new GameObject[questNumber];
         for (int i = 0; i < _NPCsInfo._NPCsInfo[interactingNPCID].questIndexes.Length; i++)
         {
-            if (questStagesInfo.questStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] != QuestStages.isFinished)
+            if (questStagesInfo._QuestStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] != QuestStages.isFinished)
             {
                 bufferQuests[questIndex] = Instantiate(_NPCQuestPrefab, contentRectTransform);
                 bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[0].text = questsInfo._QuestInfo[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]].name;
@@ -56,17 +56,17 @@ public class NPCQuestMenuOperator : MonoBehaviour
                     bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[4].text = "Reusable: No";
                 }
                 int bufferNumber = _NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i];
-                if (questStagesInfo.questStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.cantStart || questStagesInfo.questStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.canStart)
+                if (questStagesInfo._QuestStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.cantStart || questStagesInfo._QuestStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.canStart)
                 {
                     bufferQuests[questIndex].GetComponentInChildren<Button>().onClick.AddListener(() => StartQuestButton(bufferNumber));
                     bufferQuests[questIndex].GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Start";
                 }
-                else if (questStagesInfo.questStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.inProgress)
+                else if (questStagesInfo._QuestStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.inProgress)
                 {
                     bufferQuests[questIndex].GetComponentInChildren<Button>().onClick.AddListener(() => RefuseQuest(bufferNumber));
                     bufferQuests[questIndex].GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Refuse";
                 }
-                else if (questStagesInfo.questStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.canFinish)
+                else if (questStagesInfo._QuestStages[_NPCsInfo._NPCsInfo[interactingNPCID].questIndexes[i]] == QuestStages.canFinish)
                 {
                     bufferQuests[questIndex].GetComponentInChildren<Button>().onClick.AddListener(() => FinishQuest(bufferNumber));
                     bufferQuests[questIndex].GetComponentInChildren<Button>().GetComponentInChildren<TMP_Text>().text = "Finish";
@@ -89,11 +89,11 @@ public class NPCQuestMenuOperator : MonoBehaviour
 
     private void StartQuestButton(int _questIndex)
     {
-        if (questStagesInfo.questStages[_questIndex] == QuestStages.canStart)
+        if (questStagesInfo._QuestStages[_questIndex] == QuestStages.canStart)
         {
             StartQuest(_questIndex);
         }
-        else if (questStagesInfo.questStages[_questIndex] == QuestStages.cantStart)
+        else if (questStagesInfo._QuestStages[_questIndex] == QuestStages.cantStart)
         {
             if (showRequirementsNotMetTextCoroutine != null)
             {
@@ -105,14 +105,14 @@ public class NPCQuestMenuOperator : MonoBehaviour
 
     private void StartQuest(int _questIndex)
     {
-        questStagesInfo.questStages[_questIndex] = QuestStages.inProgress;
+        questStagesInfo._QuestStages[_questIndex] = QuestStages.inProgress;
         DeleteQuests();
         SpawnQuests(interactingNPCID);
     }
 
     private void RefuseQuest(int _questIndex)
     {
-        questStagesInfo.questStages[_questIndex] = QuestStages.cantStart;
+        questStagesInfo._QuestStages[_questIndex] = QuestStages.cantStart;
         DeleteQuests();
         SpawnQuests(interactingNPCID);
     }
@@ -122,11 +122,11 @@ public class NPCQuestMenuOperator : MonoBehaviour
         questRewards.GetReward(_questIndex);
         if (questsInfo._QuestInfo[_questIndex].reusability)
         {
-            questStagesInfo.questStages[_questIndex] = QuestStages.cantStart;
+            questStagesInfo._QuestStages[_questIndex] = QuestStages.cantStart;
         }
         else
         {
-            questStagesInfo.questStages[_questIndex] = QuestStages.isFinished;
+            questStagesInfo._QuestStages[_questIndex] = QuestStages.isFinished;
         }
         DeleteQuests();
         SpawnQuests(interactingNPCID);

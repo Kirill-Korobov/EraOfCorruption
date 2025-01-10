@@ -2,37 +2,50 @@ using UnityEngine;
 
 public class MC_EnergyManager : MonoBehaviour
 {
-    private float energy;
     [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private MC_StatisticsManager statisticsManager;
+    [SerializeField] private GameStatsManager gameStatsManager;
+    private GameStats currentGameStats;
 
     private void Start()
     {
-        if (statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] == 0)
+        switch (GameStatsManager.currentGame)
         {
-            statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel] = 1;
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
         }
+        Energy = currentGameStats.mainCharacterStats.energy;
     }
 
     public float Energy
     {
         get
         {
-            return energy;
+            return currentGameStats.mainCharacterStats.energy;
         }
         set
         {
             if (value <= 0)
             {
-                energy = 0;
+                currentGameStats.mainCharacterStats.energy = 0;
             }
             else if (value > statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel])
             {
-                energy = statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
+                currentGameStats.mainCharacterStats.energy = statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
             }
             else
             {
-                energy = value;
+                currentGameStats.mainCharacterStats.energy = value;
             }
         }
     }
