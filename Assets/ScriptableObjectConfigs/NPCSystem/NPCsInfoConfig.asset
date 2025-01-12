@@ -16,4 +16,4 @@ MonoBehaviour:
   - name: First NPC
     dialogueIndex: 0
     questIndexes: 000000000100000002000000
-    tradesIndexes: 00000000
+    tradesIndexes: 0200000000000000

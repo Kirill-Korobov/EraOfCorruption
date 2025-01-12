@@ -7,6 +7,7 @@ public class GameStatsManager : MonoBehaviour
     public static int currentGame;
     private string game1StatsSavePath, game2StatsSavePath, game3StatsSavePath;
     [SerializeField] private StatisticsInfo statisticsInfo;
+    [SerializeField] private QuestsInfo questsInfo;
     [HideInInspector] public GameStats game1Stats, game2Stats, game3Stats;
 
     private void Awake()
@@ -18,6 +19,29 @@ public class GameStatsManager : MonoBehaviour
         game1Stats.statisticsInfo = statisticsInfo;
         game2Stats.statisticsInfo = statisticsInfo;
         game3Stats.statisticsInfo = statisticsInfo;
+
+        game1Stats.questsInfo = questsInfo;
+        game2Stats.questsInfo = questsInfo;
+        game3Stats.questsInfo = questsInfo;
+
+        /*
+        // if someone needs to delete all stats:
+        game1Stats.SetAllStatsToZero();
+        using (var writer = new StreamWriter(game1StatsSavePath))
+        {
+            writer.WriteLine(JsonUtility.ToJson(game1Stats));
+        }
+        game2Stats.SetAllStatsToZero();
+        using (var writer = new StreamWriter(game2StatsSavePath))
+        {
+            writer.WriteLine(JsonUtility.ToJson(game2Stats));
+        }
+        game3Stats.SetAllStatsToZero();
+        using (var writer = new StreamWriter(game3StatsSavePath))
+        {
+            writer.WriteLine(JsonUtility.ToJson(game3Stats));
+        }
+        */
 
         if (File.Exists(game1StatsSavePath))
         {
@@ -82,6 +106,7 @@ public class GameStatsManager : MonoBehaviour
         using (var writer = new StreamWriter(game1StatsSavePath))
         {
             writer.WriteLine(JsonUtility.ToJson(game1Stats));
+            // Debug.Log(JsonUtility.ToJson(game1Stats));
         }
         using (var writer = new StreamWriter(game2StatsSavePath))
         {
@@ -104,12 +129,15 @@ public class GameStats
 {
     public SlotStats slotStats;
     public MainCharacterStats mainCharacterStats;
+    public QuestStagesStats questStagesStats;
 
     [HideInInspector] public StatisticsInfo statisticsInfo;
+    [HideInInspector] public QuestsInfo questsInfo;
     public void SetAllStatsToZero()
     {
         slotStats.SetAllStatsToZero();
         mainCharacterStats.statisticsInfo = statisticsInfo; mainCharacterStats.SetAllStatsToZero();
+        questStagesStats.questsInfo = questsInfo; questStagesStats.SetAllStatsToZero();
     }
 }
 
@@ -178,4 +206,29 @@ public class MainCharacterStats
         shoulderOffsetZ = 5f;
         remainingRespawnTime = 0f;
     }
+}
+
+[Serializable]
+public class QuestStagesStats
+{
+    public QuestStages[] questStages;
+
+    [HideInInspector] public QuestsInfo questsInfo;
+    public void SetAllStatsToZero()
+    {
+        questStages = new QuestStages[questsInfo._QuestInfo.Length];
+        for (int i = 0; i < questStages.Length; i++)
+        {
+            questStages[i] = QuestStages.cantStart;
+        }
+    }
+}
+
+public enum QuestStages
+{
+    cantStart,
+    canStart,
+    inProgress,
+    canFinish,
+    isFinished
 }

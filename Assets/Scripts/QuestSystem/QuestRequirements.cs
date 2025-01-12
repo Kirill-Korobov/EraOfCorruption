@@ -6,9 +6,9 @@ public class QuestRequirements : MonoBehaviour
 
     public void UpdateRequirements()
     {
-        for (int i = 0; i < questStagesInfo.questStages.Length; i++)
+        for (int i = 0; i < questStagesInfo._QuestStages.Length; i++)
         {
-            if (questStagesInfo.questStages[i] == QuestStages.cantStart || questStagesInfo.questStages[i] == QuestStages.canStart)
+            if (questStagesInfo._QuestStages[i] == QuestStages.cantStart || questStagesInfo._QuestStages[i] == QuestStages.canStart)
             {
                 switch (i)
                 {
@@ -17,17 +17,17 @@ public class QuestRequirements : MonoBehaviour
                      *  case -1:
                         if (something)
                         {
-                            questStagesInfo.questStages[i] = QuestStages.canStart;
+                            questStagesInfo._QuestStages[i] = QuestStages.canStart;
                         }
                         else
                         {
-                            questStagesInfo.questStages[i] = QuestStages.cantStart;
+                            questStagesInfo._QuestStages[i] = QuestStages.cantStart;
                         }
                         break;
                      */
                     default:
                         Debug.Log("No requirements for this quest.");
-                        questStagesInfo.questStages[i] = QuestStages.canStart;
+                        questStagesInfo._QuestStages[i] = QuestStages.canStart;
                         break;
                 }
             }

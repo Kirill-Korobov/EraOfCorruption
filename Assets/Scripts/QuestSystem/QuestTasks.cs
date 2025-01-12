@@ -6,9 +6,9 @@ public class QuestTasks : MonoBehaviour
 
     public void UpdateTasks()
     {
-        for (int i = 0; i < questStagesInfo.questStages.Length; i++)
+        for (int i = 0; i < questStagesInfo._QuestStages.Length; i++)
         {
-            if (questStagesInfo.questStages[i] == QuestStages.inProgress)
+            if (questStagesInfo._QuestStages[i] == QuestStages.inProgress)
             {
                 switch (i)
                 {
@@ -17,13 +17,13 @@ public class QuestTasks : MonoBehaviour
                      *  case -1:
                         if (something)
                         {
-                            questStagesInfo.questStages[i] = QuestStages.canFinish;
+                            questStagesInfo._QuestStages[i] = QuestStages.canFinish;
                         }
                         break;
                      */
                     default:
                         Debug.Log("No tasks for this quest.");
-                        questStagesInfo.questStages[i] = QuestStages.canFinish;
+                        questStagesInfo._QuestStages[i] = QuestStages.canFinish;
                         break;
                 }
             }

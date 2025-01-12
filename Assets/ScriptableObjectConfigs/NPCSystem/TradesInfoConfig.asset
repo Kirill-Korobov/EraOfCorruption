@@ -13,5 +13,15 @@ MonoBehaviour:
   m_Name: TradesInfoConfig
   m_EditorClassIdentifier: 
   tradeInfo:
-  - priceDescription: 
-    productDescription: 
+  - price: []
+    priceDescription: lalala
+    goods: []
+    goodsDescription: beeeeeeee
+  - price: []
+    priceDescription: 3 lemons, 50 money
+    goods: []
+    goodsDescription: ultra mega super puper sword
+  - price: []
+    priceDescription: nothing
+    goods: []
+    goodsDescription: nothing lol
