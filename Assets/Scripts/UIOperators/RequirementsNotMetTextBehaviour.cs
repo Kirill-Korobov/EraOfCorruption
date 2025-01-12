@@ -14,6 +14,7 @@ public class RequirementsNotMetTextBehaviour : MonoBehaviour
         requirementsNotMetText = GetComponent<TMP_Text>();
         textColor = requirementsNotMetText.color;
         transparentColor = new Color(textColor.r, textColor.g, textColor.b, 0f);
+        MakeTransparent();
     }
 
     private void Update()
@@ -22,6 +23,11 @@ public class RequirementsNotMetTextBehaviour : MonoBehaviour
         {    
             requirementsNotMetText.color = new Color(transparentColor.r, transparentColor.g, transparentColor.b, requirementsNotMetText.color.a - returnToNormalSpeed * Time.unscaledDeltaTime);
         }
+    }
+
+    public void MakeTransparent()
+    {
+        requirementsNotMetText.color = transparentColor;
     }
 
     public IEnumerator ShowRequirementsNotMetText()

@@ -23,6 +23,16 @@ public class NPCQuestMenuOperator : MonoBehaviour
         contentRectTransform = content.GetComponent<RectTransform>();
     }
 
+    private void OnEnable()
+    {
+        requirementsNotMetTextBehaviour.MakeTransparent();
+    }
+
+    private void OnDisable()
+    {
+        DeleteQuests();
+    }
+
     public void SpawnQuests(int _interactingNPCID)
     {
         interactingNPCID = _interactingNPCID;
