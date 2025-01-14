@@ -144,13 +144,13 @@ MonoBehaviour:
   - 1
   - 0.5
   dashingEnergySpendingMultiplier: 3
-  teleportationUnlockLevel: 8
+  teleportationUnlockLevel: 1
   teleportationMaxDistanceValues:
-  - 0
-  - 0
-  - 0
-  - 0
-  - 0
+  - 100
+  - 100
+  - 100
+  - 100
+  - 100
   - 0
   - 0
   - 0
@@ -158,10 +158,10 @@ MonoBehaviour:
   - 20
   - 50
   teleportationRechargeTimeValues:
-  - 0
-  - 0
-  - 0
-  - 0
+  - 5
+  - 4
+  - 3
+  - 1
   - 0
   - 0
   - 0
