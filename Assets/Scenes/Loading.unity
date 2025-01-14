@@ -281,8 +281,8 @@ MonoBehaviour:
   progressBarFillingImage: {fileID: 1899711742}
   backgroundImage: {fileID: 2110311485}
   adviceText: {fileID: 1953063201}
-  adviceInfo: {fileID: 11400000, guid: e913bb0b851da6149b6fb9545a425653, type: 2}
-  backgroundSpritesInfo: {fileID: 11400000, guid: 3c20bd3a956a1d1428d48dbcc993d95d, type: 2}
+  adviceInfo: {fileID: 11400000, guid: d5c44db95c64b204d99eea2f5bc26317, type: 2}
+  backgroundSpritesInfo: {fileID: 11400000, guid: 8559a623affd5f943b0ccc9c9c671245, type: 2}
   timeBeforeSwitchingAdvice: 10
   timeBeforeSwitchingBackground: 10
 --- !u!1001 &908405411

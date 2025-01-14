@@ -205,7 +205,7 @@ public class BindButton : MonoBehaviour
         {
             writer.WriteLine(JsonUtility.ToJson(bind));
         }
-        //LoadedSettings.LoadBinds(bind.allBinds);
+        LoadedSettings.LoadBinds(bind.allBinds);
     }
 }
 

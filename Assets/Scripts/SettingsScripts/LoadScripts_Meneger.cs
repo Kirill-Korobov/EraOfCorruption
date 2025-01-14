@@ -73,6 +73,7 @@ public class LoadScripts_Meneger : MonoBehaviour
     }
     public void LoadBinds(KeyBindsNames[] kbn)
     {
+        
         LoadedSettings.attack = kbn[0].bind;
         LoadedSettings.mute = kbn[1].bind;
         LoadedSettings.forward = kbn[2].bind;

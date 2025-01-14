@@ -1,0 +1,25 @@
+﻿using UnityEngine;
+
+namespace Inventory
+{
+    public enum ItemType
+    {
+        Default,
+        Food,
+        Weapon,
+        Instrument,
+        Armor
+    }
+
+    [System.Serializable]
+    public class ItemScriptableObject : ScriptableObject
+    {
+        public string itemID;  // Уникальный идентификатор
+        public string itemName = "Default";
+        public int maximumAmount = 64;
+        public GameObject itemPrefab;
+        public Sprite icon;
+        public ItemType itemType = ItemType.Default;
+        public string itemDescription = "None";
+    }
+}
