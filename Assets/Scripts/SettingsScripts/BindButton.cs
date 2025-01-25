@@ -24,6 +24,10 @@ public class BindButton : MonoBehaviour
 
     public Image cursor;
 
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
     private KeyBindsNames[] whatTheKeyBind =
                 {
                     new KeyBindsNames(KeyCode.Mouse0, "LMB"),

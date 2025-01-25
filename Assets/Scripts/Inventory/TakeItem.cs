@@ -4,30 +4,44 @@ using UnityEngine;
 
 public class TakeItem : MonoBehaviour
 {
-    private bool ifInTrigger = false;
     public DropedTakedItems dti;
-    void Update()
+    public bool ifIsMustReload;
+    public int howMuchDroped;
+    [SerializeField] GameObject go;
+    [SerializeField] private int reload;
+    public int reloadIfLets;
+    private void Start()
     {
-        if (ifInTrigger && Input.GetKeyDown(KeyCode.E)) 
+        if (reloadIfLets != 0)
+        {
+            StartCoroutine(Reload());
+        }
+    }
+    public void Take()
+    {
+        if (ifIsMustReload && go.activeSelf)
         {
             int a = Random.Range(dti.Min, dti.Max);
-            StaticDropTake.sl.AddItem(dti,a);
+            StaticDropTake.sl.AddItem(dti, a);
+            reloadIfLets = reload;
+            StartCoroutine(Reload());
+        }
+        else if (!ifIsMustReload)
+        {
+            StaticDropTake.sl.AddItem(dti, howMuchDroped);
+            Destroy(gameObject);
         }
     }
-
-    private void OnTriggerEnter(Collider other)
+    private IEnumerator Reload()
     {
-        if (other.gameObject.tag == "MainCharacter")
+        go.SetActive(false);
+        WaitForSeconds a = new WaitForSeconds(1);
+        while (reloadIfLets > 0)
         {
-            ifInTrigger = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
+            yield return a;
+            reloadIfLets--;
 
-        if (other.gameObject.tag == "MainCharacter")
-        {
-            ifInTrigger = false;
         }
+        go.SetActive(true);
     }
 }

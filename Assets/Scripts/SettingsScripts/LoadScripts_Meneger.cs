@@ -58,7 +58,7 @@ public class LoadScripts_Meneger : MonoBehaviour
         {
             LoadedSettings.imageCursor = null;
 
-            imageCursor.gameObject.SetActive(false);
+            //imageCursor.gameObject.SetActive(false);
         }
         LoadedSettings.mapPause = ss.mapPause;
         LoadedSettings.statsPause = ss.statsPause;

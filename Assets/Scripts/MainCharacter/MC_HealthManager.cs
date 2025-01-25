@@ -39,6 +39,7 @@ public class MC_HealthManager : MonoBehaviour
         }
         Health = currentGameStats.mainCharacterStats.health;
         RemainingRespawnTime = currentGameStats.mainCharacterStats.remainingRespawnTime;
+        StaticEffects.coroutines.StartGame();
     }
 
     private void Update()
@@ -84,6 +85,7 @@ public class MC_HealthManager : MonoBehaviour
         }
         set
         {
+            Debug.Log(value);
             if (value >= 0)
             {
                 defense = value;
@@ -188,5 +190,6 @@ public class MC_HealthManager : MonoBehaviour
         satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
         // Set main character`s position.
         dieCoroutine = null;
+        StaticEffects.coroutines.CheckBlindness();
     }
 }

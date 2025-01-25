@@ -7,7 +7,9 @@ public enum ItemTypes
     Armor,
     Weapon,
     Poison,
-    Food
+    Arrow,
+    Food,
+    Anothere
 }
 
 public enum Poisons
@@ -38,8 +40,12 @@ public class DropedTakedItems : ScriptableObject
 {
     [SerializeField] private int id;
     public int ID { get => id; set => id = value; }
+
     [SerializeField] private int itemInOneSlot;
     public int ItemInOneSlot { get => itemInOneSlot; set => itemInOneSlot = value; }
+
+    [SerializeField] private GameObject drop;
+    public GameObject Drop { get => drop; set => drop = value; }
 
     [SerializeField] private GameObject gameObject;
     public GameObject GameObject { get => gameObject; set => gameObject = value; }
@@ -59,17 +65,38 @@ public class DropedTakedItems : ScriptableObject
     [SerializeField] private ItemTypes itemType;
     public ItemTypes ItemType { get => itemType; set => itemType = value; }
 
+    [SerializeField] private string weaponName;     // Weapon specific
+    public string WeaponName { get => weaponName; set => weaponName = value; }
+
     [SerializeField] private int damage;     // Weapon specific
     public int Damage { get => damage; set => damage = value; }
 
-    [SerializeField] private int range;      // Weapon specific
-    public int Range { get => range; set => range = value; }
+    [SerializeField] private int reload;      // Weapon specific
+    public int Reload { get => reload; set => reload = value; }
 
-    [SerializeField] private int speed;      // Weapon specific
-    public int Speed { get => speed; set => speed = value; }
+    [SerializeField] private int manaCost;      // Weapon specific
+    public int ManaCost { get => manaCost; set => manaCost = value; }
 
     [SerializeField] private WeaponTypes weaponType; // Weapon specific
     public WeaponTypes WeaponType { get => weaponType; set => weaponType = value; }
+
+    [SerializeField] private bool splash; // Sword specific
+    public bool Splash { get => splash; set => splash = value; }
+
+    [SerializeField] private int attackAngle; // Sword&Splash specific
+    public int AttackAngle { get => attackAngle; set => attackAngle = value; }
+
+    [SerializeField] private int range; // Sword/Bow specific
+    public int Range { get => range; set => range = value; }
+
+    [SerializeField] private bool magicSplash; // Mag specific
+    public bool MagicSplash { get => magicSplash; set => magicSplash = value; }
+
+    [SerializeField] private int speed; // Mag/Bow specific
+    public int Speed { get => speed; set => speed = value; }
+
+    [SerializeField] private int howMuch; // Mag specific
+    public int HowMuch { get => howMuch; set => howMuch = value; }
 
     [SerializeField] private int defense;    // Armor specific
     public int Defense { get => defense; set => defense = value; }

@@ -10,6 +10,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class Setting : MonoBehaviour
 {
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
     private float valueMusic;
     private float valueSong;
     private string path;
