@@ -9,7 +9,7 @@ public class MC_PerspectiveManager : MonoBehaviour
     [SerializeField] private GameStatsManager gameStatsManager;
     [SerializeField] private PauseManager pauseManager;
     [SerializeField] private Transform head;
-    [SerializeField] private GameObject aim;
+    [SerializeField] private GameObject aim, model;
     private Cinemachine3rdPersonFollow secondPersonVirtualCamera3rdPersonFollow, thirdPersonVirtualCamera3rdPersonFollow;
     private GameStats currentGameStats;
     private float rotationY;
@@ -134,15 +134,18 @@ public class MC_PerspectiveManager : MonoBehaviour
         {
             case 1:
                 firstPersonVirtualCamera.Priority = 1;
+                model.SetActive(false);
                 aim.SetActive(true);
                 break;
             case 2:
                 secondPersonVirtualCamera.Priority = 1;
-                aim.SetActive(false);
+                model.SetActive(true);
+                aim.SetActive(false);      
                 break;
             case 3:
                 thirdPersonVirtualCamera.Priority = 1;
-                aim.SetActive(false);
+                model.SetActive(true);
+                aim.SetActive(false); 
                 break;
         }
     }

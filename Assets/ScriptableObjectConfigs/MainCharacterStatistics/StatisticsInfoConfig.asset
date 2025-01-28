@@ -76,10 +76,9 @@ MonoBehaviour:
   - 18
   - 19
   - 20
-  runningEnergySpendingMultiplier: 1
-  jumpHeight: 0.03
-  jumpDuration: 0.75
-  timeBeforeFallingDuringJump: 0.025
+  runningEnergySpendingMultiplier: 0.75
+  jumpHeight: 0.04
+  jumpDuration: 0.35
   jumpCurve:
     serializedVersion: 2
     m_Curve:
@@ -115,7 +114,7 @@ MonoBehaviour:
     m_RotationOrder: 4
   additionalJumpNumberValues: 000000000100000002000000030000000400000005000000060000000700000008000000090000000a000000
   jumpingEnergySpendingMultiplier: 10
-  everyNextAdditionalJumpEnergySpendingMultiplier: 2
+  everyNextAdditionalJumpEnergySpendingMultiplier: 1
   gravityValue: 9.8
   dashUnlockLevel: 5
   dashDurationValue: 0.25

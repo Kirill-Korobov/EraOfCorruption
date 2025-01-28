@@ -11,6 +11,7 @@ public class MC_HealthManager : MonoBehaviour
     [SerializeField] private MC_SatietyManager satietyManager;
     [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private MC_StatisticsManager statisticsManager;
+    [SerializeField] private Animator animator;
     [SerializeField] private GameStatsManager gameStatsManager;
     [SerializeField] private PauseManager pauseManager;
     [SerializeField] private MainGameUIOperator mainGameUIOperator;
@@ -164,6 +165,7 @@ public class MC_HealthManager : MonoBehaviour
         // Destroy all enemies and bosses.
         deathCanvas.gameObject.SetActive(true);
         // Enter loss money value.
+        animator.Play("Die");
         moneyLossText.text = $"Loss of money: {0}";
         if (RemainingRespawnTime <= 0)
         {
@@ -185,6 +187,7 @@ public class MC_HealthManager : MonoBehaviour
         energyManager.Energy = statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
         manaManager.Mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
         satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
+        animator.Play("Idle");
         // Set main character`s position.
         dieCoroutine = null;
     }
