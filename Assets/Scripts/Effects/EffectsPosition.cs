@@ -7,13 +7,6 @@ public static class EffectsPosition
 {
     private static Vector2[] positions = 
         {
-            new Vector2(-876, 172), 
-            new Vector2(-816, 172), 
-            new Vector2(-756, 172), 
-            new Vector2(-696, 172), 
-            new Vector2(-636, 172), 
-            new Vector2(-576, 172), 
-            new Vector2(-516, 172),
             new Vector2(-876, 110),
             new Vector2(-816, 110),
             new Vector2(-756, 110),
@@ -22,7 +15,14 @@ public static class EffectsPosition
             new Vector2(-576, 110),
             new Vector2(-516, 110),
             new Vector2(-876, 48), 
-            new Vector2(-816, 48), 
+            new Vector2(-816, 48),
+            new Vector2(-876, -14),
+            new Vector2(-816, -14),
+            new Vector2(-756, -14),
+            new Vector2(-696, -14),
+            new Vector2(-636, -14),
+            new Vector2(-576, -14),
+            new Vector2(-516, -14),
     };
     private static List<Image> images = new List<Image>();
 

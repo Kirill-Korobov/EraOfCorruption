@@ -24,6 +24,10 @@ public class BindButton : MonoBehaviour
 
     public Image cursor;
 
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
     private KeyBindsNames[] whatTheKeyBind =
                 {
                     new KeyBindsNames(KeyCode.Mouse0, "LMB"),
@@ -205,7 +209,7 @@ public class BindButton : MonoBehaviour
         {
             writer.WriteLine(JsonUtility.ToJson(bind));
         }
-        //LoadedSettings.LoadBinds(bind.allBinds);
+        LoadedSettings.LoadBinds(bind.allBinds);
     }
 }
 

@@ -9,13 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 485d7fd3fa6af7541ab2d570db1ae68b, type: 3}
+  m_Script: {fileID: 0}
   m_Name: AdviceInfoConfig
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::AdviceInfo
   piecesOfAdvice:
-  - Bla bla bla 1
-  - Bla bla bla 2
-  - Bla bla bla 3
-  - Bla bla bla 4
-  - Bla bla bla 5
-  - etc.
+  - ja jest jabko
+  - ja jest jabko

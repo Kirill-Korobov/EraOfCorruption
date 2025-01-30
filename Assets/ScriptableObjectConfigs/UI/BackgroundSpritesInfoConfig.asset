@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c2d0703ebfaf474a901f5618aa5f910, type: 3}
+  m_Script: {fileID: 0}
   m_Name: BackgroundSpritesInfoConfig
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assembly-CSharp::BackgroundSpritesInfo
   backgroundSprites:
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 6a23ee91512f85a4fa13515518eaff8e, type: 3}

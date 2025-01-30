@@ -10,6 +10,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 public class Setting : MonoBehaviour
 {
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
     private float valueMusic;
     private float valueSong;
     private string path;
@@ -91,7 +95,7 @@ public class Setting : MonoBehaviour
         sensivity.value = ss.sensivity;
 
 
-        if (!ss.inventoryPause && !ss.questsPause && !ss.mapPause && !ss.statsPause)
+        if (pause)
         {
             inventory.gameObject.SetActive(false);
             quests.gameObject.SetActive(false);
@@ -314,9 +318,11 @@ public class Setting : MonoBehaviour
             ss.questsPauseSaveDontUseHim = quests.isOn;
             ss.mapPauseSaveDontUseHim = map.isOn;
             ss.statsPauseSaveDontUseHim = stats.isOn;
+            ss.pause = false;
         }
         else
         {
+            ss.pause = true;
             ss.inventoryPause = inventory.isOn;
             ss.questsPause = quests.isOn;
             ss.mapPause = map.isOn;
@@ -361,18 +367,29 @@ public class SaveSetting
     public string imageCursor;
     public string extension;
     public bool mute;
+    public bool pause;
 
     public void SetStandartSettings()
     {
-        song = 70f;
-        music = 70f;
+        song = 50f;
+        music = 50f;
+        songSaveDontUseHim = 50f;
+        musicSaveDontUseHim = 50f;
         cursorSizes = new Vector2(50,60);
-        sensivity = 70f;
+        sensivity = 50f;
         inventoryPause = false;
         questsPause = false;
         mapPause = false;
+        statsPause = false;
+        inventoryPauseSaveDontUseHim = false;
+        questsPauseSaveDontUseHim = false;
+        mapPauseSaveDontUseHim=false;
+        statsPauseSaveDontUseHim = false;
         customCursor = false;
         imageCursor = "";
         extension = "";
+        mute = false;
+        pause = true;
+
     }
 } 

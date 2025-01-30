@@ -27,11 +27,11 @@ public class MC_MovementManager : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         currentDashRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
         currentTeleportationRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
-        walkSpeed = 1f;
     }
 
+    [HideInInspector] public float walkSpeed = 1;
+    [HideInInspector] public float walkSlowness = 1;
     // Stop deleting.
-    [HideInInspector] public float walkSpeed = 1f;
     private void Update()
     {
         satietyManager.canReplenishEnergy = true;
@@ -42,19 +42,19 @@ public class MC_MovementManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                characterController.Move(transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
+                characterController.Move(transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed * walkSlowness);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                characterController.Move(-transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
+                characterController.Move(-transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed * walkSlowness);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                characterController.Move(-transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
+                characterController.Move(-transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed * walkSlowness);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                characterController.Move(transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
+                characterController.Move(transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed * walkSlowness);
             }
         }
 
@@ -64,19 +64,19 @@ public class MC_MovementManager : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.W))
             {
-                characterController.Move(transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
+                characterController.Move(transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed * walkSlowness);
             }
             if (Input.GetKey(KeyCode.A))
             {
-                characterController.Move(-transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
+                characterController.Move(-transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed * walkSlowness);
             }
             if (Input.GetKey(KeyCode.S))
             {
-                characterController.Move(-transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
+                characterController.Move(-transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed * walkSlowness);
             }
             if (Input.GetKey(KeyCode.D))
             {
-                characterController.Move(transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
+                characterController.Move(transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed * walkSlowness);
             }
             if ((Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S) && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) && !(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) && !(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) && !(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D)))
             {            

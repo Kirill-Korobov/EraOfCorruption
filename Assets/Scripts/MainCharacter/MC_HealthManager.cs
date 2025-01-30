@@ -39,6 +39,7 @@ public class MC_HealthManager : MonoBehaviour
         }
         Health = currentGameStats.mainCharacterStats.health;
         RemainingRespawnTime = currentGameStats.mainCharacterStats.remainingRespawnTime;
+        StaticEffects.coroutines.StartGame();
     }
 
     private void Update()
@@ -112,16 +113,17 @@ public class MC_HealthManager : MonoBehaviour
 
     [HideInInspector] public float hex = 1;
     [HideInInspector] public float penetration = 1;
+    [HideInInspector] public float resistance = 1;
     public void TakeDamage(float value)
     {
         float finalDamage;
-        if (Defense * penetration>= value * hex)
+        if (Defense * penetration * resistance>= value * hex)
         {
             finalDamage = 1;
         }
         else
         {
-            finalDamage = value * hex - Defense * penetration;
+            finalDamage = value * hex - Defense * penetration * resistance;
         }
         Health -= finalDamage;
         if (bloodyBackgroundBehaviour.bloodyBackgroundImage.color.a + finalDamage / statisticsInfo.MaxHPValues[statisticsManager.HPLevel] * bloodyBackgroundBehaviour.bloodMultiplier < bloodyBackgroundBehaviour.maxBloodyBackgroundOpacity)
@@ -159,7 +161,7 @@ public class MC_HealthManager : MonoBehaviour
     {
         pauseManager.SetGamePaused();
         mainGameUIOperator.mainCanvas.gameObject.SetActive(false);
-        // Turn off all effects.
+        StaticEffects.coroutines.ResetEffect();
         // Minus money.
         // Destroy all enemies and bosses.
         deathCanvas.gameObject.SetActive(true);
@@ -187,5 +189,6 @@ public class MC_HealthManager : MonoBehaviour
         satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
         // Set main character`s position.
         dieCoroutine = null;
+        // StaticEffects.coroutines.CheckBlindness();
     }
 }
