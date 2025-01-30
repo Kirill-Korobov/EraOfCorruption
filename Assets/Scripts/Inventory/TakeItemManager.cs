@@ -11,8 +11,8 @@ public class TakeItemManager : MonoBehaviour
     {
         if (Input.GetKeyDown(LoadedSettings.take))
         {
-            RaycastHit hit; 
-            if (Physics.Raycast(VirtualCamera.transform.position, VirtualCamera.transform.forward, out hit, 5)) 
+            Debug.DrawRay(VirtualCamera.transform.position, VirtualCamera.transform.forward, Color.green, 5);
+            if (Physics.Raycast(VirtualCamera.transform.position, VirtualCamera.transform.forward, out RaycastHit hit, 5)) 
             {
                 TakeItem ti;
                 if (hit.collider.gameObject.TryGetComponent(out ti))

@@ -70,6 +70,7 @@ public class LoadScripts_Meneger : MonoBehaviour
         LoadedSettings.music = ss.music;
         LoadedSettings.sensivity = ss.sensivity;
         LoadedSettings.muteSongs = ss.mute;
+        LoadedSettings.pause = ss.pause;
     }
     public void LoadBinds(KeyBindsNames[] kbn)
     {

@@ -22,14 +22,18 @@ public class TakeItem : MonoBehaviour
         if (ifIsMustReload && go.activeSelf)
         {
             int a = Random.Range(dti.Min, dti.Max);
-            StaticDropTake.sl.AddItem(dti, a);
-            reloadIfLets = reload;
-            StartCoroutine(Reload());
+            if(StaticDropTake.sl.AddItem(dti, a))
+            {
+                reloadIfLets = reload;
+                StartCoroutine(Reload());
+            }
         }
         else if (!ifIsMustReload)
         {
-            StaticDropTake.sl.AddItem(dti, howMuchDroped);
-            Destroy(gameObject);
+            if (StaticDropTake.sl.AddItem(dti, howMuchDroped))
+            {
+                Destroy(gameObject);
+            }
         }
     }
     private IEnumerator Reload()

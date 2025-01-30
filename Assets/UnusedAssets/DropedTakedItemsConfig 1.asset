@@ -20,11 +20,19 @@ MonoBehaviour:
   min: 1
   max: 5
   buy: 0
-  itemType: 2
+  itemType: 3
+  arrowDamage: 10
+  weaponName: 
   damage: 0
-  range: 0
-  speed: 0
+  reload: 0
+  manaCost: 0
   weaponType: 0
+  splash: 0
+  attackAngle: 0
+  range: 0
+  magicSplash: 0
+  speed: 0
+  howMuch: 0
   defense: 10
   defenseType: 1
   nutrition: 5

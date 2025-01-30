@@ -28,6 +28,7 @@ public class HotbarLogic : MonoBehaviour
         }
         StaticDropTake.hotbar = this;
     }
+
     public void DropItem()
     {
         if (dtis[activeNow] != null)

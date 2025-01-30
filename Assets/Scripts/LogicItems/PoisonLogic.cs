@@ -15,7 +15,7 @@ public class PoisonLogic : MonoBehaviour
     };
     private void Update()
     {
-        if (Input.GetKeyDown(LoadedSettings.attack))
+        if (Input.GetKeyDown(LoadedSettings.attack) && (!LoadedSettings.ifAnyOpen && !LoadedSettings.ifInventoryOpen && !LoadedSettings.ifMapOpen && !LoadedSettings.ifQuestsOpen && !LoadedSettings.ifStatsOpen))
         {
             switch (dti.PoisonsType)
             {

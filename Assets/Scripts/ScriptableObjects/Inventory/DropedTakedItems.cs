@@ -65,6 +65,9 @@ public class DropedTakedItems : ScriptableObject
     [SerializeField] private ItemTypes itemType;
     public ItemTypes ItemType { get => itemType; set => itemType = value; }
 
+    [SerializeField] private int arrowDamage;     // Arrow specific
+    public int ArrowDamage { get => arrowDamage; set => arrowDamage = value; }
+
     [SerializeField] private string weaponName;     // Weapon specific
     public string WeaponName { get => weaponName; set => weaponName = value; }
 

@@ -148,6 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dti: {fileID: 11400000, guid: 0203e9de1869de649bf8ac5484f86e64, type: 2}
   ifIsMustReload: 0
+  howMuchDroped: 0
   go: {fileID: 0}
   reload: 0
   reloadIfLets: 0

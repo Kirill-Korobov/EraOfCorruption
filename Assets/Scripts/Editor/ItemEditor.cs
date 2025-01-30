@@ -58,6 +58,10 @@ public class DropedTakedItemsEditor : Editor
                 item.Nutrition = EditorGUILayout.IntField("Nutrition", item.Nutrition);
                 break;
 
+            case ItemTypes.Arrow:
+                item.ArrowDamage = EditorGUILayout.IntField("Arrow Damage", item.ArrowDamage);
+                break;
+
             case ItemTypes.Poison:
                 item.PoisonsType = (Poisons)EditorGUILayout.EnumPopup("Poison Type", item.PoisonsType);
                 break;

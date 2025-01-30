@@ -34,6 +34,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     StaticEffects.coroutines.gameObject.SetActive(true);
+                    LoadedSettings.ifAnyOpen = false;
                 }
                 else if (!_NPCQuestCanvas.gameObject.activeSelf)
                 {
@@ -41,6 +42,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
                     StaticEffects.Save();
+                    LoadedSettings.ifAnyOpen = true;
                 }
             }
             if (Input.GetKeyDown(KeyCode.F))
@@ -53,16 +55,18 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.visible = true;
                     if (LoadedSettings.inventoryPause)
                     {
+                        LoadedSettings.ifInventoryOpen = true;
                         StaticEffects.Save();
                     }
                 }
                 else
                 {
-                    inventoryCanvas.gameObject.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     StaticDropTake.sl.Exit();
+                    inventoryCanvas.gameObject.SetActive(false);
                     StaticEffects.coroutines.gameObject.SetActive(true);
+                    LoadedSettings.ifInventoryOpen = false;
                 }
             }
             if (Input.GetKeyDown(KeyCode.Z))
@@ -75,6 +79,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.visible = true;
                     if (LoadedSettings.mapPause)
                     {
+                        LoadedSettings.ifMapOpen = true;
                         StaticEffects.Save();
                     }
                 }
@@ -84,6 +89,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     StaticEffects.coroutines.gameObject.SetActive(true);
+                    LoadedSettings.ifMapOpen = false;
                 }
             }
             if (Input.GetKeyDown(KeyCode.X))
@@ -96,6 +102,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.visible = true;
                     if (LoadedSettings.statsPause)
                     {
+                        LoadedSettings.ifStatsOpen = true;
                         StaticEffects.Save();
                     }
                 }
@@ -105,6 +112,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     StaticEffects.coroutines.gameObject.SetActive(true);
+                    LoadedSettings.ifStatsOpen = false;
                 }
             }
             if (Input.GetKeyDown(KeyCode.C))
@@ -118,6 +126,7 @@ public class MainGameUIOperator : MonoBehaviour
                     if (LoadedSettings.questsPause)
                     {
                         StaticEffects.Save();
+                        LoadedSettings.ifQuestsOpen = true;
                     }
                 }
                 else
@@ -126,6 +135,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     StaticEffects.coroutines.gameObject.SetActive(true);
+                    LoadedSettings.ifQuestsOpen = false;
                 }
             }
         }

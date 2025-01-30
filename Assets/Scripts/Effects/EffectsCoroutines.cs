@@ -48,20 +48,12 @@ public class EffectsCoroutines : MonoBehaviour
         {
             writer.WriteLine(JsonUtility.ToJson(ts));
         }
-        gameObject.SetActive(false);
+        if (LoadedSettings.ifAnyOpen || LoadedSettings.ifInventoryOpen || LoadedSettings.ifMapOpen || LoadedSettings.ifQuestsOpen || LoadedSettings.ifStatsOpen)
+        {
+            gameObject.SetActive(false);
+        }
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Poison();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Hunger();
-        }
-    }
     private void Awake()
     {
         camera1.clearFlags = CameraClearFlags.Skybox;
@@ -69,6 +61,7 @@ public class EffectsCoroutines : MonoBehaviour
         resets = new Action[16];
         start = new Action[16];
         startCoroutine = new IEnumerator[16];
+        isa = false;
 
         resets[0] = PoisonStop;
         resets[1] = WeaknessStop;

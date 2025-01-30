@@ -14,17 +14,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 5
   itemInOneSlot: 1
-  drop: {fileID: 0}
+  drop: {fileID: 100000, guid: cd1cfb297d32e124ba813220e8203a90, type: 3}
   gameObject: {fileID: 100000, guid: cd1cfb297d32e124ba813220e8203a90, type: 3}
   image: {fileID: 21300000, guid: 8964514b7a812fa45ba4915d9917e1d8, type: 3}
   min: 1
   max: 1
   buy: 0
   itemType: 1
+  weaponName: 
   damage: 15
-  range: 5
-  speed: 5
+  reload: 0
+  manaCost: 0
   weaponType: 0
+  splash: 0
+  attackAngle: 0
+  range: 5
+  magicSplash: 0
+  speed: 5
+  howMuch: 0
   defense: 0
   defenseType: 0
   nutrition: 0

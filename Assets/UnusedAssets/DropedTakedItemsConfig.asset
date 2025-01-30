@@ -13,19 +13,27 @@ MonoBehaviour:
   m_Name: DropedTakedItemsConfig
   m_EditorClassIdentifier: 
   id: 0
-  itemInOneSlot: 1
+  itemInOneSlot: 6
   drop: {fileID: 5586357909173823124, guid: a6840dc14e09ee443ae90b5984e07774, type: 3}
   gameObject: {fileID: 5586357909173823124, guid: a6840dc14e09ee443ae90b5984e07774, type: 3}
   image: {fileID: 21300000, guid: 035832474f99661459a8b4ef8def5c37, type: 3}
-  min: 1
-  max: 1
+  min: 2
+  max: 5
   buy: 0
-  itemType: 0
+  itemType: 3
+  arrowDamage: 50
+  weaponName: 
   damage: 0
+  reload: 0
+  manaCost: 0
+  weaponType: 1
+  splash: 0
+  attackAngle: 0
   range: 0
+  magicSplash: 0
   speed: 0
-  weaponType: 0
+  howMuch: 0
   defense: 50
   defenseType: 0
-  nutrition: 0
+  nutrition: 226
   poisonsType: 0

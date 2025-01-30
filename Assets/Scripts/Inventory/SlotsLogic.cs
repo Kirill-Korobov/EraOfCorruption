@@ -17,6 +17,8 @@ public class SlotsLogic : MonoBehaviour
     [SerializeField] private Image[] imageArmor = new Image[3];
     [SerializeField] private Canvas canvas;
     [SerializeField] private MC_HealthManager healthManager;
+    [SerializeField] private TMP_Text moneyTxt;
+    public int money;
     private DropedTakedItems[] dpisArmor = new DropedTakedItems[3];
     private int[] ints = new int[50];
     public Image Image;
@@ -24,22 +26,112 @@ public class SlotsLogic : MonoBehaviour
     private TMP_Text text;
     private string path;
 
+
+    public bool TakeItemForTrade(int[] indexs, int[] howMuch)
+    {
+        int[] howMuchHave = new int[howMuch.Length];
+        List<int>[] index = new List<int>[indexs.Length];
+        for (int i = 0; i < indexs.Length; i++)
+        {
+
+            for (int j = 0; j < dpis.Count; j++)
+            {
+                if (dpis[j] != null && dpis[j].ID == indexs[i])
+                {
+                    howMuchHave[j] += ints[j];
+                    index[i].Add(j);
+                }
+            }
+            
+        }
+        List<bool> list = new List<bool>();
+        for (int i = 0;i < howMuch.Length; i++)
+        {
+            list.Add(howMuch[i] <= howMuchHave[i]);
+        }
+        if (!list.Contains(false))
+        {
+            for (int i = 0; i < howMuch.Length; i++)
+            {
+                if (howMuch == howMuchHave)
+                {
+                    for (int j = 0; j < index[i].Count; j++)
+                    {
+                        dpis[j] = null;
+                        texts[i].text = "";
+                        slots[i].sprite = empty;
+                        MoveSprites[i].dti = dpis[i];
+                        MoveSprites[i].howMuch = 0;
+                        MoveSprites[i].text.text = "";
+                        MoveSprites[i].image.sprite = empty;
+                    }
+                }
+                else
+                {
+                    for (int j = 0; j < index[i].Count; j++)
+                    {
+                        if (ints[j] == howMuch[i])
+                        {
+                            dpis[j] = null;
+                            texts[j].text = "";
+                            slots[j].sprite = empty;
+                            MoveSprites[j].dti = dpis[j];
+                            MoveSprites[j].howMuch = 0;
+                            MoveSprites[j].text.text = "";
+                            MoveSprites[j].image.sprite = empty;
+                            ints[j] = 0;
+                            break;
+                        }
+                        else if (ints[j] > howMuch[i])
+                        {
+                            ints[j] -= howMuch[i];
+                            break;
+                        }
+                        else
+                        {
+                            howMuch[i] -= ints[j];
+                            dpis[j] = null;
+                            texts[j].text = "";
+                            slots[j].sprite = empty;
+                            MoveSprites[j].dti = dpis[j];
+                            MoveSprites[j].howMuch = 0;
+                            MoveSprites[j].text.text = "";
+                            MoveSprites[j].image.sprite = empty;
+                            ints[j] = 0;
+                        }
+                    }
+                }
+            }
+            StaticDropTake.hotbar.SetHotbar(slots, ints, dpis);
+            return true;
+        }
+        return false;
+
+    }
+    public void MoneySet(int setMoney)
+    {
+        money += setMoney;
+        moneyTxt.text = $"Money: {money}";
+    }
+    public DropedTakedItems dtiArrow;
     public bool ArrowUse()
     {
         for (int i = 0; i < dpis.Count; i++)
         {
             if (dpis[i] != null && dpis[i].ItemType == ItemTypes.Arrow)
             {
+                dtiArrow = dpis[i];
                 ints[i]--;
                 if(ints[i] == 0)
                 {
                     dpis[i] = null;
                     texts[i].text = "";
+                    slots[i].sprite = empty;
                     StaticDropTake.hotbar.SetHotbar(slots, ints, dpis);
                     MoveSprites[i].dti = dpis[i];
                     MoveSprites[i].howMuch = 0;
                     MoveSprites[i].text.text = "";
-                    MoveSprites[i].image.sprite = slots[i].sprite;
+                    MoveSprites[i].image.sprite = empty;
                     return true;
                 }
                 texts[i].text = $"{ints[i]}";
@@ -172,6 +264,8 @@ public class SlotsLogic : MonoBehaviour
         dpis = JsonUtility.FromJson<SaveInventory>(json).dti;
         ints = JsonUtility.FromJson<SaveInventory>(json).ints;
         dpisArmor = JsonUtility.FromJson<SaveInventory>(json).dtiArmor;
+        money = JsonUtility.FromJson<SaveInventory>(json).money;
+        moneyTxt.text = $"Money: {money}";
         for (int i = 0; i < dpisArmor.Length; i++)
         {
             if (dpisArmor[i] != null)
@@ -284,7 +378,7 @@ public class SlotsLogic : MonoBehaviour
         StaticDropTake.hotbar.SetHotbar(slots, ints, dpis);
     }
 
-    public void AddItem(DropedTakedItems item, int num)
+    public bool AddItem(DropedTakedItems item, int num)
     {
         if (dpis.Contains(item))
         {
@@ -337,7 +431,7 @@ public class SlotsLogic : MonoBehaviour
                         d++;
                     }
                 }
-                if(d < 50)
+                if (d < 50)
                 {
                     dpis[k] = item;
 
@@ -347,6 +441,10 @@ public class SlotsLogic : MonoBehaviour
                     texts[k].text = $"{ints[k]}";
                     MoveSprites[k].dti = item;
                     MoveSprites[k].howMuch = ints[k];
+                }
+                else if (d >= 50)
+                {
+                    return false;
                 }
             }
         }
@@ -380,6 +478,7 @@ public class SlotsLogic : MonoBehaviour
 
         }
         StaticDropTake.hotbar.SetHotbar(slots,ints,dpis);
+        return true;
     }
     public void Save()
     {
@@ -387,6 +486,7 @@ public class SlotsLogic : MonoBehaviour
         dpi.dti = dpis;
         dpi.ints = ints;
         dpi.dtiArmor = dpisArmor;
+        dpi.money = money;
         using (var writer = new StreamWriter(path))
         {
             writer.WriteLine(JsonUtility.ToJson(dpi));
@@ -397,5 +497,6 @@ public class SlotsLogic : MonoBehaviour
         public List<DropedTakedItems> dti;
         public int[] ints;
         public DropedTakedItems[] dtiArmor;
+        public int money;
     }
 }

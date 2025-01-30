@@ -4,56 +4,41 @@ using UnityEngine;
 
 public abstract class WeaponParent : MonoBehaviour
 {
-    [SerializeField] private MC_ManaManager MC_ManaManager;
-    public DropedTakedItems dti { get; [SerializeField] private set; }
-    private bool attack = true;
+    public MC_ManaManager MC_ManaManager;
+    public DropedTakedItems dti;
+    public bool attack = true;
     private int o = 0;
-
+    private bool start;
 
     private void Awake()
     {
         dti = GetComponent<ScriptableObjectUsedItems>().dti;
     }
-
-    private void Update()
+    private void Start()
     {
-        if(Input.GetKeyDown(LoadedSettings.attack))
-        {
-            if (dti.WeaponType == WeaponTypes.Bow )
-            {
-                if (StaticDropTake.sl.ArrowUse() && attack && dti.ManaCost <= MC_ManaManager.Mana)
-                {
-                    BowUse();
-                }
-            }
-            else if (attack && dti.ManaCost <= MC_ManaManager.Mana)
-            {
-                MC_ManaManager.SpendMana(dti.ManaCost);
-                Attack();
-                Debug.Log(1);
-                StartCoroutine(Reload(dti.Reload));
-            }
-        }
+        start = true;
     }
 
-    public abstract void BowUse();
     public abstract void Attack();
     private void OnEnable()
     {
-        Debug.Log(o);
-        Reload(dti.Reload - o);
+        if (start)
+        {
+            Reload(dti.Reload - o);
+        }
     }
-    private IEnumerator Reload(int b)
+    public IEnumerator Reload(int b)
     {
         attack = false;
         WaitForSeconds a = new WaitForSeconds(1);
         o = 0;
-        Debug.Log(o >= b);
         while (o < b)
         {
-            yield return a;
-            o++;
-            Debug.Log(o);
+            if(!LoadedSettings.ifAnyOpen && !LoadedSettings.ifInventoryOpen && !LoadedSettings.ifMapOpen && !LoadedSettings.ifQuestsOpen && !LoadedSettings.ifStatsOpen)
+            {
+                yield return a;
+                o++;
+            }
         }
         o = 0;
         attack = true;
