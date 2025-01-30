@@ -29,11 +29,11 @@ public class MC_MovementManager : MonoBehaviour
         characterController = GetComponent<CharacterController>();
         currentDashRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
         currentTeleportationRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
-        walkSpeed = 1f;
     }
 
     // Stop deleting.
     [HideInInspector] public float walkSpeed = 1f;
+    [HideInInspector] public float walkSlowness = 1f;
     private void Update()
     {
         if (!pauseManager.pause)
