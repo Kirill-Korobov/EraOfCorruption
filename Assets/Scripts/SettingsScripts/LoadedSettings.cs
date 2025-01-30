@@ -5,6 +5,11 @@ using UnityEngine.UI;
 
 public static class LoadedSettings
 {
+    public static bool ifInventoryOpen;
+    public static bool ifMapOpen;
+    public static bool ifQuestsOpen;
+    public static bool ifStatsOpen;
+    public static bool ifAnyOpen;
 
     public static float song;
     public static float music;
@@ -17,8 +22,9 @@ public static class LoadedSettings
     public static bool customCursor;
     public static Sprite imageCursor;
     public static string extension;
-    public static LoadScripts_Meneger lsm;
     public static bool muteSongs;
+    public static bool pause;
+    public static LoadScripts_Meneger lsm;
 
     public static KeyCode attack;
     public static KeyCode mute;

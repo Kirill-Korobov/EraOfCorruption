@@ -7,5 +7,6 @@ public class MapMenuOperator : MonoBehaviour
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        StaticEffects.coroutines.gameObject.SetActive(true);
     }
 }

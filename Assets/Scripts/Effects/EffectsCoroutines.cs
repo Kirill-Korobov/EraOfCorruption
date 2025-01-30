@@ -1,40 +1,101 @@
+using Cinemachine;
 using System;
 using System.Collections;
-using System.Xml.Serialization;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
-public class EffectsCoroutine : MonoBehaviour
+public class EffectsCoroutines : MonoBehaviour
 {
     [SerializeField] private StatEffects statEffects;
     [SerializeField] private MC_HealthManager healthManager;
     [SerializeField] private MC_MovementManager movementManager;
     [SerializeField] private MC_ManaManager manaManager;
+    [SerializeField] private MC_StatisticsManager statisticsManager;
+    [SerializeField] private MC_SatietyManager satietyManager;
     [SerializeField] private Image[] effectsImage;
     [SerializeField] private TMP_Text[] effectsTexts;
-    [SerializeField] private Camera[] mainCamera = new Camera[3];
+    [SerializeField] private CinemachineVirtualCamera[] mainCamera = new CinemachineVirtualCamera[3];
+    [SerializeField] private Camera camera1;
 
     private Coroutine[] effectsCoroutine = new Coroutine[16];
     private Coroutine[] effectsCoroutineTimer = new Coroutine[16];
 
     private Action[] resets;
-    private float speed;
+    private Action[] start;
+    private IEnumerator[] startCoroutine;
     private float[] blindess = new float[3];
-    private int defense;
+    private int[] timers = new int[16];
+    private string path;
+    private bool isa = false;
+    private bool[] timersgo = new bool[16];
+    private int[] n = new int[16];
+    private int[] timersCoroutine = new int[16];
+    private bool startedGame =false;
 
-
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+    public void Save()
+    {
+        TimersSave ts = new TimersSave();
+        ts.timers = timers;
+        ts.n = n;
+        ts.timersCoroutine = timersCoroutine;
+        using (var writer = new StreamWriter(path))
+        {
+            writer.WriteLine(JsonUtility.ToJson(ts));
+        }
+        if (LoadedSettings.ifAnyOpen || LoadedSettings.ifInventoryOpen || LoadedSettings.ifMapOpen || LoadedSettings.ifQuestsOpen || LoadedSettings.ifStatsOpen)
+        {
+            gameObject.SetActive(false);
+        }
+    }
 
     private void Awake()
     {
-
-        speed = movementManager.walkSpeed;
-        //float speedWalk = movementManager.walkSpeed;
+        camera1.clearFlags = CameraClearFlags.Skybox;
+        path = $"{Application.persistentDataPath}/Effects.json";
         resets = new Action[16];
+        start = new Action[16];
+        startCoroutine = new IEnumerator[16];
+        isa = false;
+
         resets[0] = PoisonStop;
         resets[1] = WeaknessStop;
         resets[2] = SlownessStop;
+        resets[3] = HungerStop;
+        resets[4] = PartialpenetrationStop;
+        resets[5] = BurnStop;
+        resets[6] = BlidnessStop;
+        resets[7] = CursedStop;
+        resets[8] = HexStop;
+        resets[9] = RegenerationStop;
+        resets[10] = StrengthStop;
+        resets[11] = SpeedStop;
+        resets[12] = VampirismHPStop;
+        resets[13] = VampirismManaStop;
+        resets[14] = ResistanceStop;
+        resets[15] = ShocksStop;
+
+        startCoroutine[0] = PoisonCoroutine();
+        start[1] = WeaknessCoroutine;
+        start[2] = SlownessCoroutine;
+        startCoroutine[3] = HungerCoroutine();
+        start[4] = PartialpenetrationCoroutine;
+        startCoroutine[5] = BurnCoroutine();
+        start[6] = BlindnessCoroutine;
+        start[7] = CursedCoroutine;
+        start[8] = HexCoroutine;
+        startCoroutine[9] = RegenerationCoroutine();
+        start[10] = StrengthCoroutine;
+        start[11] = SpeedCoroutine;
+        start[12] = VampirisimHPCoroutine;
+        start[13] = VampirisimManaCoroutine;
+        start[14] = ResistanceCoroutine;
+        start[15] = ShocksCoroutine;
         StaticEffects.weaknessRate = 1;
         StaticEffects.strengthRate = 1;
         StaticEffects.hunger = 1;
@@ -42,15 +103,88 @@ public class EffectsCoroutine : MonoBehaviour
         StaticEffects.vampirismHP = false;
         StaticEffects.shock = false;
         StaticEffects.coroutines = this;
+    }
+    public void StartGame()
+    {
+        string json = "";
+        using (var reader = new StreamReader(path))
+        {
+            string line;
+            while ((line = reader.ReadLine()) != null) { json += line; }
+        }
+        timers = JsonUtility.FromJson<TimersSave>(json).timers;
+        n = JsonUtility.FromJson<TimersSave>(json).n;
+        timersCoroutine = JsonUtility.FromJson<TimersSave>(json).timersCoroutine;
+        for (int i = 0; i < timers.Length; i++)
+        {
+            if (timers[i] != 0)
+            {
+                if (start[i] == null)
+                {
+                    StartEffectCoroutine(startCoroutine[i], i, timers[i]);
+                }
+                else
+                {
+                    StartEffectCoroutine(start[i], i, timers[i]);
+                }
+            }
+        }
+    }
+    private void OnEnable()
+    {
+        if (startedGame)
+        {
+            StartGame();
+        }
+    }
+    private void Start()
+    {
+        startedGame = true;
+    }
+    public void CheckBlindness()
+    {
+        if (isa)
+        {
+            mainCamera[0].m_Lens.FarClipPlane = blindess[0];
+            mainCamera[1].m_Lens.FarClipPlane = blindess[1];
+            mainCamera[2].m_Lens.FarClipPlane = blindess[2];
+            camera1.clearFlags = CameraClearFlags.Skybox;
+            RenderSettings.fog = false;
+            RenderSettings.fogMode = FogMode.ExponentialSquared;
+            RenderSettings.fogDensity = 0.5f;
+        }
+        isa = false;
+    }
+    public void ResetEffect()
+    {
+        for (int i = 0; i < timers.Length; i++)
+        {
+            isa = true;
+            resets[i]();
+            timers[i] = 0;
+            timersgo[i] = false;
+            if (effectsCoroutine[i] != null)
+            {
+                StopCoroutine(effectsCoroutine[i]);
+                EffectsPosition.DeleteImageAsync(effectsImage[i]);
+            }
+            if (effectsCoroutineTimer[i] != null)
+            {
+                StopCoroutine(effectsCoroutineTimer[i]);
+                EffectsPosition.DeleteImageAsync(effectsImage[i]);
+            }
+            effectsImage[i].gameObject.SetActive(false);
+
+        }
 
     }
-
     private IEnumerator ShowATimer(int i, int timer)
     {
         int minutes = timer / 60;
         int seconds = timer % 60;
         while (true)
         {
+            yield return new WaitForSeconds(1);
             if (seconds == 0)
             {
                 if (minutes == 0)
@@ -75,128 +209,90 @@ public class EffectsCoroutine : MonoBehaviour
             {
                 effectsTexts[i].text = $"{minutes}:0{seconds}";
             }
-            yield return new WaitForSeconds(1);
+            timers[i]--;
         }
-        if (i == 0 || i == 5 || i == 9)
+        n[i] = 0;
+        timersCoroutine[i] = 0;
+        if (i == 0 || i == 3 || i == 5 || i == 9)
         {
             StopCoroutine(effectsCoroutine[i]);
         }
-        
+
         resets[i]();
         EffectsPosition.DeleteImageAsync(effectsImage[i]);
     }
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha0))
-        {
-            Poison();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            Poison();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            Blindness();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            Slowness();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            Resistance();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            Shocks();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            Strength();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            Cursed();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            Hex();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            Regeneration();
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad0))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad1))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad3))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad4))
-        {
-        }
-        if (Input.GetKeyDown(KeyCode.Keypad5))
-        {
-        }
-    }
 
-    public void StartEffectCoroutine(Func<IEnumerator> coroutineMethod, int i, int timer)
+    public void StartEffectCoroutine(IEnumerator coroutineMethod, int i, int timer)
     {
-        if (effectsCoroutine[i] == null)
+        if (!timersgo[i] || effectsCoroutineTimer[i] == null)
         {
-            effectsCoroutine[i] = StartCoroutine(coroutineMethod());
+            Debug.Log(1);
+            effectsCoroutine[i] = StartCoroutine(coroutineMethod);
             effectsCoroutineTimer[i] = StartCoroutine(ShowATimer(i, timer));
             EffectsPosition.SetImageAsync(effectsImage[i]);
+            timers[i] = timer;
+            timersgo[i] = true;
+            int minutes = timer / 60;
+            int seconds = timer % 60;
+            effectsTexts[i].text = $"{minutes}:0{seconds}";
             return;
         }
-        
+
         else
         {
+            timersgo[i] = true;
             StopCoroutine(effectsCoroutineTimer[i]);
             effectsCoroutineTimer[i] = StartCoroutine(ShowATimer(i, timer));
+            timers[i] = timer;
+            int minutes = timer / 60;
+            int seconds = timer % 60;
+            effectsTexts[i].text = $"{minutes}:0{seconds}";
+
             return;
         }
     }
     public void StartEffectCoroutine(Action coroutineMethod, int i, int timer)
     {
-        if (effectsCoroutine[i] == null)
+        Debug.Log(5);
+        if (!timersgo[i])
         {
+            timersgo[i] = true;
+            timers[i] = timer;
             coroutineMethod();
             effectsCoroutineTimer[i] = StartCoroutine(ShowATimer(i, timer));
             EffectsPosition.SetImageAsync(effectsImage[i]);
+            int minutes = timer / 60;
+            int seconds = timer % 60;
+            effectsTexts[i].text = $"{minutes}:0{seconds}";
             return;
         }
 
         else
         {
+            timersgo[i] = true;
+            timers[i] = timer;
             StopCoroutine(effectsCoroutineTimer[i]);
             effectsCoroutineTimer[i] = StartCoroutine(ShowATimer(i, timer));
+            int minutes = timer / 60;
+            int seconds = timer % 60;
+            effectsTexts[i].text = $"{minutes}:0{seconds}";
             return;
         }
     }
-    public void Poison() => StartEffectCoroutine(() => PoisonCoroutine(), 0, statEffects.PoisionTime);
+    public void Poison() => StartEffectCoroutine(PoisonCoroutine(), 0, statEffects.PoisionTime);
     private IEnumerator PoisonCoroutine()
     {
-        
-        
-        float timer = 0;
+
+
         WaitForSeconds a = new WaitForSeconds(1);
-        int n = 0;
         effectsImage[0].gameObject.SetActive(true);
         while (true)
         {
-            //healthManager.CurrentHealth = healthManager.CurrentHealth - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.CurrentHealth / 100);
-            n++;
-            while (statEffects.PoisionCD * n > timer)
+            healthManager.Health = healthManager.Health - (statEffects.PoisionDMG + statEffects.PoisionDIS * healthManager.Health / 100);
+            n[0]++;
+            while (statEffects.PoisionCD * n[0] > timersCoroutine[0])
             {
-                timer++;
+                timersCoroutine[0]++;
                 yield return a;
             }
         }
@@ -223,59 +319,62 @@ public class EffectsCoroutine : MonoBehaviour
     private void SlownessCoroutine()
     {
         effectsImage[2].gameObject.SetActive(true);
-        movementManager.walkSpeed = statEffects.SlownessRate * movementManager.walkSpeed / 100;
+        movementManager.walkSlowness = statEffects.SlownessRate / 100;
     }
 
     private void SlownessStop()
     {
-        movementManager.walkSpeed = speed;
+        movementManager.walkSlowness = 1;
         effectsImage[2].gameObject.SetActive(false);
     }
-    public void Hunger() => StartEffectCoroutine(() => HungerCoroutine(), 3, statEffects.HungerTime);
-    private void HungerCoroutine()
+    public void Hunger() => StartEffectCoroutine(HungerCoroutine(), 3, statEffects.HungerTime);
+    private IEnumerator HungerCoroutine()
     {
+        Debug.Log(2);
         effectsImage[3].gameObject.SetActive(true);
-        StaticEffects.hunger = statEffects.HungerRate/100;
+        WaitForSeconds a = new WaitForSeconds(1);
+        while (true)
+        {
+            Debug.Log(3);
+            satietyManager.SpendSatiety(statEffects.HungerRate);
+            Debug.Log(4);
+            n[3]++;
+            while (statEffects.HungerCD * n[3] > timersCoroutine[3])
+            {
+                Debug.Log(6);
+                timersCoroutine[3]++;
+                yield return a;
+                Debug.Log(7);
+            }
+            Debug.Log(8);
+        }
     }
     private void HungerStop()
     {
-        StaticEffects.hunger = 1;
         effectsImage[3].gameObject.SetActive(false);
     }
     public void Partialpenetration() => StartEffectCoroutine(() => PartialpenetrationCoroutine(), 4, statEffects.PenetrationTime);
     private void PartialpenetrationCoroutine()
     {
-        //healthManager.penetration = statEffects.PenetrationRate / 100;
+        healthManager.penetration = statEffects.PenetrationRate / 100;
         effectsImage[4].gameObject.SetActive(true);
     }
     private void PartialpenetrationStop()
     {
-        //healthManager.penetration = 1;
+        healthManager.penetration = 1;
         effectsImage[4].gameObject.SetActive(false);
     }
-    public void Burn() => StartEffectCoroutine(() => BurnCoroutine(), 5, statEffects.BurnTime);
+    public void Burn() => StartEffectCoroutine(BurnCoroutine(), 5, statEffects.BurnTime);
     private IEnumerator BurnCoroutine()
     {
-        /*int i;
-        if (healthManager.MaxHealth < 250)
-        {
-            i = 0;
-        }
-        else if (healthManager.MaxHealth < 500)
-        {
-            i = 1;
-        }
-        else
-        {
-            i = 2;
-        }*/
+        int i = statisticsManager.HPLevel;
         float timer = statEffects.BurnCD;
         int n = 0;
         effectsImage[5].gameObject.SetActive(true);
         WaitForSeconds a = new WaitForSeconds(statEffects.BurnCD);
         while (true)
         {
-            //healthManager.CurrentHealth -= statEffects.BurnDMG[i];
+            healthManager.Health -= statEffects.BurnDMG[i];
             n++;
             while (statEffects.PoisionCD * n > timer)
             {
@@ -292,19 +391,34 @@ public class EffectsCoroutine : MonoBehaviour
     private void BlindnessCoroutine()
     {
         effectsImage[6].gameObject.SetActive(true);
-        blindess[0] = mainCamera[0].farClipPlane;
-        blindess[1] = mainCamera[1].farClipPlane;
-        blindess[2] = mainCamera[2].farClipPlane;
+        blindess[0] = mainCamera[0].m_Lens.FarClipPlane;
+        blindess[1] = mainCamera[1].m_Lens.FarClipPlane;
+        blindess[2] = mainCamera[2].m_Lens.FarClipPlane;
+        camera1.clearFlags = CameraClearFlags.SolidColor;
+        RenderSettings.fog = true; 
+        RenderSettings.fogColor = Color.black;
+        RenderSettings.fogMode = FogMode.ExponentialSquared;
+        RenderSettings.fogDensity = 0.5f; 
+
+
+
         for (int i = 0; i < 3; i++)
         {
-            mainCamera[i].farClipPlane = statEffects.BlindnessRate;
+            mainCamera[i].m_Lens.FarClipPlane = statEffects.BlindnessRate;
         }
     }
     private void BlidnessStop()
     {
-        mainCamera[0].farClipPlane = blindess[0];
-        mainCamera[1].farClipPlane = blindess[1];
-        mainCamera[2].farClipPlane = blindess[2];
+        if (!isa)
+        {
+            mainCamera[0].m_Lens.FarClipPlane = blindess[0];
+            mainCamera[1].m_Lens.FarClipPlane = blindess[1];
+            mainCamera[2].m_Lens.FarClipPlane = blindess[2];
+            camera1.clearFlags = CameraClearFlags.Skybox;
+            RenderSettings.fog = false;
+            RenderSettings.fogMode = FogMode.ExponentialSquared;
+            RenderSettings.fogDensity = 0.5f;
+        }
         effectsImage[6].gameObject.SetActive(false);
     }
     public void Cursed() => StartEffectCoroutine(() => CursedCoroutine(), 7, statEffects.CursedTime);
@@ -329,9 +443,10 @@ public class EffectsCoroutine : MonoBehaviour
         healthManager.hex = 1;
         effectsImage[8].gameObject.SetActive(false);
     }
-    public void Regeneration() => StartEffectCoroutine(() => RegenerationCoroutine(), 9, statEffects.RegenerationTime);
+    public void Regeneration() => StartEffectCoroutine(RegenerationCoroutine(), 9, statEffects.RegenerationTime);
     private IEnumerator RegenerationCoroutine()
     {
+        Debug.Log(1);
         WaitForSeconds a = new WaitForSeconds(statEffects.RegenerationCD);
         float timer = 0;
         int n = 0;
@@ -369,11 +484,12 @@ public class EffectsCoroutine : MonoBehaviour
     private void SpeedCoroutine()
     {
         effectsImage[11].gameObject.SetActive(true);
-        // PEREROBUTU
+        movementManager.walkSpeed = statEffects.SpeedRate / 100;
     }
     private void SpeedStop()
     {
         effectsImage[11].gameObject.SetActive(false);
+        movementManager.walkSpeed = 1;
     }
 
     public void VampirismHP() => StartEffectCoroutine(() => VampirisimHPCoroutine(), 12, statEffects.VampirismHPTime);
@@ -415,12 +531,11 @@ public class EffectsCoroutine : MonoBehaviour
     private void ResistanceCoroutine()
     {
         effectsImage[14].gameObject.SetActive(true);
-        defense = healthManager.Defense;
-        healthManager.Defense = (int)(statEffects.ResistanceRate * healthManager.Defense / 100);
+        healthManager.resistance = statEffects.ResistanceRate / 100;
     }
     private void ResistanceStop()
     {
-        healthManager.Defense = defense;
+        healthManager.resistance = 1;
         effectsImage[14].gameObject.SetActive(false);
     }
     public void Shocks() => StartEffectCoroutine(() => ShocksCoroutine(), 15, statEffects.ShocksTime);
@@ -434,6 +549,13 @@ public class EffectsCoroutine : MonoBehaviour
     {
         StaticEffects.shock = false;
         effectsImage[15].gameObject.SetActive(false);
+    }
+
+    private class TimersSave
+    {
+        public int[] timers;
+        public int[] n;
+        public int[] timersCoroutine;
     }
 
 }

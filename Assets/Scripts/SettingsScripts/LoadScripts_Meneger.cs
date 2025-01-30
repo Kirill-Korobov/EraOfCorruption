@@ -58,7 +58,7 @@ public class LoadScripts_Meneger : MonoBehaviour
         {
             LoadedSettings.imageCursor = null;
 
-            imageCursor.gameObject.SetActive(false);
+            //imageCursor.gameObject.SetActive(false);
         }
         LoadedSettings.mapPause = ss.mapPause;
         LoadedSettings.statsPause = ss.statsPause;
@@ -70,9 +70,11 @@ public class LoadScripts_Meneger : MonoBehaviour
         LoadedSettings.music = ss.music;
         LoadedSettings.sensivity = ss.sensivity;
         LoadedSettings.muteSongs = ss.mute;
+        LoadedSettings.pause = ss.pause;
     }
     public void LoadBinds(KeyBindsNames[] kbn)
     {
+        
         LoadedSettings.attack = kbn[0].bind;
         LoadedSettings.mute = kbn[1].bind;
         LoadedSettings.forward = kbn[2].bind;

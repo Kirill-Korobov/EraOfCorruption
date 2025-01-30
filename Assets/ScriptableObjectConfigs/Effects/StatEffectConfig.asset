@@ -22,13 +22,14 @@ MonoBehaviour:
   slownessRate: 50
   hungerTime: 120
   hungerRate: 50
+  hungerCD: 0
   penetrationTime: 50
   penetrationRate: 50
   burnDMG: 04000000
   burnTime: 20
   burnCD: 1
   blindnessTime: 600
-  blindnessRate: 300
+  blindnessRate: 5
   cursedTime: 50
   hexTime: 50
   hexRate: 50

@@ -46,6 +46,9 @@ public class StatEffects : ScriptableObject
     [SerializeField] private int hungerRate;
     public int HungerRate => hungerRate;
 
+    [SerializeField] private int hungerCD;
+    public int HungerCD => hungerCD;
+
     //Penetration
     [Space(10)]
     [Header("Penetration Effects")]

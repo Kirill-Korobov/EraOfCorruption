@@ -12,7 +12,7 @@ public static class StaticEffects
     public static float vampirismHPRate;
     public static float hunger;
     public static bool shock;
-    public static EffectsCoroutine coroutines;
+    public static EffectsCoroutines coroutines;
 
     public static void Poison()
     {
@@ -38,12 +38,23 @@ public static class StaticEffects
     {
         coroutines.Blindness();
     }
+
+    public static void Shocks()
+    {
+        coroutines.Shocks();
+    }
+
+    public static void Hex()
+    {
+        coroutines.Hex();
+    }
     public static void Cursed()
     {
         coroutines.Cursed();
     }
     public static void Regeneration()
     {
+        Debug.Log(3);
         coroutines.Regeneration();
     }
     public static void Strength()
@@ -77,6 +88,6 @@ public static class StaticEffects
 
     public static void Save()
     {
-
+        coroutines.Save();
     }
 }
