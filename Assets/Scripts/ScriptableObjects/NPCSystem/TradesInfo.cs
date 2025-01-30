@@ -1,6 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.Events;
 
 [CreateAssetMenu(fileName = "TradesInfoConfig", menuName = "ScriptableObjects/TradesInfo")]
 
@@ -13,6 +12,15 @@ public class TradesInfo : ScriptableObject
 [Serializable]
 public class TradeInfo
 {
+    public Product[] price;
     public string priceDescription;
-    public string productDescription;
+    public Product[] goods;
+    public string goodsDescription;
+}
+
+[Serializable]
+public class Product
+{
+    public int productIndex;
+    public int productQuantity;
 }

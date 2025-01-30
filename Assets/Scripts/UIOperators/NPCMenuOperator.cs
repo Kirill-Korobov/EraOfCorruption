@@ -7,11 +7,12 @@ public class NPCMenuOperator : MonoBehaviour
     [SerializeField] private PauseManager pauseManager;
     [SerializeField] private DialogueMenuOperator dialogueMenuOperator;
     [SerializeField] private NPCQuestMenuOperator _NPCQuestMenuOperator;
+    [SerializeField] private TradeMenuOperator tradeMenuOperator;
     [SerializeField] private NPCInteraction _NPCInteraction;
     [SerializeField] private GameObject startMenu, dialogueMenu, questMenu, tradeMenu;
     [SerializeField] private NPCsInfo _NPCsInfo;
     [SerializeField] private GameObject startMenuButtonsPrefab;
-    [SerializeField] private Vector2 twoButtonsStartSpawnPosition, threeButtonsStartSpawnPosition;
+    [SerializeField] private Vector2 twoButtonsStartSpawnPosition, threeButtonsStartSpawnPosition;  
     [SerializeField] private float distanceBetweenButtons;
     private GameObject[] startMenuSpawnedButtons;
     private int interactingNPCID;
@@ -143,7 +144,6 @@ public class NPCMenuOperator : MonoBehaviour
 
     public void CloseQuestMenu()
     {
-        _NPCQuestMenuOperator.DeleteQuests();
         OpenStartMenu();
     }
 
@@ -152,6 +152,12 @@ public class NPCMenuOperator : MonoBehaviour
         startMenu.SetActive(false);
         DeleteStartMenuSpawnedButtons();
         tradeMenu.SetActive(true);
+        tradeMenuOperator.SpawnTrades(interactingNPCID);
+    }
+
+    public void CloseTradeMenu()
+    {
+        OpenStartMenu();
     }
 
     private void DeleteStartMenuSpawnedButtons()
