@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 489a87a09fc8cae4192c0aca61dfd148, type: 3}
+  m_Name: DialoguesInfoConfig
+  m_EditorClassIdentifier: 
+  dialoguesInfo:
+  - dialogue:
+    - replicaText: 111111111111111
+      speaker: 0
+    - replicaText: 2222222222222
+      speaker: 1
+    - replicaText: 3333333333
+      speaker: 0
+    - replicaText: 333333333333333333333333333333
+      speaker: 0
+    - replicaText: 44444444444
+      speaker: 1
+    - replicaText: 44
+      speaker: 1
+    - replicaText: 444444444444444444444444444444444
+      speaker: 1
+    - replicaText: 5555555
+      speaker: 0
+    - replicaText: 6666666666666666
+      speaker: 0
+    - replicaText: 7777777777777777
+      speaker: 1
+  - dialogue:
+    - replicaText: aaaaa
+      speaker: 0
+    - replicaText: aaaoaaoaoaooao
+      speaker: 1
+    - replicaText: aaaaaaaAaaAaaaAaaa
+      speaker: 0
+    - replicaText: AAaAAAAaaAAAAAAA
+      speaker: 1
+    - replicaText: AAAAAAAAAAAAAAAAAA
+      speaker: 0

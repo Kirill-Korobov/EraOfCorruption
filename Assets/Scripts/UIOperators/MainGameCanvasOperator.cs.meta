@@ -1,0 +1,29 @@
+fileFormatVersion: 2
+guid: d96432b508158b5479d7e5c4fbf063d7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - healthManager: {instanceID: 0}
+  - energyManager: {instanceID: 0}
+  - manaManager: {instanceID: 0}
+  - satietyManager: {instanceID: 0}
+  - statisticsManager: {instanceID: 0}
+  - levelManager: {instanceID: 0}
+  - statisticsInfo: {instanceID: 0}
+  - healthBar: {instanceID: 0}
+  - energyBar: {instanceID: 0}
+  - manaBar: {instanceID: 0}
+  - satietyBar: {instanceID: 0}
+  - _XPBar: {instanceID: 0}
+  - healthText: {instanceID: 0}
+  - energyText: {instanceID: 0}
+  - manaText: {instanceID: 0}
+  - satietyText: {instanceID: 0}
+  - _XPText: {instanceID: 0}
+  - levelText: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

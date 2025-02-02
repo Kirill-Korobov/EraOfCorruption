@@ -26,6 +26,6 @@ public class Enemy2Attack : MonoBehaviour
 
     void Attack()
     {
-        player.GetComponent<PlayerHealth>().TakeDamage(attackDamage);
+        player.GetComponent<MC_HealthManager>().TakeDamage(attackDamage);
     }
 }
