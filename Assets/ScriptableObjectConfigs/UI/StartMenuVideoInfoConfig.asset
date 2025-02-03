@@ -1,20 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ba86283fa8a46d42a78e62f49e04d8e, type: 3}
-  m_Name: StartMenuVideoInfoConfig
-  m_EditorClassIdentifier: 
-  startMenuVideoClips:
-  - {fileID: 32900000, guid: 79c84aec0ea8c814fa701ab8e7220d26, type: 3}
-  - {fileID: 32900000, guid: 277f15ec1fc62554fbd5e531efa3eba2, type: 3}
-  - {fileID: 32900000, guid: 05d30d19ecbaa874c97f7b6d053d4afd, type: 3}
-  - {fileID: 32900000, guid: 113db7f9ab41b784280ee2f7e8e3ee7d, type: 3}
-  - {fileID: 32900000, guid: 9b082f96be0071742a47d55ec412fc66, type: 3}
+version https://git-lfs.github.com/spec/v1
+oid sha256:29933d2db768b77a8d9933dc1f694067b28be68c8b1818dc63b982aa9019959b
+size 816

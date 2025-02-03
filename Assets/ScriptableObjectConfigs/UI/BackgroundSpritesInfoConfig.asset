@@ -1,16 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: BackgroundSpritesInfoConfig
-  m_EditorClassIdentifier: Assembly-CSharp::BackgroundSpritesInfo
-  backgroundSprites:
-  - {fileID: 21300000, guid: 6a23ee91512f85a4fa13515518eaff8e, type: 3}
+version https://git-lfs.github.com/spec/v1
+oid sha256:371adc8ac029f86ab6385efb3682641e6fc2f90de724cd1ddcc93ec8ea42e7c4
+size 507

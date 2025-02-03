@@ -1,16 +1,3 @@
-%YAML 1.1
-%TAG !u! tag:unity3d.com,2011:
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8f4a12633ca9ac49be9e3b86325c039, type: 3}
-  m_Name: ArrowArray
-  m_EditorClassIdentifier: 
-  arrows:
-  - {fileID: 5586357909173823124, guid: a6840dc14e09ee443ae90b5984e07774, type: 3}
+version https://git-lfs.github.com/spec/v1
+oid sha256:2d2fa7c7f1917b14bff8e41b9b70ddbcc5ce50cda14e5aaed69ccdae3b480abe
+size 508
