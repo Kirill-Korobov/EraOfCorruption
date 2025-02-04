@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 public class EnemyAi : MonoBehaviour
 {
@@ -8,7 +9,8 @@ public class EnemyAi : MonoBehaviour
     public float speed = 3f;
     public float detectionRange = 5f;
     public float patrolRange = 10f;
-
+    public Animator animator;
+    public Rigidbody rb;
     private Vector3 startingPosition;
     private Vector3 patrolTarget;
 
@@ -22,14 +24,25 @@ public class EnemyAi : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (distanceToPlayer <= detectionRange)
+        if (distanceToPlayer <= detectionRange && distanceToPlayer > 2.5f)
         {
             ChasePlayer();
+            animator.SetTrigger("Idle");
+            animator.SetTrigger("Run");
+            transform.LookAt(player);
+        }
+        else if (distanceToPlayer <= 2.5f) {
+            animator.SetTrigger("Idle");
+            animator.SetTrigger("Attack1");
         }
         else
         {
             Patrol();
+            animator.SetTrigger("Idle");
+            animator.SetTrigger("Run");
+            transform.LookAt(patrolTarget);
         }
+        
     }
 
     private void Patrol()
@@ -62,6 +75,9 @@ public class EnemyAi : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, patrolRange);
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectionRange);
+    }
+    void LateUpdate() {
+        transform.localEulerAngles = new Vector3(0, transform.localEulerAngles.y, 0);
     }
 }
 

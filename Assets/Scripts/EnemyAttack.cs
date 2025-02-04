@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class EnemyAttack : MonoBehaviour
 {
-    public Transform player;
+    public Player player;
     public float attackRange = 2f;
     public int attackDamage = 10;
     public float attackCooldown = 1.5f;
-
+    public Animator animator;
     private float lastAttackTime = 0f;
 
     void Update()
     {
-        if (player != null && Vector3.Distance(transform.position, player.position) <= attackRange)
+        if (player != null && Vector3.Distance(transform.position, player.transform.position) <= attackRange)
         {
             TryAttack();
+            animator.SetTrigger("Idle");
+            animator.SetTrigger("Attack1");
         }
     }
 

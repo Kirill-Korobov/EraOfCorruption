@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: a6c96e751ec6f8c4e958713083473b76
+=======
+guid: 9d44e78ed57119947b377550cd9aa4d5
+>>>>>>> 4124b93 (Add enemies, change enemy ai)
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

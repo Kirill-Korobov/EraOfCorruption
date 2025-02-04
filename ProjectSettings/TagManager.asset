@@ -4,17 +4,20 @@
 TagManager:
   serializedVersion: 2
   tags:
+<<<<<<< HEAD
   - NPC
   - MainCharacter
+=======
+>>>>>>> 4124b93 (Add enemies, change enemy ai)
   - Enemy
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
+  - Enemy
   - 
   - 
   - 

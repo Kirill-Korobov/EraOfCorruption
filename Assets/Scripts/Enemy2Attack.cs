@@ -5,9 +5,9 @@ using UnityEngine;
 public class Enemy2Attack : MonoBehaviour
 {
     public Transform player;
-    public float attackRange = 2f;
+    public float attackRange = 10f;
     public float attackRate = 1f;
-    public float attackDamage = 10f;
+    public int attackDamage = 10;
 
     private float nextAttackTime = 0f;
 
@@ -26,6 +26,10 @@ public class Enemy2Attack : MonoBehaviour
 
     void Attack()
     {
+<<<<<<< HEAD
         player.GetComponent<MC_HealthManager>().TakeDamage(attackDamage);
+=======
+        player.GetComponent<Player>().TakeDamage(attackDamage);
+>>>>>>> 4124b93 (Add enemies, change enemy ai)
     }
 }

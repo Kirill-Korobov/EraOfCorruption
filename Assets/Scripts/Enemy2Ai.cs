@@ -4,27 +4,19 @@ using UnityEngine;
 
 public class Enemy2Ai : MonoBehaviour
 {
-    public Transform[] patrolPoints;
     public float patrolSpeed = 2f;
-
+    public float patrolRange = 10f;
     public Transform player;
-    public float detectionRange = 10f;
-    public float stopDistance = 5f;
-
+    public float detectionRange = 15f;
+    public float stopDistance = 10f;
+    public Vector3 patrolTarget;
     public float chaseSpeed = 4f;
-
-    private UnityEngine.AI.NavMeshAgent agent;
-    private int currentPatrolIndex = 0;
     private bool isChasing = false;
+    public Vector3 startingPosition;
 
     void Start()
     {
-        agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
-        if (patrolPoints.Length > 0)
-        {
-            agent.speed = patrolSpeed;
-            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
-        }
+        startingPosition = transform.position;
     }
 
     void Update()
@@ -50,15 +42,13 @@ public class Enemy2Ai : MonoBehaviour
         if (!isChasing)
         {
             isChasing = true;
-            agent.speed = chaseSpeed;
+            Vector3.MoveTowards(transform.position, player.position, chaseSpeed * Time.deltaTime);
         }
-
-        agent.SetDestination(player.position);
     }
 
     void StopAndAttack()
     {
-        agent.isStopped = true;
+        
         Debug.Log("Enemy is attacking!");
     }
 
@@ -67,16 +57,20 @@ public class Enemy2Ai : MonoBehaviour
         if (isChasing)
         {
             isChasing = false;
-            agent.speed = patrolSpeed;
+            
         }
-
-        agent.isStopped = false;
-
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        if (!isChasing)
         {
-            currentPatrolIndex = (currentPatrolIndex + 1) % patrolPoints.Length;
-            agent.SetDestination(patrolPoints[currentPatrolIndex].position);
+            SetNewPatrolTarget();
+            Vector3.MoveTowards(transform.position, patrolTarget, patrolSpeed * Time.deltaTime);
         }
+    }
+    void SetNewPatrolTarget() {
+        patrolTarget = startingPosition + new Vector3(
+            Random.Range(-patrolRange, patrolRange),
+            0,
+            Random.Range(-patrolRange, patrolRange)
+        );
     }
 
     void OnDrawGizmosSelected()

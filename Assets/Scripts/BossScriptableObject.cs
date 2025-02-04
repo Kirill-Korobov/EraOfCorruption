@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Video;
 
-[CreateAssetMenu(fileName = "NewBoss", menuName = "Boss/Create New Boss")]
+[CreateAssetMenu(fileName = "NewBoss", menuName = "Boss/NewBoss")]
+
 public class BossScriptableObject : ScriptableObject
 {
     [Header("Statistics")]
-    public string bossName;
+    public GameObject prefab;
+    public string enemyName;
     public int health;
     public int defense;
     public int damage;
@@ -16,8 +17,10 @@ public class BossScriptableObject : ScriptableObject
     public string attackEffect;
     public float attackEffectDuration;
     public float attackEffectChance;
+
     [Header("Drop methods")]
     public DropItem[] dropItems;
+
     [Header("Death effect")]
     public GameObject deathEffect;
     [Header("Dead awards")]
