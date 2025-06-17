@@ -103,7 +103,7 @@ public class MainGameUIOperator : MonoBehaviour
                     if (LoadedSettings.statsPause)
                     {
                         LoadedSettings.ifStatsOpen = true;
-                        StaticEffects.Save();
+                        //StaticEffects.Save();
                     }
                 }
                 else
@@ -111,7 +111,7 @@ public class MainGameUIOperator : MonoBehaviour
                     statisticsCanvas.gameObject.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
-                    StaticEffects.coroutines.gameObject.SetActive(true);
+                    //StaticEffects.coroutines.gameObject.SetActive(true);
                     LoadedSettings.ifStatsOpen = false;
                 }
             }
@@ -125,7 +125,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.visible = true;
                     if (LoadedSettings.questsPause)
                     {
-                        StaticEffects.Save();
+                        //StaticEffects.Save();
                         LoadedSettings.ifQuestsOpen = true;
                     }
                 }
@@ -134,7 +134,7 @@ public class MainGameUIOperator : MonoBehaviour
                     questCanvas.gameObject.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
-                    StaticEffects.coroutines.gameObject.SetActive(true);
+                    //StaticEffects.coroutines.gameObject.SetActive(true);
                     LoadedSettings.ifQuestsOpen = false;
                 }
             }

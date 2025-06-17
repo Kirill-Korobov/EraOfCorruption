@@ -39,7 +39,7 @@ public class MC_HealthManager : MonoBehaviour
         }
         Health = currentGameStats.mainCharacterStats.health;
         RemainingRespawnTime = currentGameStats.mainCharacterStats.remainingRespawnTime;
-        StaticEffects.coroutines.StartGame();
+        //StaticEffects.coroutines.StartGame();
     }
 
     private void Update()
@@ -185,7 +185,7 @@ public class MC_HealthManager : MonoBehaviour
         pauseManager.SetGameNotPaused();
         Health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel] / 2;
         energyManager.Energy = statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
-        manaManager.Mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
+        manaManager.Mana = statisticsInfo.CloseCombatStatsMultiplierValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
         satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
         // Set main character`s position.
         dieCoroutine = null;

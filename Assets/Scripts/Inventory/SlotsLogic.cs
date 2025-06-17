@@ -234,20 +234,14 @@ public class SlotsLogic : MonoBehaviour
             Save();
         }
     }
-    private IEnumerator Wiat()
-    {
-        canvas.gameObject.SetActive(true);
-        yield return null;
-        canvas.gameObject.SetActive(false);
-    }
     private void Awake()
     {
-        StartCoroutine(Wiat());
+        StaticDropTake.sl = this;
+        Debug.Log("sl was selected");
         path = $"{Application.persistentDataPath}/Inventory.json";
         ArmorSlors.Add(null);
         ArmorSlors.Add(null);
         ArmorSlors.Add(null);
-        StaticDropTake.sl = this;
         for (int i = 0; i < slotsGet.Count; i++)
         {
             dpis.Add(null);
