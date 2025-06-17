@@ -86,7 +86,6 @@ public class MoveSprites : MonoBehaviour, IPointerClickHandler
             {
                 if (wts == WhatTheSlot.Armor)
                 {
-
                     if (StaticSaveMovesSprites.dtiTaken.ItemType == ItemTypes.Armor && wtsSlots == TypesOfArmorSlots.Armor && StaticSaveMovesSprites.dtiTaken.DefenseType == DefenseTypes.Armor)
                     {
                         dti = StaticSaveMovesSprites.dtiTaken;

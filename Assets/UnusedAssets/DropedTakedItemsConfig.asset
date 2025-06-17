@@ -20,7 +20,7 @@ MonoBehaviour:
   min: 2
   max: 5
   buy: 0
-  itemType: 3
+  itemType: 0
   arrowDamage: 50
   weaponName: 
   damage: 0
@@ -35,5 +35,5 @@ MonoBehaviour:
   howMuch: 0
   defense: 50
   defenseType: 0
-  nutrition: 226
+  nutrition: 20
   poisonsType: 0

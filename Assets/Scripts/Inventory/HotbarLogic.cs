@@ -69,22 +69,57 @@ public class HotbarLogic : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Keypad1))
+        if (Input.GetKeyDown(LoadedSettings.inventory1))
         {
             activeNow = 0;
             TakeAtArm();
         }
-        if (Input.GetKeyDown(KeyCode.Keypad2))
+        if (Input.GetKeyDown(LoadedSettings.inventory2))
         {
             activeNow = 1;
             TakeAtArm();
         }
-        if (Input.GetKeyDown(KeyCode.Keypad3))
+        if (Input.GetKeyDown(LoadedSettings.inventory3))
         {
             activeNow = 2;
             TakeAtArm();
         }
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(LoadedSettings.inventory4))
+        {
+            activeNow = 3;
+            TakeAtArm();
+        }
+        if (Input.GetKeyDown(LoadedSettings.inventory5))
+        {
+            activeNow = 4;
+            TakeAtArm();
+        }
+        if (Input.GetKeyDown(LoadedSettings.inventory6))
+        {
+            activeNow = 5;
+            TakeAtArm();
+        }
+        if (Input.GetKeyDown(LoadedSettings.inventory7))
+        {
+            activeNow = 6;
+            TakeAtArm();
+        }
+        if (Input.GetKeyDown(LoadedSettings.inventory8))
+        {
+            activeNow = 7;
+            TakeAtArm();
+        }
+        if (Input.GetKeyDown(LoadedSettings.inventory9))
+        {
+            activeNow = 8;
+            TakeAtArm();
+        }
+        if (Input.GetKeyDown(LoadedSettings.inventory0))
+        {
+            activeNow = 9;
+            TakeAtArm();
+        }
+        if (Input.GetKeyDown(LoadedSettings.drop))
         {
             DropItem();
         }
@@ -103,7 +138,8 @@ public class HotbarLogic : MonoBehaviour
             {
                 weapons[indexActive].go.SetActive(false);
                 weapons[i].go.SetActive(true);
-                weapons[i].GetComponent<Rigidbody>().useGravity = false;
+                weapons[i].GetComponent<Rigidbody>().useGravity = false; 
+                weapons[i].GetComponent<Rigidbody>().isKinematic = true;
                 indexActive = i;
             }
             else if(dtis[activeNow] == null)

@@ -17,6 +17,7 @@ public class EffectsCoroutines : MonoBehaviour
     [SerializeField] private Image[] effectsImage;
     [SerializeField] private TMP_Text[] effectsTexts;
     [SerializeField] private CinemachineVirtualCamera[] mainCamera = new CinemachineVirtualCamera[3];
+    
     [SerializeField] private Camera camera1;
 
     private Coroutine[] effectsCoroutine = new Coroutine[16];
@@ -62,7 +63,7 @@ public class EffectsCoroutines : MonoBehaviour
         start = new Action[16];
         startCoroutine = new IEnumerator[16];
         isa = false;
-
+        StaticEffects.coroutines = this;
         resets[0] = PoisonStop;
         resets[1] = WeaknessStop;
         resets[2] = SlownessStop;
@@ -102,7 +103,6 @@ public class EffectsCoroutines : MonoBehaviour
         StaticEffects.vampirismHPRate = statEffects.VampirismHP;
         StaticEffects.vampirismHP = false;
         StaticEffects.shock = false;
-        StaticEffects.coroutines = this;
     }
     public void StartGame()
     {
@@ -128,6 +128,21 @@ public class EffectsCoroutines : MonoBehaviour
                     StartEffectCoroutine(start[i], i, timers[i]);
                 }
             }
+        }
+    }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.KeypadDivide))
+        {
+            Poison();
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadEnter))
+        {
+            Cursed();
+        }
+        if (Input.GetKeyDown(KeyCode.KeypadMinus))
+        {
+            Hex();
         }
     }
     private void OnEnable()

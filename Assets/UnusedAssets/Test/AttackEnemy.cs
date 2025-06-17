@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AttackEnemy : MonoBehaviour
 {
     [SerializeField] int HP;
-    [SerializeField] Image hp;
+    [SerializeField] TMP_Text hp;
     [SerializeField] int MaxHP;
 
     private void Awake()
@@ -16,6 +17,6 @@ public class AttackEnemy : MonoBehaviour
     public void EnemyAttaked(int attack)
     {
         HP -= attack;
-        hp.fillAmount = HP/MaxHP;
+        hp.text = HP + "";
     }
 }

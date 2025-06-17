@@ -12,6 +12,8 @@ using UnityEngine.UI;
 [Serializable]
 public class BindButton : MonoBehaviour
 {
+    [SerializeField] private GameObject bindsSetting;
+    [SerializeField] private GameObject setting;
     private bool t = false;
     private int whatthenumber;
     private string path;
@@ -19,7 +21,7 @@ public class BindButton : MonoBehaviour
 
     private Binds binds = new Binds();
 
-    public Image[] images;
+    public Toggle[] images;
     public TMP_Text[] texts;
 
     public Image cursor;
@@ -57,11 +59,13 @@ public class BindButton : MonoBehaviour
                     new KeyBindsNames(KeyCode.KeypadPeriod,"Numpad .")
                 };
 
+
+
     public void Clicked(int a)
     {
         whatthenumber = a;
         t = true;
-        images[whatthenumber].gameObject.SetActive(true);
+        images[whatthenumber].isOn = true;
     }
     /*
     public void PBFDG()
@@ -78,28 +82,27 @@ public class BindButton : MonoBehaviour
     */
     public void Exit()
     {
-        //idk
+        bindsSetting.gameObject.SetActive(false);
+        setting.gameObject.SetActive(true);
     }
     private void Awake()
     {
         string json = "";
         path = $"{Application.persistentDataPath}/KeyBinds.json";
-        binds.SetStandartKeyBindWithoutText();
-        kbn = binds.allBinds;
-        Save();
         using (var reader = new StreamReader(path))
         {
             string line;
             while ((line = reader.ReadLine()) != null) { json += line; }
         }
         kbn = JsonUtility.FromJson<Binds>(json).allBinds;
+        KeyBindsName(kbn);
     }
     private void Start()
     {
-        Cursor.visible = false;
         string cursorPath = $"{Application.persistentDataPath}/Settings.json";
         SaveSetting ss = new SaveSetting();
         string json = "";
+        
         using (var reader = new StreamReader(path))
         {
             string line;
@@ -108,14 +111,17 @@ public class BindButton : MonoBehaviour
         ss = JsonUtility.FromJson<SaveSetting>(json);
         if (ss.customCursor)
         {
+            Cursor.visible = false;
+
+            cursor.gameObject.SetActive(true);
             Texture2D tx = new Texture2D(2, 2);
             tx.LoadImage(Convert.FromBase64String(ss.imageCursor));
             Rect rt = new Rect(0, 0, tx.width, tx.height);
             Sprite sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
 
             cursor.sprite = sp;
+            cursor.rectTransform.sizeDelta = new Vector2(1 * LoadedSettings.cursorSizes.x, 1.2f * LoadedSettings.cursorSizes.y);
         }
-        cursor.rectTransform.sizeDelta = ss.cursorSizes;
     }
     public void KeyBindsName(KeyBindsNames[] keys)
     {
@@ -153,13 +159,8 @@ public class BindButton : MonoBehaviour
             {
                 Check();
                 t = false;
-                images[whatthenumber].gameObject.SetActive(false);
+                images[whatthenumber].isOn = false;
             }
-        }
-
-        if (cursor.gameObject.activeSelf == true)
-        {
-            cursor.transform.position = new Vector3(Input.mousePosition.x + (cursor.rectTransform.sizeDelta.x / 2), Input.mousePosition.y - (cursor.rectTransform.sizeDelta.y / 2));
         }
     }
     
@@ -216,12 +217,12 @@ public class BindButton : MonoBehaviour
 [Serializable]
 public class Binds
 {
-    public KeyBindsNames[] allBinds = new KeyBindsNames[28];
+    public KeyBindsNames[] allBinds = new KeyBindsNames[29];
 
-    private KeyCode[] standartBind = { KeyCode.Mouse0, KeyCode.F1, KeyCode.W, KeyCode.D, KeyCode.A, KeyCode.S, KeyCode.LeftShift, KeyCode.Space, KeyCode.Q, KeyCode.Tab, KeyCode.E, KeyCode.R, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9, KeyCode.Alpha0, KeyCode.F, KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.Return, KeyCode.Escape };
-    private string[] standartString = { "LMB", "F1", "W", "D", "A", "S", "LeftShift", "Space", "Q", "Tab", "E", "R", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "F", "Z", "X", "C", "Enter", "Esc" };
+    private KeyCode[] standartBind = { KeyCode.Mouse0, KeyCode.F1, KeyCode.W, KeyCode.D, KeyCode.A, KeyCode.S, KeyCode.LeftShift, KeyCode.Space, KeyCode.Q, KeyCode.Tab, KeyCode.E, KeyCode.R, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9, KeyCode.Alpha0, KeyCode.F, KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.Return, KeyCode.Escape, KeyCode.F2 };
+    private string[] standartString = { "LMB", "F1", "W", "D", "A", "S", "LeftShift", "Space", "Q", "Tab", "E", "R", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "F", "Z", "X", "C", "Enter", "Esc","F2" };
 
-    private string[] standartname = {"Attack", "Mute", "Forward", "Right", "Left", "Back", "Run","Jump", "Dash", "Teleport", "Take", "Drop", "1Inventory", "2Inventory", "3Inventory", "4Inventory", "5Inventory", "6Inventory", "7Inventory", "8Inventory", "9Inventory", "0Inventory", "OpenInventory", "OpenMenu", "OpenStats", "OpenQuests", "NPC", "Escape"};
+    private string[] standartname = {"Attack", "Mute", "Forward", "Right", "Left", "Back", "Run","Jump", "Dash", "Teleport", "Take", "Drop", "1Inventory", "2Inventory", "3Inventory", "4Inventory", "5Inventory", "6Inventory", "7Inventory", "8Inventory", "9Inventory", "0Inventory", "OpenInventory", "OpenMenu", "OpenStats", "OpenQuests", "NPC", "Escape", "Perspective"};
     
 
     public void CheckAnothereBinds(KeyCode key, TMP_Text[] text, int nowThis)
