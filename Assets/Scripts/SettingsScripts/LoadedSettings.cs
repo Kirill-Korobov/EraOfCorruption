@@ -54,6 +54,7 @@ public static class LoadedSettings
     public static KeyCode openQuests;
     public static KeyCode npc;
     public static KeyCode escape;
+    public static KeyCode perspective;
 
     public static void LoadSettings(SaveSetting saveSetting)
     {

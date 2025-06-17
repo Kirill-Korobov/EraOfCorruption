@@ -102,9 +102,6 @@ public class StatisticsInfo : ScriptableObject
     [SerializeField] private float jumpDuration;
     public float JumpDuration => jumpDuration;
 
-    [SerializeField] private float timeBeforeFallingDuringJump;
-    public float TimeBeforeFallingDuringJump => timeBeforeFallingDuringJump;
-
     [SerializeField] private AnimationCurve jumpCurve;
     public AnimationCurve JumpCurve => jumpCurve;
 

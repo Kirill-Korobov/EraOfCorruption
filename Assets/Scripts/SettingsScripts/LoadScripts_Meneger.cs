@@ -12,6 +12,8 @@ public class LoadScripts_Meneger : MonoBehaviour
 {
     private SaveSetting ss;
     private KeyBindsNames[] kbn;
+    [SerializeField] private SoundManager soundManager;
+    [SerializeField] private MusicManager musicManager;
 
     public Image imageCursor;
     private void Awake()
@@ -53,12 +55,13 @@ public class LoadScripts_Meneger : MonoBehaviour
             sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
 
             LoadedSettings.imageCursor = sp;
+            imageCursor.gameObject.SetActive(true);
         }
         else
         {
             LoadedSettings.imageCursor = null;
 
-            //imageCursor.gameObject.SetActive(false);
+            imageCursor.gameObject.SetActive(false);
         }
         LoadedSettings.mapPause = ss.mapPause;
         LoadedSettings.statsPause = ss.statsPause;
@@ -68,6 +71,8 @@ public class LoadScripts_Meneger : MonoBehaviour
         LoadedSettings.cursorSizes = ss.cursorSizes;
         LoadedSettings.song = ss.song;
         LoadedSettings.music = ss.music;
+        musicManager.ChangeVolume(ss.music);
+        soundManager.ChangeVolume(ss.song);
         LoadedSettings.sensivity = ss.sensivity;
         LoadedSettings.muteSongs = ss.mute;
         LoadedSettings.pause = ss.pause;
@@ -103,6 +108,7 @@ public class LoadScripts_Meneger : MonoBehaviour
         LoadedSettings.openQuests = kbn[25].bind;
         LoadedSettings.npc = kbn[26].bind;
         LoadedSettings.escape = kbn[27].bind;
+        LoadedSettings.perspective = kbn[28].bind;
     }
 
 

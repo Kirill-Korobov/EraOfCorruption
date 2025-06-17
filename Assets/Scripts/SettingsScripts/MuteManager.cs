@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MuteManager : MonoBehaviour
 {
+    [SerializeField] MusicManager musicManager;
+    [SerializeField] SoundManager soundManager;
     private KeyCode keyCode;
     private void Start()
     {
@@ -40,6 +42,8 @@ public class MuteManager : MonoBehaviour
             ss.song = LoadedSettings.song;
             ss.music = LoadedSettings.music;
         }
+        musicManager.ChangeVolume(ss.music);
+        soundManager.ChangeVolume(ss.song);
         ss.sensivity = LoadedSettings.sensivity;
         using (var writer = new StreamWriter($"{Application.persistentDataPath}/Settings.json"))
         {

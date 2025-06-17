@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7cc2a203ea235541b407b50832b334f, type: 3}
+  m_Name: ArrowUse
+  m_EditorClassIdentifier: 
+  id: 0
+  itemInOneSlot: 0
+  drop: {fileID: 0}
+  gameObject: {fileID: 0}
+  image: {fileID: 0}
+  min: 0
+  max: 0
+  buy: 0
+  itemType: 0
+  arrowDamage: 0
+  weaponName: 
+  damage: 0
+  reload: 0
+  manaCost: 0
+  weaponType: 0
+  splash: 0
+  attackAngle: 0
+  range: 0
+  magicSplash: 0
+  speed: 0
+  howMuch: 0
+  defense: 0
+  defenseType: 0
+  nutrition: 0
+  poisonsType: 0

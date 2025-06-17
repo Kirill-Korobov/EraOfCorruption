@@ -5,6 +5,7 @@ using UnityEngine;
 public class NicknameCanvasBehaviour : MonoBehaviour
 {
     private Transform mainCharacterTransform;
+    
 
     private void Awake()
     {

@@ -17,12 +17,13 @@ public class MainGameUIOperator : MonoBehaviour
     {
         if (!deathCanvas.gameObject.activeSelf)
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(LoadedSettings.escape))
             {
                 if (settingsCanvas.gameObject.activeSelf || achievementsCanvas.gameObject.activeSelf)
                 {
                     settingsCanvas.gameObject.SetActive(false);
                     achievementsCanvas.gameObject.SetActive(false);
+                    LoadedSettings.ifAnyOpen = false;
                 }
                 else if (pauseCanvas.gameObject.activeSelf || inventoryCanvas.gameObject.activeSelf || statisticsCanvas.gameObject.activeSelf || mapCanvas.gameObject.activeSelf || questCanvas.gameObject.activeSelf)
                 {
@@ -35,6 +36,10 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.visible = false;
                     StaticEffects.coroutines.gameObject.SetActive(true);
                     LoadedSettings.ifAnyOpen = false;
+                    LoadedSettings.ifInventoryOpen = false;
+                    LoadedSettings.ifQuestsOpen = false;
+                    LoadedSettings.ifMapOpen = false;
+                    LoadedSettings.ifStatsOpen = false;
                 }
                 else if (!_NPCQuestCanvas.gameObject.activeSelf)
                 {
@@ -45,7 +50,7 @@ public class MainGameUIOperator : MonoBehaviour
                     LoadedSettings.ifAnyOpen = true;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.F) && !LoadedSettings.ifAnyOpen && !LoadedSettings.ifInventoryOpen && !LoadedSettings.ifMapOpen && !LoadedSettings.ifQuestsOpen && !LoadedSettings.ifStatsOpen)
             {
                 if (!inventoryCanvas.gameObject.activeSelf)
                 {
@@ -69,7 +74,7 @@ public class MainGameUIOperator : MonoBehaviour
                     LoadedSettings.ifInventoryOpen = false;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Z))
+            if (Input.GetKeyDown(LoadedSettings.openMenu) && !LoadedSettings.ifAnyOpen && !LoadedSettings.ifInventoryOpen && !LoadedSettings.ifMapOpen && !LoadedSettings.ifQuestsOpen && !LoadedSettings.ifStatsOpen)
             {
                 if (!mapCanvas.gameObject.activeSelf)
                 {
@@ -92,7 +97,7 @@ public class MainGameUIOperator : MonoBehaviour
                     LoadedSettings.ifMapOpen = false;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.X))
+            if (Input.GetKeyDown(LoadedSettings.openStats) && !LoadedSettings.ifAnyOpen && !LoadedSettings.ifInventoryOpen && !LoadedSettings.ifMapOpen && !LoadedSettings.ifQuestsOpen && !LoadedSettings.ifStatsOpen)
             {
                 if (!statisticsCanvas.gameObject.activeSelf)
                 {
@@ -115,7 +120,7 @@ public class MainGameUIOperator : MonoBehaviour
                     LoadedSettings.ifStatsOpen = false;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(LoadedSettings.openQuests) && !LoadedSettings.ifAnyOpen && !LoadedSettings.ifInventoryOpen && !LoadedSettings.ifMapOpen && !LoadedSettings.ifQuestsOpen && !LoadedSettings.ifStatsOpen)
             {
                 if (!questCanvas.gameObject.activeSelf)
                 {

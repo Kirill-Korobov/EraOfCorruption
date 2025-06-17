@@ -42,10 +42,12 @@ public class TakeItem : MonoBehaviour
         WaitForSeconds a = new WaitForSeconds(1);
         while (reloadIfLets > 0)
         {
+            Debug.Log(reloadIfLets);
             yield return a;
             reloadIfLets--;
 
         }
+        Debug.Log(1);
         go.SetActive(true);
     }
 }

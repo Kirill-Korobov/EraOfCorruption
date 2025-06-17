@@ -14,6 +14,8 @@ public class Setting : MonoBehaviour
     {
         Save();
     }
+    [SerializeField] private GameObject binds;
+    [SerializeField] private GameObject setting;
     private float valueMusic;
     private float valueSong;
     private string path;
@@ -21,8 +23,9 @@ public class Setting : MonoBehaviour
     private bool ifSpriteIs;
     private SaveSetting ss;
     private Sprite sp;
+    [SerializeField] private MusicManager musicManager;
+    [SerializeField] private SoundManager soundManager;
 
-    public TMP_Text[] txts;
     public Toggle mute;
     public Slider music;
     public Slider song;
@@ -31,7 +34,6 @@ public class Setting : MonoBehaviour
     public Toggle customCursor;
     public Image importCursor;
     public Image cursor;
-    public Image savedCursor;
 
     public Slider sensivity;
 
@@ -44,10 +46,6 @@ public class Setting : MonoBehaviour
     [Obsolete]
     private void Update()
     {
-        if (cursor.gameObject.active == true)
-        {
-            cursor.transform.position = new Vector3(Input.mousePosition.x + (cursor.rectTransform.sizeDelta.x / 2), Input.mousePosition.y - (cursor.rectTransform.sizeDelta.y / 2));
-        }
         if (Input.GetKeyDown(LoadedSettings.mute))
         {
             Mute();
@@ -66,7 +64,6 @@ public class Setting : MonoBehaviour
         }
         ss = JsonUtility.FromJson<SaveSetting>(json);
         LoadSaves();
-        Cursor.visible = false;
     }
     public void LoadSaves()
     {
@@ -85,11 +82,11 @@ public class Setting : MonoBehaviour
         {
             music.gameObject.SetActive(false);
             song.gameObject.SetActive(false);
-            txts[0].gameObject.SetActive(false);
-            txts[1].gameObject.SetActive(false);
             music.value = ss.musicSaveDontUseHim;
             song.value = ss.songSaveDontUseHim;
         }
+        musicManager.ChangeVolume(ss.music);
+        soundManager.ChangeVolume(ss.song);
         cursor.rectTransform.sizeDelta = ss.cursorSizes;
         cursorSize.value = ss.cursorSizes.x;
         sensivity.value = ss.sensivity;
@@ -114,25 +111,31 @@ public class Setting : MonoBehaviour
             map.isOn = ss.mapPause;
             stats.isOn = ss.statsPause;
         }
-
-
         if (ss.customCursor)
         {
+            Cursor.visible = false;
+            cursor.gameObject.SetActive(true);
             Texture2D tx = new Texture2D(2, 2);
             tx.LoadImage(Convert.FromBase64String(ss.imageCursor));
             Rect rt = new Rect(0, 0, tx.width, tx.height);
             sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
 
+            cursor.rectTransform.sizeDelta = new Vector2(1 * LoadedSettings.cursorSizes.x, 1.2f * LoadedSettings.cursorSizes.y);
             cursor.sprite = sp;
         }
         else
         {
             ifSpriteIs = true;
             cursor.sprite = null;
-
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
             importCursor.gameObject.SetActive(false);
             customCursor.isOn = false;
         }
+    }
+    public void Escape()
+    {
+        gameObject.SetActive(false);
     }
     public void CustomCursor()
     {
@@ -168,7 +171,6 @@ public class Setting : MonoBehaviour
                     }
                     else
                     {
-                        cursor.sprite = savedCursor.sprite;
                         importCursor.gameObject.SetActive(false);
                     }
                 }
@@ -176,7 +178,7 @@ public class Setting : MonoBehaviour
             catch (IndexOutOfRangeException)
             {
                 customCursor.isOn = false;
-                Cursor.visible = false;
+                Cursor.visible = true;
             }
         }
         else
@@ -185,11 +187,12 @@ public class Setting : MonoBehaviour
             {
                 cursor.sprite = sp;
                 importCursor.gameObject.SetActive(true);
+                Cursor.visible = false;
             }
             else
             {
-                cursor.sprite = savedCursor.sprite;
                 importCursor.gameObject.SetActive(false);
+                Cursor.visible = true;
             }
         }
     }
@@ -222,13 +225,14 @@ public class Setting : MonoBehaviour
         }
         catch (IndexOutOfRangeException)
         {
-            Cursor.visible = false;
+            Cursor.visible = true;
         }
     }
 
     public void Binds()
     {
-        // canvas
+        setting.gameObject.SetActive(false);
+        binds.gameObject.SetActive(true);
     }
 
     public void Mute()
@@ -239,27 +243,27 @@ public class Setting : MonoBehaviour
             song.gameObject.SetActive(true);
             valueMusic = music.value;
             valueSong = song.value;
-            txts[0].gameObject.SetActive(true);
-            txts[1].gameObject.SetActive(true);
         }
         else
         {
             music.gameObject.SetActive(false);
             song.gameObject.SetActive(false);
-            txts[0].gameObject.SetActive(false);
-            txts[1].gameObject.SetActive(false);
             valueMusic = 0;
             valueSong = 0;
         }
+        musicManager.ChangeVolume(valueMusic);
+        soundManager.ChangeVolume(valueSong);
 
     }
     public void Music()
     {
         valueMusic = music.value;
+        musicManager.ChangeVolume(valueMusic);
     }
     public void Song()
     {
         valueSong = song.value;
+        soundManager.ChangeVolume(valueSong);
     }
     public void CursorSize()
     {
@@ -288,6 +292,8 @@ public class Setting : MonoBehaviour
         ss.SetStandartSettings();
         LoadSaves();
         Save();
+        musicManager.ChangeVolume(valueMusic);
+        soundManager.ChangeVolume(valueSong);
     }
     
     public void Save()
@@ -389,7 +395,7 @@ public class SaveSetting
         imageCursor = "";
         extension = "";
         mute = false;
-        pause = true;
+        pause = false;
 
     }
 } 
