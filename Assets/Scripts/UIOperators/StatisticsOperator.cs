@@ -165,7 +165,7 @@ public class StatisticsOperator : MonoBehaviour
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        StaticEffects.coroutines.gameObject.SetActive(true);
+        // StaticEffects.coroutines.gameObject.SetActive(true);
     }
 
     public void SaveButton()
@@ -203,6 +203,6 @@ public class StatisticsOperator : MonoBehaviour
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        StaticEffects.coroutines.gameObject.SetActive(true);
+        // StaticEffects.coroutines.gameObject.SetActive(true);
     }
 }

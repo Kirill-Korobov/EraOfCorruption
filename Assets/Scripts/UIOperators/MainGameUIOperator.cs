@@ -26,14 +26,14 @@ public class MainGameUIOperator : MonoBehaviour
                 }
                 else if (pauseCanvas.gameObject.activeSelf || inventoryCanvas.gameObject.activeSelf || statisticsCanvas.gameObject.activeSelf || mapCanvas.gameObject.activeSelf || questCanvas.gameObject.activeSelf)
                 {
-                    if (inventoryCanvas.gameObject.activeSelf)
+                    /* if (inventoryCanvas.gameObject.activeSelf)
                     {
                         StaticDropTake.sl.Exit();
-                    }
+                    } */
                     SetAllCanvasesInactive();
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
-                    StaticEffects.coroutines.gameObject.SetActive(true);
+                    // StaticEffects.coroutines.gameObject.SetActive(true);
                     LoadedSettings.ifAnyOpen = false;
                 }
                 else if (!_NPCQuestCanvas.gameObject.activeSelf)
@@ -41,7 +41,7 @@ public class MainGameUIOperator : MonoBehaviour
                     pauseCanvas.gameObject.SetActive(true);
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
-                    StaticEffects.Save();
+                    // StaticEffects.Save();
                     LoadedSettings.ifAnyOpen = true;
                 }
             }
@@ -56,17 +56,17 @@ public class MainGameUIOperator : MonoBehaviour
                     if (LoadedSettings.inventoryPause)
                     {
                         LoadedSettings.ifInventoryOpen = true;
-                        StaticEffects.Save();
+                        // StaticEffects.Save();
                     }
                 }
                 else
                 {
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
-                    StaticDropTake.sl.Exit();
+                    // StaticDropTake.sl.Exit();
                     inventoryCanvas.gameObject.SetActive(false);
-                    StaticEffects.coroutines.gameObject.SetActive(true);
-                    LoadedSettings.ifInventoryOpen = false;
+                    // StaticEffects.coroutines.gameObject.SetActive(true);
+                    // LoadedSettings.ifInventoryOpen = false;
                 }
             }
             if (Input.GetKeyDown(KeyCode.Z))
@@ -80,7 +80,7 @@ public class MainGameUIOperator : MonoBehaviour
                     if (LoadedSettings.mapPause)
                     {
                         LoadedSettings.ifMapOpen = true;
-                        StaticEffects.Save();
+                        // StaticEffects.Save();
                     }
                 }
                 else
@@ -88,7 +88,7 @@ public class MainGameUIOperator : MonoBehaviour
                     mapCanvas.gameObject.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
-                    StaticEffects.coroutines.gameObject.SetActive(true);
+                    // StaticEffects.coroutines.gameObject.SetActive(true);
                     LoadedSettings.ifMapOpen = false;
                 }
             }
@@ -103,7 +103,7 @@ public class MainGameUIOperator : MonoBehaviour
                     if (LoadedSettings.statsPause)
                     {
                         LoadedSettings.ifStatsOpen = true;
-                        StaticEffects.Save();
+                        // StaticEffects.Save();
                     }
                 }
                 else
@@ -111,7 +111,7 @@ public class MainGameUIOperator : MonoBehaviour
                     statisticsCanvas.gameObject.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
-                    StaticEffects.coroutines.gameObject.SetActive(true);
+                    // StaticEffects.coroutines.gameObject.SetActive(true);
                     LoadedSettings.ifStatsOpen = false;
                 }
             }
@@ -125,7 +125,7 @@ public class MainGameUIOperator : MonoBehaviour
                     Cursor.visible = true;
                     if (LoadedSettings.questsPause)
                     {
-                        StaticEffects.Save();
+                        // StaticEffects.Save();
                         LoadedSettings.ifQuestsOpen = true;
                     }
                 }
@@ -134,7 +134,7 @@ public class MainGameUIOperator : MonoBehaviour
                     questCanvas.gameObject.SetActive(false);
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
-                    StaticEffects.coroutines.gameObject.SetActive(true);
+                    // StaticEffects.coroutines.gameObject.SetActive(true);
                     LoadedSettings.ifQuestsOpen = false;
                 }
             }

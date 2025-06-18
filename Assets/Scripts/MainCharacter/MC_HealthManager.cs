@@ -40,12 +40,16 @@ public class MC_HealthManager : MonoBehaviour
         }
         Health = currentGameStats.mainCharacterStats.health;
         RemainingRespawnTime = currentGameStats.mainCharacterStats.remainingRespawnTime;
-        StaticEffects.coroutines.StartGame();
+        // StaticEffects.coroutines.StartGame();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            TakeDamage(5);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             TakeDamage(20);
         }
@@ -162,7 +166,7 @@ public class MC_HealthManager : MonoBehaviour
     {
         pauseManager.SetGamePaused();
         mainGameUIOperator.mainCanvas.gameObject.SetActive(false);
-        StaticEffects.coroutines.ResetEffect();
+        // StaticEffects.coroutines.ResetEffect();
         // Minus money.
         // Destroy all enemies and bosses.
         deathCanvas.gameObject.SetActive(true);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NPCsInfoConfig
   m_EditorClassIdentifier: 
   __NPCsInfo:
-  - name: First NPC
+  - name: Best Friend
     dialogueIndex: 0
-    questIndexes: 000000000100000002000000
-    tradesIndexes: 0200000000000000
+    questIndexes: 000000000000000000000000
+    tradesIndexes: 00000000

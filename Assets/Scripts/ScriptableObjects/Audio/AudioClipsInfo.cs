@@ -13,6 +13,9 @@ public class AudioClipsInfo : ScriptableObject
     [SerializeField] private AudioClip loadingMenuMusic;
     public AudioClip LoadingMenuMusic => loadingMenuMusic;
 
+    [SerializeField] private AudioClip forestLocationMusic;
+    public AudioClip ForestLocationMusic => forestLocationMusic;
+
     // Write other music.
 
     // Sounds
@@ -36,12 +39,6 @@ public class AudioClipsInfo : ScriptableObject
     [SerializeField] private AudioClip deathSound;
     public AudioClip DeathSound => deathSound;
 
-    [SerializeField] private AudioClip finishQuestSound;
-    public AudioClip FinishQuestSound => finishQuestSound;
-
-    [SerializeField] private AudioClip makeTradeSound;
-    public AudioClip MakeTradeSound => makeTradeSound;
-
-    [SerializeField] private AudioClip errorSound;
-    public AudioClip ErrorSound => errorSound;
+    [SerializeField] private AudioClip finishQuestOrMakeTradeSound;
+    public AudioClip FinishQuestOrMakeTradeSound => finishQuestOrMakeTradeSound;
 }

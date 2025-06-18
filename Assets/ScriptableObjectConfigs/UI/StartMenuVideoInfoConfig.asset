@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: StartMenuVideoInfoConfig
   m_EditorClassIdentifier: 
   startMenuVideoClips:
-  - {fileID: 32900000, guid: 79c84aec0ea8c814fa701ab8e7220d26, type: 3}
   - {fileID: 32900000, guid: 277f15ec1fc62554fbd5e531efa3eba2, type: 3}
   - {fileID: 32900000, guid: 05d30d19ecbaa874c97f7b6d053d4afd, type: 3}
   - {fileID: 32900000, guid: 113db7f9ab41b784280ee2f7e8e3ee7d, type: 3}

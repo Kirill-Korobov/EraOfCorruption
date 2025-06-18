@@ -27,6 +27,14 @@ public class MC_EnergyManager : MonoBehaviour
         Energy = currentGameStats.mainCharacterStats.energy;
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            ReplenishEnergy(100);
+        }
+    }
+
     public float Energy
     {
         get

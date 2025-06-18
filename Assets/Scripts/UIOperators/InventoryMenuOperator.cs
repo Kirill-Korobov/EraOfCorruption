@@ -9,10 +9,10 @@ public class InventoryMenuOperator : MonoBehaviour
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        StaticEffects.coroutines.gameObject.SetActive(true);
+        // StaticEffects.coroutines.gameObject.SetActive(true);
     }
     private void OnDisable()
     {
-        StaticDropTake.sl.Exit();
+        // StaticDropTake.sl.Exit();
     }
 }

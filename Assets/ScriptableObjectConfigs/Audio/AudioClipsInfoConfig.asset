@@ -12,14 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee30ad6c351fea4aa3a53c2f20f4c85, type: 3}
   m_Name: AudioClipsInfoConfig
   m_EditorClassIdentifier: 
-  startMenuMusic: {fileID: 8300000, guid: 5347839d3afe33747a1f94dc9e0fa347, type: 3}
-  loadingMenuMusic: {fileID: 0}
-  pressButtonSound: {fileID: 8300000, guid: 54604eeaaa80ef046b00f292cd7dcb7a, type: 3}
-  dashSound: {fileID: 0}
-  teleportSound: {fileID: 0}
-  getDamageSound: {fileID: 0}
-  levelUpSound: {fileID: 0}
-  deathSound: {fileID: 0}
-  finishQuestSound: {fileID: 0}
-  makeTradeSound: {fileID: 0}
-  errorSound: {fileID: 0}
+  startMenuMusic: {fileID: 8300000, guid: 8e69094d676759e4d853cba13a292a9b, type: 3}
+  loadingMenuMusic: {fileID: 8300000, guid: 8da8ffe27e039ab4ca8043ec1b0a1889, type: 3}
+  forestLocationMusic: {fileID: 8300000, guid: 7d872a40a732975489b95e04e1fefab4, type: 3}
+  pressButtonSound: {fileID: 8300000, guid: c628cc13dcc31534b885d3c876799279, type: 3}
+  dashSound: {fileID: 8300000, guid: 23802fd90b5cce64b897966c609cea46, type: 3}
+  teleportSound: {fileID: 8300000, guid: 52b215534256e194fa333f64ae4227dc, type: 3}
+  getDamageSound: {fileID: 8300000, guid: bdf350fcf25bb044eb93eb329aee0b66, type: 3}
+  levelUpSound: {fileID: 8300000, guid: f820c21c43d9a554ba0fd9a4ce25be0d, type: 3}
+  deathSound: {fileID: 8300000, guid: efaf5be249d3aab4b99696b3fa317f4d, type: 3}
+  finishQuestOrMakeTradeSound: {fileID: 8300000, guid: 9973207758a6f3241b852ea02806b738, type: 3}

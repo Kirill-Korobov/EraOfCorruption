@@ -825,7 +825,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!328 &408517110
 VideoPlayer:
   m_ObjectHideFlags: 0
@@ -1008,7 +1008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303573437731427276, guid: 8e085886d0ef02b4b9cb8ac45eace1a9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1540
+      value: -1705
       objectReference: {fileID: 0}
     - target: {fileID: 6303573437731427276, guid: 8e085886d0ef02b4b9cb8ac45eace1a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2476,7 +2476,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 1605.5513}
+  m_SizeDelta: {x: 0, y: 1780}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &865946888
 GameObject:
@@ -3160,7 +3160,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1370}
+  m_AnchoredPosition: {x: 0, y: -1535}
   m_SizeDelta: {x: 1000, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1015958427
@@ -5181,7 +5181,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7332366300277397117, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 300
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7332366300277397117, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
       propertyPath: m_SizeDelta.y
@@ -5217,7 +5217,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7332366300277397117, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -780
+      value: -680
       objectReference: {fileID: 0}
     - target: {fileID: 7332366300277397117, guid: 9bae8766f3edb234b967da3d16d24933, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5337,7 +5337,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b1f78a19dfc13f46917a69a977c966e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameVersion: Beta
+  gameVersion: Pre-Alpha
 --- !u!1 &1541831401
 GameObject:
   m_ObjectHideFlags: 0
@@ -6228,26 +6228,28 @@ MonoBehaviour:
 
 
     Artem
-    Shylov: -
+    Shylov: found assets, made enemy system.
 
 
-    Kirill Korobov: -
+    Kirill Korobov: wrote GDD, found
+    assets, made main character statistic, main character movement, UI, NPC System,
+    animations and sound effects.
 
 
-    Mark Zinchuk: -
+    Mark Zinchuk: found assets, made terrain.
 
 
-    Dmytro Yushchuk:
-    -
+    Dmytro
+    Yushchuk: found assets, made inventory system, effects system, settings.
 
 
-    Special thanks to: other groupmates, Ostap Polishcuk, Daniel Rykhtyk
-    and Olena Blyznyakova.
+    Special
+    thanks to: other groupmates, Ostap Polishcuk, Daniel Rykhtyk and Olena Blyznyakova.
 
 
-    If you`re searching for more information(explanation
-    of mechanics, plot, team information, etc.), you can check out the official GDD
-    (in ukrainian language).'
+    If
+    you`re searching for more information(explanation of mechanics, plot, team information,
+    etc.), you can check out the official GDD (in ukrainian language).'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 46c95ca6dfa3889469a99843bd38287b, type: 2}
   m_sharedMaterial: {fileID: -6004296928219067356, guid: 46c95ca6dfa3889469a99843bd38287b, type: 2}
@@ -8116,7 +8118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6303573437731427276, guid: 8e085886d0ef02b4b9cb8ac45eace1a9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1540
+      value: -1705
       objectReference: {fileID: 0}
     - target: {fileID: 6303573437731427276, guid: 8e085886d0ef02b4b9cb8ac45eace1a9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8621,7 +8623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2024060606
 RectTransform:
   m_ObjectHideFlags: 0
