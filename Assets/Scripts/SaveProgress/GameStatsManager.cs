@@ -129,6 +129,7 @@ public class GameStats
     public SlotStats slotStats;
     public MainCharacterStats mainCharacterStats;
     public QuestStagesStats questStagesStats;
+    public Sublocation currentSublocation;
 
     [HideInInspector] public StatisticsInfo statisticsInfo;
     [HideInInspector] public QuestsInfo questsInfo;
@@ -137,6 +138,7 @@ public class GameStats
         slotStats.SetAllStatsToZero();
         mainCharacterStats.statisticsInfo = statisticsInfo; mainCharacterStats.SetAllStatsToZero();
         questStagesStats.questsInfo = questsInfo; questStagesStats.SetAllStatsToZero();
+        currentSublocation = Sublocation.Greenfield;
     }
 }
 

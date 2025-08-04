@@ -8,12 +8,14 @@ public class MC_MovementManager : MonoBehaviour
     [SerializeField] private PauseManager pauseManager;
     [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private MC_StatisticsManager statisticsManager;
-    [SerializeField] private MC_LevelManager levelManager;
     [SerializeField] private MC_EnergyManager energyManager;
     [SerializeField] private MC_SatietyManager satietyManager;
     [SerializeField] private MC_PerspectiveManager perspectiveManager;
+    [SerializeField] private LocationManager locationManager;
     [SerializeField] private Animator animator;
     [SerializeField] private Transform modelTransform;
+    [SerializeField] private GameStatsManager gameStatsManager;
+    private GameStats currentGameStats;
     private bool isJumping = false;
     private int currentJumpNumber;
     private Coroutine jumpCoroutine;
@@ -25,7 +27,22 @@ public class MC_MovementManager : MonoBehaviour
 
     private void Start()
     {
-        // Set main character`s position.
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
+        Respawn();
         characterController = GetComponent<CharacterController>();
         currentDashRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
         currentTeleportationRechargeTime = statisticsInfo.DashingRechargeTimeValues[statisticsManager.MovementLevel];
@@ -284,5 +301,13 @@ public class MC_MovementManager : MonoBehaviour
         isJumping = false;
         animator.SetBool("Fall", true);
         animator.SetBool("Jump", false);
+    }
+
+    public void Respawn()
+    {
+        transform.position = locationManager.spawnPoints[currentGameStats.currentSublocation].position;
+        transform.rotation = locationManager.spawnPoints[currentGameStats.currentSublocation].rotation;
+        modelTransform.localEulerAngles = new Vector3(0, 0, 0);
+        perspectiveManager.rotationY = 0;
     }
 }

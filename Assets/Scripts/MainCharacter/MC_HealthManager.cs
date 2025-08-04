@@ -6,6 +6,7 @@ public class MC_HealthManager : MonoBehaviour
 {
     private int defense;
     [SerializeField] private BloodyBackgroundBehaviour bloodyBackgroundBehaviour;
+    [SerializeField] private MC_MovementManager movementManager;
     [SerializeField] private MC_EnergyManager energyManager;
     [SerializeField] private MC_ManaManager manaManager;
     [SerializeField] private MC_SatietyManager satietyManager;
@@ -194,7 +195,7 @@ public class MC_HealthManager : MonoBehaviour
         manaManager.Mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
         satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
         animator.Play("Idle");
-        // Set main character`s position.
+        movementManager.Respawn();
         dieCoroutine = null;
         // StaticEffects.coroutines.CheckBlindness();
     }
