@@ -1,0 +1,213 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec8ce2f3357781844a1a482d3f2a6eb7, type: 3}
+  m_Name: EnemiesInfoConfig
+  m_EditorClassIdentifier: 
+  enemiesInfo:
+  - enemyPrefab: {fileID: 1773656247975474, guid: 57d78de69bcaf8a4e969c0c3350b859b, type: 3}
+    name: Slime Rabbit
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 01000000
+    spawnChance: 10
+  - enemyPrefab: {fileID: 1800112872346750798, guid: 649e06e0e4b4d23458a9361152b17c1f, type: 3}
+    name: Bandit
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 01000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 1931298151966786, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
+    name: Red Slime
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 020000000300000004000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 2396052276693005434, guid: 594379e3d7cd173438676e34378be8fc, type: 3}
+    name: Mushroom
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 020000000300000004000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 7674759261756376287, guid: 5afd1af3d47333f459a9daf744e7ddf4, type: 3}
+    name: Green Watcher
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 020000000300000004000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 7035340801813807993, guid: c4af682be65ae26478eefbc1f12c90a1, type: 3}
+    name: Red Watcher
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 020000000300000004000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 100702, guid: a8fe9acb1e0f9f74c81a0ac4738f9efe, type: 3}
+    name: Goblin
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 0300000004000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 645090563169779299, guid: d10aceccb0a04f441bcfe4b951622e9e, type: 3}
+    name: Skeleton
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 0300000004000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 8914286996971816111, guid: 877dc861ccb8af54a82af8e7768fd13c, type: 3}
+    name: Wolf
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 7
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 0300000004000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 3000817698385718897, guid: ded066b790a760f4d91cd1eb83e274a7, type: 3}
+    name: Orc
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 04000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 1067925524328404, guid: 6bbfea6690ef7724ba495c866081f855, type: 3}
+    name: Golem
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 04000000
+    spawnChance: 1
+  - enemyPrefab: {fileID: 1342959200176554030, guid: 71c2b86e4d7bc49b894c67d7b7a7b83f, type: 3}
+    name: Troll
+    _HP: 100
+    defense: 0
+    damage: 1
+    rechargeTime: 1
+    visionRadius: 10
+    wanderSpeed: 2
+    chaseSpeed: 5
+    attackRadius: 3
+    moneyDropAmount: 0
+    _XPDropAmount: 0
+    spawnSublocations: 0300000004000000
+    spawnChance: 1
+  wanderDestinatioMaxRadius: 30
+  wanderDestinationRefreshTime: 10
+  maxEnemyNumber: 100
+  averageSpawnIntervalsList:
+  - sublocation: 0
+    value: 0.05
+  - sublocation: 1
+    value: 0.05
+  - sublocation: 2
+    value: 0.05
+  - sublocation: 3
+    value: 0.05
+  - sublocation: 4
+    value: 0.05
+  skipEnemySpawnChancesList:
+  - sublocation: 0
+    value: 0
+  - sublocation: 1
+    value: 0
+  - sublocation: 2
+    value: 0
+  - sublocation: 3
+    value: 0
+  - sublocation: 4
+    value: 0
+  minSpawnIntervalMultiplier: 0.5
+  maxSpawnIntervalMultiplier: 2
+  minSpawnRadius: 10
+  maxSpawnRadius: 20
+  enemyDisappearRadius: 500

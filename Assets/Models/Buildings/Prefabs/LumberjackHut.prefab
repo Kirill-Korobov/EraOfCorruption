@@ -1,5 +1,53 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7998498336248050773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8329878067165429399}
+  - component: {fileID: 190587408923540128}
+  m_Layer: 0
+  m_Name: NavMeshModifierVolume
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8329878067165429399
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998498336248050773}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: -0.72234184, z: -0, w: -0.6915362}
+  m_LocalPosition: {x: 0.11, y: 3, z: 2.36}
+  m_LocalScale: {x: 1.3333333, y: 1.3333334, z: 1.3333333}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7666081995105099917}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &190587408923540128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7998498336248050773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35e95dc5ff2b64380880dd7ac5922847, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Size: {x: 7.1824265, y: 2.412671, z: 8.311877}
+  m_Center: {x: 0.43202448, y: 0.70633554, z: 2.9691424}
+  m_Area: 1
+  m_AffectedAgents: ffffffff
 --- !u!1001 &7920104997100750694
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -322,7 +370,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6d4a876b10e8bfe49bdc3bde91692343, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 8329878067165429399}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: -6920690623926577443, guid: 6d4a876b10e8bfe49bdc3bde91692343, type: 3}
       insertIndex: -1
@@ -1096,6 +1147,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5495902117074765545, guid: 6d4a876b10e8bfe49bdc3bde91692343, type: 3}
+--- !u!4 &7666081995105099917 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6d4a876b10e8bfe49bdc3bde91692343, type: 3}
+  m_PrefabInstance: {fileID: 7920104997100750694}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &7926484549316379569 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 281855664364225751, guid: 6d4a876b10e8bfe49bdc3bde91692343, type: 3}

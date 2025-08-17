@@ -10,6 +10,7 @@ public class LocationManager : MonoBehaviour
     public Dictionary<Sublocation, Transform> spawnPoints;
     [SerializeField] private TMP_Text locationChangedText;
     [SerializeField] private Animator locationChangedTextAnimator;
+    [SerializeField] private SpawnEnemies spawnEnemies;
 
     private void Awake()
     {
@@ -48,6 +49,7 @@ public class LocationManager : MonoBehaviour
         currentGameStats.currentSublocation = sublocation;
         locationChangedText.text = $"<{sublocation.ToString()}>";
         locationChangedTextAnimator.Play("LocationChangedTextAnimation", 0, 0f);
+        spawnEnemies.ChangeEnemiesToSpawn();
     }
 }
 

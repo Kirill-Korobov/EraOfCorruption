@@ -2177,7 +2177,7 @@ ModelImporter:
     second: attack2
   - first:
       74: 7400020
-    second: attack3
+    second: GoblinAttack
   - first:
       74: 7400022
     second: combat_idle
@@ -2192,7 +2192,7 @@ ModelImporter:
     second: idle
   - first:
       74: 7400030
-    second: death
+    second: GoblinDie
   - first:
       74: 7400032
     second: remove_weapons
@@ -2201,7 +2201,7 @@ ModelImporter:
     second: weapons_get
   - first:
       74: 7400036
-    second: run
+    second: GoblinChase
   - first:
       74: 7400038
     second: GOB_Two_Attak_left
@@ -2231,7 +2231,7 @@ ModelImporter:
     second: GOB_Two_walk
   - first:
       74: 7400056
-    second: walk
+    second: GoblinWander
   - first:
       95: 9500000
     second: //RootNode
@@ -2271,7 +2271,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -2291,7 +2291,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -2320,7 +2320,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -2338,7 +2338,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: attack3
+      name: GoblinAttack
       takeName: GOB_atak_left
       internalID: 0
       firstFrame: 0
@@ -2349,7 +2349,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -2483,7 +2483,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: death
+      name: GoblinDie
       takeName: GOB_kill1
       internalID: 0
       firstFrame: 0
@@ -2570,7 +2570,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: run
+      name: GoblinChase
       takeName: GOB_run
       internalID: 0
       firstFrame: 0
@@ -2581,7 +2581,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -2599,7 +2599,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: walk
+      name: GoblinWander
       takeName: GOB_walk
       internalID: 0
       firstFrame: 0
@@ -2610,7 +2610,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -2688,11 +2688,11 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 1
+  animationType: 2
   humanoidOversampling: 1
   avatarSetup: 0
   addHumanoidExtraRootOnlyWhenUsingAvatar: 0
