@@ -13,7 +13,59 @@ MonoBehaviour:
   m_Name: NPCsInfoConfig
   m_EditorClassIdentifier: 
   __NPCsInfo:
+  - name: Mother
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Father
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
   - name: Best Friend
     dialogueIndex: 0
-    questIndexes: 000000000000000000000000
-    tradesIndexes: 00000000
+    questIndexes: 
+    tradesIndexes: 
+  - name: Mysterious Weirdo
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Citizen
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Salesman
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Archer
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Power Master
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Mage
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Apothecary
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Mayor
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Lumberjack
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Blacksmith
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 
+  - name: Dark Sevarnt
+    dialogueIndex: 0
+    questIndexes: 
+    tradesIndexes: 

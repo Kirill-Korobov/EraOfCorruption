@@ -183,29 +183,29 @@ MonoBehaviour:
     spawnChance: 1
   wanderDestinatioMaxRadius: 30
   wanderDestinationRefreshTime: 10
-  maxEnemyNumber: 100
+  maxEnemyNumber: 30
   averageSpawnIntervalsList:
   - sublocation: 0
-    value: 0.05
+    value: 1
   - sublocation: 1
-    value: 0.05
+    value: 1
   - sublocation: 2
-    value: 0.05
+    value: 1
   - sublocation: 3
-    value: 0.05
+    value: 1
   - sublocation: 4
-    value: 0.05
+    value: 1
   skipEnemySpawnChancesList:
   - sublocation: 0
-    value: 0
+    value: 0.5
   - sublocation: 1
-    value: 0
+    value: 0.5
   - sublocation: 2
-    value: 0
+    value: 0.5
   - sublocation: 3
-    value: 0
+    value: 0.5
   - sublocation: 4
-    value: 0
+    value: 0.5
   minSpawnIntervalMultiplier: 0.5
   maxSpawnIntervalMultiplier: 2
   minSpawnRadius: 10
