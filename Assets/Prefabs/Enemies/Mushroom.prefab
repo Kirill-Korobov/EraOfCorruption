@@ -658,7 +658,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100008, guid: 10a1e47d0d282414481a0b2a67c79333, type: 3}
       propertyPath: m_Name
-      value: CrazyMushroom
+      value: Mushroom
+      objectReference: {fileID: 0}
+    - target: {fileID: 100008, guid: 10a1e47d0d282414481a0b2a67c79333, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 400008, guid: 10a1e47d0d282414481a0b2a67c79333, type: 3}
       propertyPath: m_LocalPosition.x
@@ -746,6 +750,7 @@ MonoBehaviour:
   _HPBarImage: {fileID: 8746078118948007400}
   _HPBarText: {fileID: 6531785307505589879}
   dieAnimationClip: {fileID: 7400008, guid: 10a1e47d0d282414481a0b2a67c79333, type: 3}
+  isDead: 0
 --- !u!195 &-4922175534121639909
 NavMeshAgent:
   m_ObjectHideFlags: 0

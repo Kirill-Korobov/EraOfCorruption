@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class NPCQuestMenuOperator : MonoBehaviour
 {
     [SerializeField] private QuestStagesInfo questStagesInfo;
+    [SerializeField] private QuestRequirements questRequirements;
+    [SerializeField] private QuestTasks questTasks;
     [SerializeField] private QuestsInfo questsInfo;
     [SerializeField] private NPCsInfo _NPCsInfo;
     [SerializeField] private TMP_Text titleText;
@@ -36,6 +38,8 @@ public class NPCQuestMenuOperator : MonoBehaviour
     public void SpawnQuests(int _interactingNPCID)
     {
         interactingNPCID = _interactingNPCID;
+        questRequirements.UpdateRequirements();
+        questTasks.UpdateTasks();
         questNumber = 0;
         for (int i = 0; i < _NPCsInfo._NPCsInfo[interactingNPCID].questIndexes.Length; i++)
         {

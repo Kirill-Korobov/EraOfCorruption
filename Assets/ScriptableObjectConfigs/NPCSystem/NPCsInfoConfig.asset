@@ -67,5 +67,5 @@ MonoBehaviour:
     tradesIndexes: 
   - name: Dark Sevarnt
     dialogueIndex: 0
-    questIndexes: 
+    questIndexes: 00000000
     tradesIndexes: 

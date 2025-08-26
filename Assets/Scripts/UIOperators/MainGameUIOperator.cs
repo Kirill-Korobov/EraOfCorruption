@@ -141,7 +141,7 @@ public class MainGameUIOperator : MonoBehaviour
         }
     }
 
-    private void SetAllCanvasesInactive()
+    public void SetAllCanvasesInactive()
     {
         pauseCanvas.gameObject.SetActive(false);
         inventoryCanvas.gameObject.SetActive(false);

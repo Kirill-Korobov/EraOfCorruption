@@ -12,16 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65e4570fc1e36844f8c51292693fc32d, type: 3}
   m_Name: TradesInfoConfig
   m_EditorClassIdentifier: 
-  tradeInfo:
-  - price: []
-    priceDescription: lalala
-    goods: []
-    goodsDescription: beeeeeeee
-  - price: []
-    priceDescription: 3 lemons, 50 money
-    goods: []
-    goodsDescription: ultra mega super puper sword
-  - price: []
-    priceDescription: nothing
-    goods: []
-    goodsDescription: nothing
+  tradeInfo: []

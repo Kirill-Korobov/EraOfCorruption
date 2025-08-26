@@ -145,7 +145,7 @@ MonoBehaviour:
     defense: 0
     damage: 1
     rechargeTime: 1
-    visionRadius: 10
+    visionRadius: 100
     wanderSpeed: 2
     chaseSpeed: 5
     attackRadius: 3
@@ -159,7 +159,7 @@ MonoBehaviour:
     defense: 0
     damage: 1
     rechargeTime: 1
-    visionRadius: 10
+    visionRadius: 100
     wanderSpeed: 2
     chaseSpeed: 5
     attackRadius: 3
@@ -183,29 +183,29 @@ MonoBehaviour:
     spawnChance: 1
   wanderDestinatioMaxRadius: 30
   wanderDestinationRefreshTime: 10
-  maxEnemyNumber: 30
+  maxEnemyNumber: 0
   averageSpawnIntervalsList:
   - sublocation: 0
-    value: 1
+    value: 0.05
   - sublocation: 1
-    value: 1
+    value: 0.05
   - sublocation: 2
-    value: 1
+    value: 0.05
   - sublocation: 3
-    value: 1
+    value: 0.05
   - sublocation: 4
-    value: 1
+    value: 0.05
   skipEnemySpawnChancesList:
   - sublocation: 0
-    value: 0.5
+    value: 0
   - sublocation: 1
-    value: 0.5
+    value: 0
   - sublocation: 2
-    value: 0.5
+    value: 0
   - sublocation: 3
-    value: 0.5
+    value: 0
   - sublocation: 4
-    value: 0.5
+    value: 0
   minSpawnIntervalMultiplier: 0.5
   maxSpawnIntervalMultiplier: 2
   minSpawnRadius: 10

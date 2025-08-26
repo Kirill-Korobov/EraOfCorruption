@@ -660,6 +660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bandit
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: fe55e5a0c1bcd72488aa4508bea6f93b, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: fe55e5a0c1bcd72488aa4508bea6f93b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -754,6 +758,7 @@ MonoBehaviour:
   _HPBarImage: {fileID: 2440875308957966692}
   _HPBarText: {fileID: 7347283188219418343}
   dieAnimationClip: {fileID: -203655887218126122, guid: 54cca0066d666364c9c96b56d0bd13a1, type: 3}
+  isDead: 0
 --- !u!195 &5700783710711889557
 NavMeshAgent:
   m_ObjectHideFlags: 0

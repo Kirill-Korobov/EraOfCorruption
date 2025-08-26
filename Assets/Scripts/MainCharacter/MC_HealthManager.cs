@@ -169,25 +169,35 @@ public class MC_HealthManager : MonoBehaviour
         mainGameUIOperator.mainCanvas.gameObject.SetActive(false);
         // StaticEffects.coroutines.ResetEffect();
         // Minus money.
-        // Destroy all enemies and bosses.
         deathCanvas.gameObject.SetActive(true);
-        // Enter loss money value.
         animator.Play("Die");
+        // Enter loss money value.
         moneyLossText.text = $"Loss of money: {0}";
         if (RemainingRespawnTime <= 0)
         {
             RemainingRespawnTime = statisticsInfo.RespawnTime;
         }
-
         while (RemainingRespawnTime > 0)
         {
             RemainingRespawnTime -= Time.unscaledDeltaTime;
             remainingRespawnTimeText.text = $"You`ll respawn in {Mathf.CeilToInt(RemainingRespawnTime).ToString("f0")} seconds";
             yield return null;
         }
-
+        CloseCombatEnemy[] closeCombatEnemies = FindObjectsOfType<CloseCombatEnemy>();
+        for (int i = 0; i <  closeCombatEnemies.Length; i++)
+        {
+            closeCombatEnemies[i].Dissapear();
+        }
+        ForestDragon forestDragon = FindObjectOfType<ForestDragon>();
+        if (forestDragon != null)
+        {
+            forestDragon.Dissapear();
+        }
         deathCanvas.gameObject.SetActive(false);
         mainGameUIOperator.mainCanvas.gameObject.SetActive(true);
+        mainGameUIOperator.SetAllCanvasesInactive();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         bloodyBackgroundBehaviour.bloodyBackgroundImage.color = new Color(bloodyBackgroundBehaviour.bloodyBackgroundImage.color.r, bloodyBackgroundBehaviour.bloodyBackgroundImage.color.g, bloodyBackgroundBehaviour.bloodyBackgroundImage.color.b, 0f);
         pauseManager.SetGameNotPaused();
         Health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel] / 2;

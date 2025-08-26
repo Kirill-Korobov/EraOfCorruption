@@ -14,38 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialoguesInfo:
   - dialogue:
-    - replicaText: Hello, where are you going?
-      speaker: 1
-    - replicaText: I'm going after the head of the man who caused the apocalypse.
-      speaker: 0
-    - replicaText: 'Do you think someone is to blame for this? '
-      speaker: 1
-    - replicaText: 'Sure. And I`m going to punish him no matter what. '
-      speaker: 0
-    - replicaText: 'Hm, so where do you go first? I don`t think you know much about
-        other places besides GreenField. '
-      speaker: 1
-    - replicaText: 'Eh, you caught me. '
-      speaker: 0
-    - replicaText: 'Nah, you are naive as always! '
-      speaker: 1
-    - replicaText: 'Ahah. '
-      speaker: 0
-    - replicaText: 'Are you sure about your decision to leave GreenField? I think
-        it''s too dangerous, especially for you. '
-      speaker: 1
-    - replicaText: 'No, I won`t stop only because of your warnings! '
-      speaker: 0
-    - replicaText: I knew it.
-      speaker: 1
-    - replicaText: Okay, first of all, I suggest you going to Milgard. It is quite
-        a big town in the center of the field, where you will meet a lot of interesting
-        and strong people. They`ll help you to grow, but not for free, of course.
-      speaker: 1
-    - replicaText: 'I`he heard about it. Sounds amazing! '
-      speaker: 0
-    - replicaText: 'Yeap, just follow the road and you`ll get there. Good luck and
-        come back alive! '
-      speaker: 1
-    - replicaText: 'Thank you, bye! '
+    - replicaText: '*Empty*'
       speaker: 0

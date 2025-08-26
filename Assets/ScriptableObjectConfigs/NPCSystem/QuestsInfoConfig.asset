@@ -13,18 +13,8 @@ MonoBehaviour:
   m_Name: QuestsInfoConfig
   m_EditorClassIdentifier: 
   questInfo:
-  - name: First quest
-    requirementDescription: Be alive
-    taskDescription: Kill a boss
-    rewardDescription: Nothing lol
-    reusability: 0
-  - name: Second quest
-    requirementDescription: 
-    taskDescription: Do blbalbalbablbalba
-    rewardDescription: 
-    reusability: 0
-  - name: Third quest
-    requirementDescription: 
-    taskDescription: 
-    rewardDescription: 
-    reusability: 0
+  - name: Fight Boss
+    requirementDescription: '-'
+    taskDescription: '-'
+    rewardDescription: '-'
+    reusability: 1

@@ -660,6 +660,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orc
       objectReference: {fileID: 0}
+    - target: {fileID: 100010, guid: 406486edf02d8d74da3b2ca225e21254, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 400010, guid: 406486edf02d8d74da3b2ca225e21254, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -750,6 +754,7 @@ MonoBehaviour:
   _HPBarImage: {fileID: 4220692129583222843}
   _HPBarText: {fileID: 3559416734299971827}
   dieAnimationClip: {fileID: 7400000, guid: 8cf19caeee9bb3c43a09d57a2a2ba09d, type: 2}
+  isDead: 0
 --- !u!195 &4777621989373667303
 NavMeshAgent:
   m_ObjectHideFlags: 0

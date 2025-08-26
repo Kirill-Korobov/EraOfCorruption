@@ -26,7 +26,6 @@ public class QuestRequirements : MonoBehaviour
                         break;
                      */
                     default:
-                        Debug.Log("No requirements for this quest.");
                         questStagesInfo._QuestStages[i] = QuestStages.canStart;
                         break;
                 }

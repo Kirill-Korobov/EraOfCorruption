@@ -22,7 +22,6 @@ public class QuestTasks : MonoBehaviour
                         break;
                      */
                     default:
-                        Debug.Log("No tasks for this quest.");
                         questStagesInfo._QuestStages[i] = QuestStages.canFinish;
                         break;
                 }
