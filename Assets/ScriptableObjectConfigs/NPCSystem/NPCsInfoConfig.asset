@@ -18,54 +18,54 @@ MonoBehaviour:
     questIndexes: 
     tradesIndexes: 
   - name: Father
-    dialogueIndex: 0
+    dialogueIndex: 1
     questIndexes: 
     tradesIndexes: 
   - name: Best Friend
-    dialogueIndex: 0
+    dialogueIndex: 2
     questIndexes: 
     tradesIndexes: 
   - name: Mysterious Weirdo
-    dialogueIndex: 0
+    dialogueIndex: 3
     questIndexes: 
     tradesIndexes: 
   - name: Citizen
-    dialogueIndex: 0
+    dialogueIndex: 4
     questIndexes: 
     tradesIndexes: 
   - name: Salesman
-    dialogueIndex: 0
+    dialogueIndex: 5
     questIndexes: 
     tradesIndexes: 
   - name: Archer
-    dialogueIndex: 0
+    dialogueIndex: 6
     questIndexes: 
     tradesIndexes: 
   - name: Power Master
-    dialogueIndex: 0
+    dialogueIndex: 7
     questIndexes: 
     tradesIndexes: 
   - name: Mage
-    dialogueIndex: 0
+    dialogueIndex: 8
     questIndexes: 
     tradesIndexes: 
   - name: Apothecary
-    dialogueIndex: 0
+    dialogueIndex: 9
     questIndexes: 
     tradesIndexes: 
   - name: Mayor
-    dialogueIndex: 0
+    dialogueIndex: 10
     questIndexes: 
     tradesIndexes: 
   - name: Lumberjack
-    dialogueIndex: 0
+    dialogueIndex: 11
     questIndexes: 
     tradesIndexes: 
   - name: Blacksmith
-    dialogueIndex: 0
+    dialogueIndex: 12
     questIndexes: 
     tradesIndexes: 
   - name: Dark Sevarnt
-    dialogueIndex: 0
+    dialogueIndex: 13
     questIndexes: 00000000
     tradesIndexes: 
