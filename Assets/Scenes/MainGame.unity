@@ -4828,6 +4828,7 @@ MonoBehaviour:
   animator: {fileID: 1152692824}
   gameStatsManager: {fileID: 2050306587}
   pauseManager: {fileID: 1610975635}
+  darkServant: {fileID: 338600543}
   mainGameUIOperator: {fileID: 764427321}
   deathCanvas: {fileID: 2066429208}
   remainingRespawnTimeText: {fileID: 1552086468}
@@ -4869,6 +4870,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameStatsManager: {fileID: 2050306587}
+  statisticsInfo: {fileID: 11400000, guid: 6c5dc736a5085904f959026a09be595a, type: 2}
+  healthManager: {fileID: 101226816}
+  energyManager: {fileID: 101226815}
+  manaManager: {fileID: 101226814}
 --- !u!114 &101226819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5002,6 +5007,7 @@ MonoBehaviour:
   content: {fileID: 605224752}
   contentVerticalLayoutGroup: {fileID: 605224753}
   notEnoughResourcesTextBehaviour: {fileID: 409515220}
+  additionalSpace: 10
 --- !u!1001 &107400737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6540,6 +6546,7 @@ GameObject:
   - component: {fileID: 140052936}
   - component: {fileID: 140052935}
   - component: {fileID: 140052934}
+  - component: {fileID: 140052937}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -6635,6 +6642,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 140052932}
   m_CullTransparentMesh: 1
+--- !u!114 &140052937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 140052932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f17bb92abc330544b556a41ded6181c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &147121346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14432,6 +14451,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529a3a5c55a962e48bd82a956517431c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &338600543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6601250493211506245, guid: 57a756402bd497944b3dc7fdc6462937, type: 3}
+  m_PrefabInstance: {fileID: 1306233719}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &338876130
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20844,6 +20868,7 @@ GameObject:
   - component: {fileID: 474629811}
   - component: {fileID: 474629810}
   - component: {fileID: 474629809}
+  - component: {fileID: 474629812}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -20939,6 +20964,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474629807}
   m_CullTransparentMesh: 1
+--- !u!114 &474629812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 474629807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f17bb92abc330544b556a41ded6181c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &478817969
 GameObject:
   m_ObjectHideFlags: 0
@@ -23941,6 +23978,9 @@ MonoBehaviour:
   contentVerticalLayoutGroup: {fileID: 1938052096}
   questRewards: {fileID: 1400597506}
   requirementsNotMetTextBehaviour: {fileID: 1378580325}
+  additionalSpace: 10
+  gameStatsManager: {fileID: 2050306587}
+  questTaskVariableValuesInfo: {fileID: 11400000, guid: 4220fb6bf778bd1469c96d699ecd44fe, type: 2}
 --- !u!1001 &574636884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -25540,8 +25580,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Top: 5
+    m_Bottom: 5
   m_ChildAlignment: 0
   m_Spacing: 50
   m_ChildForceExpandWidth: 1
@@ -54765,8 +54805,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f74c8d7cccfcbc04eb98c8b05e0d9def, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rewardVariableValuesInfo: {fileID: 11400000, guid: 5cf300019f9bda04891cbef73d11f172, type: 2}
   spawnForestDragon: {fileID: 393021568}
   _NPCMenuOperator: {fileID: 261543826}
+  statisticsManager: {fileID: 101226818}
+  darkServant: {fileID: 338600543}
+  gameStatsManager: {fileID: 2050306587}
 --- !u!1001 &1402227812
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63125,6 +63169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pause: 0
+  mainCharacterAnimator: {fileID: 1152692824}
 --- !u!1001 &1611396688
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65675,6 +65720,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questStagesInfo: {fileID: 361170302}
+  questTaskVariableValuesInfo: {fileID: 11400000, guid: 4220fb6bf778bd1469c96d699ecd44fe, type: 2}
+  gameStatsManager: {fileID: 2050306587}
 --- !u!1 &1652271391
 GameObject:
   m_ObjectHideFlags: 0
@@ -74747,6 +74794,7 @@ MonoBehaviour:
   bossHealthValueText: {fileID: 1227074214}
   healthBarImage: {fileID: 24423648}
   phaseDividerImageRectTransform: {fileID: 1953409994}
+  darkServant: {fileID: 338600543}
 --- !u!1 &1916524357
 GameObject:
   m_ObjectHideFlags: 0
@@ -75823,8 +75871,8 @@ MonoBehaviour:
   m_Padding:
     m_Left: 0
     m_Right: 0
-    m_Top: 0
-    m_Bottom: 0
+    m_Top: 5
+    m_Bottom: 5
   m_ChildAlignment: 0
   m_Spacing: 50
   m_ChildForceExpandWidth: 1
@@ -80122,6 +80170,11 @@ MonoBehaviour:
     questStagesStats:
       questStages: 
       questsInfo: {fileID: 0}
+    questVariableStats:
+      banditKillerKilledBanditNumber: 0
+      sporeWarKilledMushroomNumber: 0
+      goblinTroubleKilledGoblinNumber: 0
+      killedForestDragon: 0
     currentSublocation: 0
     statisticsInfo: {fileID: 0}
     questsInfo: {fileID: 0}
@@ -80152,6 +80205,11 @@ MonoBehaviour:
     questStagesStats:
       questStages: 
       questsInfo: {fileID: 0}
+    questVariableStats:
+      banditKillerKilledBanditNumber: 0
+      sporeWarKilledMushroomNumber: 0
+      goblinTroubleKilledGoblinNumber: 0
+      killedForestDragon: 0
     currentSublocation: 0
     statisticsInfo: {fileID: 0}
     questsInfo: {fileID: 0}
@@ -80182,6 +80240,11 @@ MonoBehaviour:
     questStagesStats:
       questStages: 
       questsInfo: {fileID: 0}
+    questVariableStats:
+      banditKillerKilledBanditNumber: 0
+      sporeWarKilledMushroomNumber: 0
+      goblinTroubleKilledGoblinNumber: 0
+      killedForestDragon: 0
     currentSublocation: 0
     statisticsInfo: {fileID: 0}
     questsInfo: {fileID: 0}

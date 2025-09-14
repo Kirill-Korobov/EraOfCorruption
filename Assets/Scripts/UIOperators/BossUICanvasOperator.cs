@@ -8,6 +8,7 @@ public class BossUICanvasOperator : MonoBehaviour
     [SerializeField] private TMP_Text bossNameText, bossHealthValueText;
     [SerializeField] private Image healthBarImage;
     [SerializeField] private RectTransform phaseDividerImageRectTransform;
+    [SerializeField] private GameObject darkServant;
     private PauseManager pauseManager;
     private MainGameUIOperator mainGameUIOperator;
     private float bossMaxHP;
@@ -56,7 +57,8 @@ public class BossUICanvasOperator : MonoBehaviour
         congratsWindow.SetActive(false);
         pauseManager.SetGameNotPaused();
         mainGameUIOperator.enabled = true;
+        darkServant.SetActive(true);
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.visible = false; 
     }
 }

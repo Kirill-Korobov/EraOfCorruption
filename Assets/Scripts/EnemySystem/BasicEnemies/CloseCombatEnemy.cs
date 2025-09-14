@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class CloseCombatEnemy : MonoBehaviour
 {
     [SerializeField] private EnemiesInfo enemiesInfo;
+    [SerializeField] private QuestTaskVariableValuesInfo questTaskVariableValuesInfo;
     [SerializeField] private int enemyIndex;
     [SerializeField] private TMP_Text enemyNameText;
     [SerializeField] private Image _HPBarImage;
@@ -25,6 +26,9 @@ public class CloseCombatEnemy : MonoBehaviour
     private bool mainCharacterIsInAttackRadius, isWandering, isChasing, isAttacking;
     [HideInInspector] public bool spawnedBySpawnEnemies;
     [HideInInspector] public bool isDead;
+    private QuestTasks questTasks;
+    private GameStatsManager gameStatsManager;
+    private GameStats currentGameStats;
 
     public float CurrentHP
     {
@@ -73,9 +77,30 @@ public class CloseCombatEnemy : MonoBehaviour
         pauseManager = FindAnyObjectByType<PauseManager>();
         spawnEnemies = FindAnyObjectByType<SpawnEnemies>();
         forestDragon = FindAnyObjectByType<ForestDragon>();
+        questTasks = FindAnyObjectByType<QuestTasks>();
         healthManager = mainCharacterTransform.gameObject.GetComponent<MC_HealthManager>();
         levelManager = mainCharacterTransform.gameObject.GetComponent<MC_LevelManager>();
         animator = GetComponent<Animator>();
+    }
+
+    private void Start()
+    {
+        gameStatsManager = FindAnyObjectByType<GameStatsManager>();
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
     }
 
     private void Update()
@@ -228,6 +253,21 @@ public class CloseCombatEnemy : MonoBehaviour
         levelManager.IncreaseXP(enemiesInfo.enemiesInfo[enemyIndex].XPDropAmount);
         // get money
         // drop items
+        if (gameObject.TryGetComponent<BanditMarker>(out var banditMarker) && currentGameStats.questStagesStats.questStages[questTaskVariableValuesInfo.BanditKillerIndex] == QuestStages.inProgress)
+        {
+            currentGameStats.questVariableStats.banditKillerKilledBanditNumber++;
+            questTasks.UpdateTasks();
+        }
+        if (gameObject.TryGetComponent<MushroomMarker>(out var mushroomMarker) && currentGameStats.questStagesStats.questStages[questTaskVariableValuesInfo.SporeWarIndex] == QuestStages.inProgress)
+        {
+            currentGameStats.questVariableStats.sporeWarKilledMushroomNumber++;
+            questTasks.UpdateTasks();
+        }
+        if (gameObject.TryGetComponent<GoblinMarker>(out var goblinMarker) && currentGameStats.questStagesStats.questStages[questTaskVariableValuesInfo.GoblinTroubleIndex] == QuestStages.inProgress)
+        {
+            currentGameStats.questVariableStats.goblinTroubleKilledGoblinNumber++;
+            questTasks.UpdateTasks();
+        }
         animator.Play("Die");
         yield return new WaitForSeconds(dieAnimationClip.length + 1);
         Destroy(gameObject);

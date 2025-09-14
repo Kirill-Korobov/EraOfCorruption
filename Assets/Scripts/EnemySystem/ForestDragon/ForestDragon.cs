@@ -19,11 +19,14 @@ public class ForestDragon : MonoBehaviour
     private Coroutine appearCoroutine, changeAttackCoroutine, dieCoroutine;
     private ForestDragonAttack currentForestDragonAttack;
     private float currentHP, changeAttackBufferTime, changeAttackTimeAmount, biteBufferRechargeTime, spawnEnemiesBufferRechargeTime, bufferDashTimer;
-    public float currentPhaseStatsMultiplier;
+    [HideInInspector] public float currentPhaseStatsMultiplier;
     private int currentDefense;
     [HideInInspector] public int spawnedEnemiesCounter;
     private bool isDead, decorativeAnimationIsPlaying, phaseHasChanged, isDashing;
-    
+    [SerializeField] private QuestTaskVariableValuesInfo questTaskVariableValuesInfo;
+    private QuestTasks questTasks;
+    private GameStatsManager gameStatsManager;
+    private GameStats currentGameStats;
 
     public float CurrentHP
     {
@@ -69,6 +72,7 @@ public class ForestDragon : MonoBehaviour
         spawnForestDragon = FindAnyObjectByType<SpawnForestDragon>();   
         transform.position = forestDragonInfo.SpawnPosition;
         pauseManager = FindAnyObjectByType<PauseManager>();
+        questTasks = FindAnyObjectByType<QuestTasks>();
         mainCharacterTransform = GameObject.FindGameObjectWithTag("MainCharacter").transform;
         enemiesParentTransform = spawnForestDragon.gameObject.transform;
         transform.LookAt(new Vector3(mainCharacterTransform.position.x, transform.position.y, mainCharacterTransform.position.z));
@@ -91,6 +95,26 @@ public class ForestDragon : MonoBehaviour
         if (appearCoroutine == null)
         {
             appearCoroutine = StartCoroutine(Appear());
+        }
+    }
+
+    private void Start()
+    {
+        gameStatsManager = FindAnyObjectByType<GameStatsManager>();
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
         }
     }
 
@@ -389,6 +413,11 @@ public class ForestDragon : MonoBehaviour
         levelManager.IncreaseXP(forestDragonInfo.XPDropAmount);
         // get money
         // drop items
+        if (currentGameStats.questStagesStats.questStages[questTaskVariableValuesInfo.HeroOfTheForestIndex] == QuestStages.inProgress && !currentGameStats.questVariableStats.killedForestDragon)
+        {
+            currentGameStats.questVariableStats.killedForestDragon = true;
+            questTasks.UpdateTasks();
+        }
         animator.Play("Die");
         yield return new WaitForSeconds(dieAnimationClip.length + 1);
         spawnForestDragon.bossIsSpawned = false;

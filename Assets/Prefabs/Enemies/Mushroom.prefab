@@ -721,6 +721,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100008, guid: 10a1e47d0d282414481a0b2a67c79333, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2780125318317042896}
+    - targetCorrespondingSourceObject: {fileID: 100008, guid: 10a1e47d0d282414481a0b2a67c79333, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -3297107628356438538}
   m_SourcePrefab: {fileID: 100100000, guid: 10a1e47d0d282414481a0b2a67c79333, type: 3}
 --- !u!4 &2396052276692838490 stripped
 Transform:
@@ -745,11 +748,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesInfo: {fileID: 11400000, guid: 38d02129c28da2a458af98615cf0a14c, type: 2}
+  questTaskVariableValuesInfo: {fileID: 11400000, guid: 4220fb6bf778bd1469c96d699ecd44fe, type: 2}
   enemyIndex: 3
   enemyNameText: {fileID: 7149493036389219439}
   _HPBarImage: {fileID: 8746078118948007400}
   _HPBarText: {fileID: 6531785307505589879}
   dieAnimationClip: {fileID: 7400008, guid: 10a1e47d0d282414481a0b2a67c79333, type: 3}
+  spawnedBySpawnEnemies: 0
   isDead: 0
 --- !u!195 &-4922175534121639909
 NavMeshAgent:
@@ -794,3 +799,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-3297107628356438538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2396052276693005434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05b115e3d77b2b442bfdb2ba86b41488, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

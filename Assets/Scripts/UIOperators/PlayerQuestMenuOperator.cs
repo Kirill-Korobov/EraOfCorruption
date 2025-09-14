@@ -34,10 +34,10 @@ public class PlayerQuestMenuOperator : MonoBehaviour
         {
             contentRectTransform.sizeDelta = new Vector2(contentRectTransform.sizeDelta.x, questNumber * (playerQuestPrefab.GetComponent<RectTransform>().sizeDelta.y + contentVerticalLayoutGroup.spacing) - contentVerticalLayoutGroup.spacing);
             questIndex = 0;
-            questOrder = new int[questNumber];
+            questOrder = new int[questNumber]; 
             for (int i = 0; i < questStagesInfo._QuestStages.Length; i++)
             {
-                if (questStagesInfo._QuestStages[i] == QuestStages.inProgress)
+                if (questStagesInfo._QuestStages[i] == QuestStages.canFinish)
                 {
                     questOrder[questIndex] = i;
                     questIndex++;
@@ -45,7 +45,7 @@ public class PlayerQuestMenuOperator : MonoBehaviour
             }
             for (int i = 0; i < questStagesInfo._QuestStages.Length; i++)
             {
-                if (questStagesInfo._QuestStages[i] == QuestStages.canFinish)
+                if (questStagesInfo._QuestStages[i] == QuestStages.inProgress)
                 {
                     questOrder[questIndex] = i;
                     questIndex++;

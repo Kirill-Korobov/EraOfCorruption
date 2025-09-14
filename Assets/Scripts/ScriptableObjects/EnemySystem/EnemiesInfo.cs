@@ -96,6 +96,21 @@ public class EnemyInfo
     public int XPDropAmount => _XPDropAmount;
 
     // drops array
+    /*
+    0. Slime Rabbit: green slime.
+    1. Bandit: money.
+    2. Red Slime: red slime.
+    3. Mushroom: - (but a part of a quest).
+    4. Green Watcher: watcher eye.
+    5. Red Watcher: watcher eye.
+    6. Goblin: money.
+    7. Skeleton: iron ore, skull, cursed sword.
+    8. Wolf: fang.
+    9. Orc: money, fang.
+    10. Golem: stone, obsidian.
+    11. Troll: - (but a lot of experience).
+    12. Forest Dragon: meat, fang (+a lot of experience).
+    */
 
     [SerializeField] private Sublocation[] spawnSublocations;
     public Sublocation[] SpawnSublocations => spawnSublocations;

@@ -11933,6 +11933,7 @@ GameObject:
   - component: {fileID: -1102489435931933831}
   - component: {fileID: 1028278137490312975}
   - component: {fileID: 3708856516847068373}
+  - component: {fileID: 4210064717464734973}
   m_Layer: 0
   m_Name: Goblin
   m_TagString: Enemy
@@ -11974,11 +11975,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesInfo: {fileID: 11400000, guid: 38d02129c28da2a458af98615cf0a14c, type: 2}
+  questTaskVariableValuesInfo: {fileID: 11400000, guid: 4220fb6bf778bd1469c96d699ecd44fe, type: 2}
   enemyIndex: 6
   enemyNameText: {fileID: 7294335860394052782}
   _HPBarImage: {fileID: 7733348271714387208}
   _HPBarText: {fileID: 6386706651901242717}
   dieAnimationClip: {fileID: 7400030, guid: 2de911d45fd8d124c90453569b0194ca, type: 3}
+  spawnedBySpawnEnemies: 0
   isDead: 0
 --- !u!195 &1028278137490312975
 NavMeshAgent:
@@ -12023,6 +12026,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &4210064717464734973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0556384918b311d4591d5bec814e6c09, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &212732973651247463
 GameObject:
   m_ObjectHideFlags: 0

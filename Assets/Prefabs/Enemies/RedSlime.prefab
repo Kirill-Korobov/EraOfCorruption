@@ -464,11 +464,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesInfo: {fileID: 11400000, guid: 38d02129c28da2a458af98615cf0a14c, type: 2}
+  questTaskVariableValuesInfo: {fileID: 11400000, guid: 4220fb6bf778bd1469c96d699ecd44fe, type: 2}
   enemyIndex: 2
   enemyNameText: {fileID: 2422656948418335281}
   _HPBarImage: {fileID: 8385952679053047620}
   _HPBarText: {fileID: 2133931430303919573}
   dieAnimationClip: {fileID: 7400000, guid: 35bb20ecf5de4fdd8dcd8e28e4053f3d, type: 3}
+  spawnedBySpawnEnemies: 0
   isDead: 0
 --- !u!95 &5743195971957286513
 Animator:

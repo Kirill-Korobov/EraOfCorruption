@@ -15,19 +15,19 @@ MonoBehaviour:
   __NPCsInfo:
   - name: Mother
     dialogueIndex: 0
-    questIndexes: 
+    questIndexes: 00000000
     tradesIndexes: 
   - name: Father
     dialogueIndex: 1
-    questIndexes: 
+    questIndexes: 01000000
     tradesIndexes: 
   - name: Best Friend
     dialogueIndex: 2
-    questIndexes: 
+    questIndexes: 02000000
     tradesIndexes: 
   - name: Mysterious Weirdo
     dialogueIndex: 3
-    questIndexes: 
+    questIndexes: 03000000
     tradesIndexes: 
   - name: Citizen
     dialogueIndex: 4
@@ -36,36 +36,36 @@ MonoBehaviour:
   - name: Salesman
     dialogueIndex: 5
     questIndexes: 
-    tradesIndexes: 
+    tradesIndexes: 000000000100000002000000
   - name: Archer
     dialogueIndex: 6
     questIndexes: 
-    tradesIndexes: 
+    tradesIndexes: 030000000400000005000000060000000700000008000000090000000a0000000b000000
   - name: Power Master
     dialogueIndex: 7
-    questIndexes: 
-    tradesIndexes: 
+    questIndexes: 04000000
+    tradesIndexes: 0c0000000d0000000e000000
   - name: Mage
     dialogueIndex: 8
     questIndexes: 
-    tradesIndexes: 
+    tradesIndexes: 0f000000100000001100000012000000
   - name: Apothecary
     dialogueIndex: 9
     questIndexes: 
-    tradesIndexes: 
+    tradesIndexes: 1300000014000000150000001600000017000000
   - name: Mayor
     dialogueIndex: 10
-    questIndexes: 
+    questIndexes: 0500000006000000
     tradesIndexes: 
   - name: Lumberjack
     dialogueIndex: 11
-    questIndexes: 
-    tradesIndexes: 
+    questIndexes: 07000000
+    tradesIndexes: 1800000019000000
   - name: Blacksmith
     dialogueIndex: 12
-    questIndexes: 
-    tradesIndexes: 
+    questIndexes: 08000000
+    tradesIndexes: 1a0000001b0000001c0000001d0000001e0000001f000000200000002100000022000000
   - name: Dark Sevarnt
     dialogueIndex: 13
-    questIndexes: 00000000
+    questIndexes: 09000000
     tradesIndexes: 

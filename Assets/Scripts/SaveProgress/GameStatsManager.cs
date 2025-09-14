@@ -129,6 +129,7 @@ public class GameStats
     public SlotStats slotStats;
     public MainCharacterStats mainCharacterStats;
     public QuestStagesStats questStagesStats;
+    public QuestVariableStats questVariableStats;
     public Sublocation currentSublocation;
 
     [HideInInspector] public StatisticsInfo statisticsInfo;
@@ -138,6 +139,7 @@ public class GameStats
         slotStats.SetAllStatsToZero();
         mainCharacterStats.statisticsInfo = statisticsInfo; mainCharacterStats.SetAllStatsToZero();
         questStagesStats.questsInfo = questsInfo; questStagesStats.SetAllStatsToZero();
+        questVariableStats.SetAllStatsToZero();
         currentSublocation = Sublocation.Greenfield;
     }
 }
@@ -232,4 +234,19 @@ public enum QuestStages
     inProgress,
     canFinish,
     isFinished
+}
+
+[Serializable]
+public class QuestVariableStats
+{
+    public int banditKillerKilledBanditNumber, sporeWarKilledMushroomNumber, goblinTroubleKilledGoblinNumber;
+    public bool killedForestDragon;
+
+    public void SetAllStatsToZero()
+    {
+        banditKillerKilledBanditNumber = 0;
+        sporeWarKilledMushroomNumber = 0;
+        goblinTroubleKilledGoblinNumber = 0;
+        killedForestDragon = false;
+    }
 }

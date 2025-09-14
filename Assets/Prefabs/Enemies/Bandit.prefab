@@ -729,6 +729,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 100010, guid: fe55e5a0c1bcd72488aa4508bea6f93b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5700783710711889557}
+    - targetCorrespondingSourceObject: {fileID: 100010, guid: fe55e5a0c1bcd72488aa4508bea6f93b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5653514637980146235}
   m_SourcePrefab: {fileID: 100100000, guid: fe55e5a0c1bcd72488aa4508bea6f93b, type: 3}
 --- !u!4 &1800112872346456942 stripped
 Transform:
@@ -753,11 +756,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemiesInfo: {fileID: 11400000, guid: 38d02129c28da2a458af98615cf0a14c, type: 2}
+  questTaskVariableValuesInfo: {fileID: 11400000, guid: 4220fb6bf778bd1469c96d699ecd44fe, type: 2}
   enemyIndex: 1
   enemyNameText: {fileID: 4089530182882158598}
   _HPBarImage: {fileID: 2440875308957966692}
   _HPBarText: {fileID: 7347283188219418343}
   dieAnimationClip: {fileID: -203655887218126122, guid: 54cca0066d666364c9c96b56d0bd13a1, type: 3}
+  spawnedBySpawnEnemies: 0
   isDead: 0
 --- !u!195 &5700783710711889557
 NavMeshAgent:
@@ -781,3 +786,15 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &-5653514637980146235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800112872346750798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd54c3dacbb0b3941be9c2ad847a1d57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

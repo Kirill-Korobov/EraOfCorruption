@@ -15,6 +15,7 @@ public class MC_HealthManager : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameStatsManager gameStatsManager;
     [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private GameObject darkServant;
     [SerializeField] private MainGameUIOperator mainGameUIOperator;
     [SerializeField] private Canvas deathCanvas;
     [SerializeField] private TMP_Text remainingRespawnTimeText, moneyLossText;
@@ -53,6 +54,12 @@ public class MC_HealthManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             TakeDamage(20);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            Debug.Log($"Bandits killed: {currentGameStats.questVariableStats.banditKillerKilledBanditNumber}");
+            Debug.Log($"Mushrooms killed: {currentGameStats.questVariableStats.sporeWarKilledMushroomNumber}");
+            Debug.Log($"Goblins killed: {currentGameStats.questVariableStats.goblinTroubleKilledGoblinNumber}");
         }
     }
 
@@ -206,6 +213,10 @@ public class MC_HealthManager : MonoBehaviour
         satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
         animator.Play("Idle");
         movementManager.Respawn();
+        if (!darkServant.activeSelf)
+        {
+            darkServant.SetActive(true);
+        }
         dieCoroutine = null;
         // StaticEffects.coroutines.CheckBlindness();
     }
