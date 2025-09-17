@@ -1271,10 +1271,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 8441976466944393086, guid: 638bb69d0acb9f241b4846c059c6d3d8, type: 3}
-      insertIndex: 2
-      addedObject: {fileID: 1953409994}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 638bb69d0acb9f241b4846c059c6d3d8, type: 3}
 --- !u!224 &24423647 stripped
@@ -4833,6 +4830,10 @@ MonoBehaviour:
   deathCanvas: {fileID: 2066429208}
   remainingRespawnTimeText: {fileID: 1552086468}
   moneyLossText: {fileID: 2052005970}
+  levelUpTextBehaviour: {fileID: 2113003095}
+  locationChangedTextRectTransform: {fileID: 190020074}
+  locationChangedTextStartPosition: {x: 0, y: 600}
+  locationManager: {fileID: 1198584916}
   hex: 1
   penetration: 1
   resistance: 1
@@ -14451,6 +14452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529a3a5c55a962e48bd82a956517431c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseManager: {fileID: 1610975635}
 --- !u!1 &338600543 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6601250493211506245, guid: 57a756402bd497944b3dc7fdc6462937, type: 3}
@@ -32472,6 +32474,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questStagesInfo: {fileID: 361170302}
+  questRequirementVariableValuesInfo: {fileID: 11400000, guid: 63027996c9f3b4c42b4d0b51e18869e6, type: 2}
+  levelManager: {fileID: 101226817}
 --- !u!1 &763001415
 GameObject:
   m_ObjectHideFlags: 0
@@ -32609,9 +32613,10 @@ MonoBehaviour:
   statisticsCanvas: {fileID: 2139453839}
   mapCanvas: {fileID: 335843175}
   questCanvas: {fileID: 1678488448}
-  _NPCQuestCanvas: {fileID: 261543825}
+  _NPCCanvas: {fileID: 261543825}
   settingsCanvas: {fileID: 1811771908}
   achievementsCanvas: {fileID: 1625553260}
+  pauseManager: {fileID: 1610975635}
 --- !u!1001 &766422340
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40273,6 +40278,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 389afa9ff5cb1c44d941611d406520a3, type: 3}
+--- !u!224 &962235675 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 7763709567560607258, guid: 638bb69d0acb9f241b4846c059c6d3d8, type: 3}
+  m_PrefabInstance: {fileID: 24423646}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &963733737
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47321,6 +47331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ab921f5b5367f46b510050dfba155a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseManager: {fileID: 1610975635}
 --- !u!1001 &1176486855
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -66873,10 +66884,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questStagesInfo: {fileID: 361170302}
   questsInfo: {fileID: 11400000, guid: 338f1fd4642603f40affc087d618bc44, type: 2}
+  questTaskVariableValuesInfo: {fileID: 11400000, guid: 4220fb6bf778bd1469c96d699ecd44fe, type: 2}
+  questTasks: {fileID: 1652029031}
+  gameStatsManager: {fileID: 2050306587}
   playerQuestPrefab: {fileID: 1050899567980407211, guid: 96c93d84c7d078d499823e3337d7c12b, type: 3}
   content: {fileID: 243017678}
   noQuestsYetText: {fileID: 1131520339}
   contentVerticalLayoutGroup: {fileID: 243017680}
+  pauseManager: {fileID: 1610975635}
 --- !u!1001 &1683891364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -74793,7 +74808,7 @@ MonoBehaviour:
   bossNameText: {fileID: 1632866020}
   bossHealthValueText: {fileID: 1227074214}
   healthBarImage: {fileID: 24423648}
-  phaseDividerImageRectTransform: {fileID: 1953409994}
+  phaseDividerImageRectTransform: {fileID: 962235675}
   darkServant: {fileID: 338600543}
 --- !u!1 &1916524357
 GameObject:
@@ -76102,81 +76117,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 389afa9ff5cb1c44d941611d406520a3, type: 3}
---- !u!1 &1953409993
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1953409994}
-  - component: {fileID: 1953409996}
-  - component: {fileID: 1953409995}
-  m_Layer: 5
-  m_Name: PhaseDividerImage
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1953409994
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953409993}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 24423647}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.0502, y: 203.05}
-  m_SizeDelta: {x: 3, y: 24.844}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1953409995
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953409993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 38574382e126b1e4e89f3ce65fb40680, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &1953409996
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1953409993}
-  m_CullTransparentMesh: 1
 --- !u!4 &1954549851 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7298817818952074208, guid: bfc33eec226f3de40a3d6cb31a248423, type: 3}
@@ -84231,6 +84171,7 @@ MonoBehaviour:
   closeCombatLevelText: {fileID: 1888966601}
   rangedCombatLevelText: {fileID: 1852289666}
   magicCombatLevelText: {fileID: 881984376}
+  pauseManager: {fileID: 1610975635}
 --- !u!1001 &2139924330
 PrefabInstance:
   m_ObjectHideFlags: 0

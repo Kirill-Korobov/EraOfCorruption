@@ -6,9 +6,14 @@ public class PlayerQuestMenuOperator : MonoBehaviour
 {
     [SerializeField] private QuestStagesInfo questStagesInfo;
     [SerializeField] private QuestsInfo questsInfo;
+    [SerializeField] private QuestTaskVariableValuesInfo questTaskVariableValuesInfo;
+    [SerializeField] private QuestTasks questTasks;
+    [SerializeField] private GameStatsManager gameStatsManager;
     [SerializeField] private GameObject playerQuestPrefab, content;
     [SerializeField] private TMP_Text noQuestsYetText;
     [SerializeField] private VerticalLayoutGroup contentVerticalLayoutGroup;
+    [SerializeField] private PauseManager pauseManager;
+    private GameStats currentGameStats;
     private GameObject[] bufferQuests;
     private RectTransform contentRectTransform;
     private int[] questOrder;
@@ -18,10 +23,26 @@ public class PlayerQuestMenuOperator : MonoBehaviour
     {
         noQuestsYetText.gameObject.SetActive(false);
         contentRectTransform = content.GetComponent<RectTransform>();
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
     }
 
     private void OnEnable()
     {
+        questTasks.UpdateTasks();
         questNumber = 0;
         for (int i = 0; i < questStagesInfo._QuestStages.Length; i++)
         {
@@ -60,14 +81,44 @@ public class PlayerQuestMenuOperator : MonoBehaviour
                     bufferQuests[questIndex] = Instantiate(playerQuestPrefab, contentRectTransform);
                     bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[0].text = questsInfo._QuestInfo[questOrder[questIndex]].name;
                     bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[1].text = $"Task: {questsInfo._QuestInfo[questOrder[questIndex]].taskDescription}.";
-                    bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[2].text = $"Reward: {questsInfo._QuestInfo[questOrder[questIndex]].rewardDescription}.";
+                    float bufferProgressPercent = 0;
+                    if (questOrder[questIndex] == questTaskVariableValuesInfo.BanditKillerIndex)
+                    {
+                        bufferProgressPercent = (float)currentGameStats.questVariableStats.banditKillerKilledBanditNumber / (float)questTaskVariableValuesInfo.BanditKillerBanditNumber;
+                    }
+                    else if (questOrder[questIndex] == questTaskVariableValuesInfo.HeroOfTheForestIndex)
+                    {
+                        if (currentGameStats.questVariableStats.killedForestDragon)
+                        {
+                            bufferProgressPercent = 1f;
+                        }
+                        else
+                        {
+                            bufferProgressPercent = 0f;
+                        }
+                    }
+                    else if (questOrder[questIndex] == questTaskVariableValuesInfo.SporeWarIndex)
+                    {
+                        bufferProgressPercent = (float)currentGameStats.questVariableStats.sporeWarKilledMushroomNumber / (float)questTaskVariableValuesInfo.SporeWarMushroomNumber;
+                    }
+                    else if (questOrder[questIndex] == questTaskVariableValuesInfo.GoblinTroubleIndex)
+                    {
+                        bufferProgressPercent = (float)currentGameStats.questVariableStats.goblinTroubleKilledGoblinNumber / (float)questTaskVariableValuesInfo.GoblinTroubleGoblinNumber;
+                    }
+                    else
+                    {
+                        bufferProgressPercent = 1;
+                    }
+                    bufferProgressPercent *= 100;
+                    bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[2].text = $"Progress: {Mathf.FloorToInt(bufferProgressPercent)}%";
+                    bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[3].text = $"Reward: {questsInfo._QuestInfo[questOrder[questIndex]].rewardDescription}.";
                     if (questStagesInfo._QuestStages[questOrder[questIndex]] == QuestStages.inProgress)
                     {
-                        bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[3].text = "In progress";
+                        bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[4].text = "In progress";
                     }
                     else if (questStagesInfo._QuestStages[questOrder[questIndex]] == QuestStages.canFinish)
                     {
-                        bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[3].text = "Can finish";
+                        bufferQuests[questIndex].GetComponentsInChildren<TMP_Text>()[4].text = "Can finish";
                     }
                     questIndex++;
                 }
@@ -96,6 +147,7 @@ public class PlayerQuestMenuOperator : MonoBehaviour
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        pauseManager.SetGameNotPaused();
         // StaticEffects.coroutines.gameObject.SetActive(true);
     }
 }

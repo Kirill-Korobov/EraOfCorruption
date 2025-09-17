@@ -3,7 +3,8 @@ using UnityEngine;
 public class MainGameUIOperator : MonoBehaviour
 {
     public Canvas mainCanvas;
-    [SerializeField] private Canvas deathCanvas, pauseCanvas, inventoryCanvas, statisticsCanvas, mapCanvas, questCanvas, _NPCQuestCanvas, settingsCanvas, achievementsCanvas;
+    [SerializeField] private Canvas deathCanvas, pauseCanvas, inventoryCanvas, statisticsCanvas, mapCanvas, questCanvas, _NPCCanvas, settingsCanvas, achievementsCanvas;
+    [SerializeField] private PauseManager pauseManager;
 
     private void Awake()
     {
@@ -31,12 +32,13 @@ public class MainGameUIOperator : MonoBehaviour
                         StaticDropTake.sl.Exit();
                     } */
                     SetAllCanvasesInactive();
+                    pauseManager.SetGameNotPaused();
                     Cursor.lockState = CursorLockMode.Locked;
                     Cursor.visible = false;
                     // StaticEffects.coroutines.gameObject.SetActive(true);
                     LoadedSettings.ifAnyOpen = false;
                 }
-                else if (!_NPCQuestCanvas.gameObject.activeSelf)
+                else if (!_NPCCanvas.gameObject.activeSelf)
                 {
                     pauseCanvas.gameObject.SetActive(true);
                     Cursor.lockState = CursorLockMode.None;
@@ -45,97 +47,108 @@ public class MainGameUIOperator : MonoBehaviour
                     LoadedSettings.ifAnyOpen = true;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.F))
+            if (!_NPCCanvas.gameObject.activeSelf)
             {
-                if (!inventoryCanvas.gameObject.activeSelf)
+                if (Input.GetKeyDown(KeyCode.F))
                 {
-                    SetAllCanvasesInactive();
-                    inventoryCanvas.gameObject.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    if (LoadedSettings.inventoryPause)
+                    if (!inventoryCanvas.gameObject.activeSelf)
                     {
-                        LoadedSettings.ifInventoryOpen = true;
-                        // StaticEffects.Save();
+                        SetAllCanvasesInactive();
+                        inventoryCanvas.gameObject.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        pauseManager.SetGamePaused();
+                        if (LoadedSettings.inventoryPause)
+                        {
+                            LoadedSettings.ifInventoryOpen = true;
+                            // StaticEffects.Save();
+                        }
+                    }
+                    else
+                    {
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                        // StaticDropTake.sl.Exit();
+                        pauseManager.SetGameNotPaused();
+                        inventoryCanvas.gameObject.SetActive(false);
+                        // StaticEffects.coroutines.gameObject.SetActive(true);
+                        // LoadedSettings.ifInventoryOpen = false;
                     }
                 }
-                else
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                    // StaticDropTake.sl.Exit();
-                    inventoryCanvas.gameObject.SetActive(false);
-                    // StaticEffects.coroutines.gameObject.SetActive(true);
-                    // LoadedSettings.ifInventoryOpen = false;
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                if (!mapCanvas.gameObject.activeSelf)
-                {
-                    SetAllCanvasesInactive();
-                    mapCanvas.gameObject.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    if (LoadedSettings.mapPause)
+                    if (!mapCanvas.gameObject.activeSelf)
                     {
-                        LoadedSettings.ifMapOpen = true;
-                        // StaticEffects.Save();
+                        SetAllCanvasesInactive();
+                        mapCanvas.gameObject.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        pauseManager.SetGamePaused();
+                        if (LoadedSettings.mapPause)
+                        {
+                            LoadedSettings.ifMapOpen = true;
+                            // StaticEffects.Save();
+                        }
+                    }
+                    else
+                    {
+                        mapCanvas.gameObject.SetActive(false);
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                        pauseManager.SetGameNotPaused();
+                        // StaticEffects.coroutines.gameObject.SetActive(true);
+                        LoadedSettings.ifMapOpen = false;
                     }
                 }
-                else
+                if (Input.GetKeyDown(KeyCode.X))
                 {
-                    mapCanvas.gameObject.SetActive(false);
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                    // StaticEffects.coroutines.gameObject.SetActive(true);
-                    LoadedSettings.ifMapOpen = false;
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                if (!statisticsCanvas.gameObject.activeSelf)
-                {
-                    SetAllCanvasesInactive();
-                    statisticsCanvas.gameObject.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    if (LoadedSettings.statsPause)
+                    if (!statisticsCanvas.gameObject.activeSelf)
                     {
-                        LoadedSettings.ifStatsOpen = true;
-                        // StaticEffects.Save();
+                        SetAllCanvasesInactive();
+                        statisticsCanvas.gameObject.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        pauseManager.SetGamePaused();
+                        if (LoadedSettings.statsPause)
+                        {
+                            LoadedSettings.ifStatsOpen = true;
+                            // StaticEffects.Save();
+                        }
+                    }
+                    else
+                    {
+                        statisticsCanvas.gameObject.SetActive(false);
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                        pauseManager.SetGameNotPaused();
+                        // StaticEffects.coroutines.gameObject.SetActive(true);
+                        LoadedSettings.ifStatsOpen = false;
                     }
                 }
-                else
+                if (Input.GetKeyDown(KeyCode.C))
                 {
-                    statisticsCanvas.gameObject.SetActive(false);
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                    // StaticEffects.coroutines.gameObject.SetActive(true);
-                    LoadedSettings.ifStatsOpen = false;
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.C))
-            {
-                if (!questCanvas.gameObject.activeSelf)
-                {
-                    SetAllCanvasesInactive();
-                    questCanvas.gameObject.SetActive(true);
-                    Cursor.lockState = CursorLockMode.None;
-                    Cursor.visible = true;
-                    if (LoadedSettings.questsPause)
+                    if (!questCanvas.gameObject.activeSelf)
                     {
-                        // StaticEffects.Save();
-                        LoadedSettings.ifQuestsOpen = true;
+                        SetAllCanvasesInactive();
+                        questCanvas.gameObject.SetActive(true);
+                        Cursor.lockState = CursorLockMode.None;
+                        Cursor.visible = true;
+                        pauseManager.SetGamePaused();
+                        if (LoadedSettings.questsPause)
+                        {
+                            // StaticEffects.Save();
+                            LoadedSettings.ifQuestsOpen = true;
+                        }
                     }
-                }
-                else
-                {
-                    questCanvas.gameObject.SetActive(false);
-                    Cursor.lockState = CursorLockMode.Locked;
-                    Cursor.visible = false;
-                    // StaticEffects.coroutines.gameObject.SetActive(true);
-                    LoadedSettings.ifQuestsOpen = false;
+                    else
+                    {
+                        questCanvas.gameObject.SetActive(false);
+                        Cursor.lockState = CursorLockMode.Locked;
+                        Cursor.visible = false;
+                        pauseManager.SetGameNotPaused();
+                        // StaticEffects.coroutines.gameObject.SetActive(true);
+                        LoadedSettings.ifQuestsOpen = false;
+                    }
                 }
             }
         }

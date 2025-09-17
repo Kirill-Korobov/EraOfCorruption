@@ -44,11 +44,16 @@ public class LocationManager : MonoBehaviour
         }
     }
 
+    public void ShowChangeLocationText()
+    {
+        locationChangedText.text = $"<{currentGameStats.currentSublocation.ToString()}>";
+        locationChangedTextAnimator.Play("LocationChangedTextAnimation", 0, 0f);
+    }
+
     public void ChangeSublocation(Sublocation sublocation)
     {
         currentGameStats.currentSublocation = sublocation;
-        locationChangedText.text = $"<{sublocation.ToString()}>";
-        locationChangedTextAnimator.Play("LocationChangedTextAnimation", 0, 0f);
+        ShowChangeLocationText();
         spawnEnemies.ChangeEnemiesToSpawn();
     }
 }

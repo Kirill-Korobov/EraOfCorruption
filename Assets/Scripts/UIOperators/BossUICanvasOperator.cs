@@ -45,6 +45,7 @@ public class BossUICanvasOperator : MonoBehaviour
 
     public void ShowCongratsWindow()
     {
+        mainGameUIOperator.SetAllCanvasesInactive();
         congratsWindow.SetActive(true);
         pauseManager.SetGamePaused();
         mainGameUIOperator.enabled = false;
