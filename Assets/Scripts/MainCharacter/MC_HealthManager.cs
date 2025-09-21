@@ -6,6 +6,7 @@ public class MC_HealthManager : MonoBehaviour
 {
     private int defense;
     [SerializeField] private BloodyBackgroundBehaviour bloodyBackgroundBehaviour;
+    [SerializeField] private MC_MovementManager movementManager;
     [SerializeField] private MC_EnergyManager energyManager;
     [SerializeField] private MC_ManaManager manaManager;
     [SerializeField] private MC_SatietyManager satietyManager;
@@ -14,9 +15,14 @@ public class MC_HealthManager : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private GameStatsManager gameStatsManager;
     [SerializeField] private PauseManager pauseManager;
+    [SerializeField] private GameObject darkServant;
     [SerializeField] private MainGameUIOperator mainGameUIOperator;
     [SerializeField] private Canvas deathCanvas;
     [SerializeField] private TMP_Text remainingRespawnTimeText, moneyLossText;
+    [SerializeField] private LevelUpTextBehaviour levelUpTextBehaviour;
+    [SerializeField] private RectTransform locationChangedTextRectTransform;
+    [SerializeField] private Vector2 locationChangedTextStartPosition;
+    [SerializeField] private LocationManager locationManager;
     private Coroutine waitUntilHealthCanBeReplenished, dieCoroutine;
     private GameStats currentGameStats;
 
@@ -40,12 +46,16 @@ public class MC_HealthManager : MonoBehaviour
         }
         Health = currentGameStats.mainCharacterStats.health;
         RemainingRespawnTime = currentGameStats.mainCharacterStats.remainingRespawnTime;
-        StaticEffects.coroutines.StartGame();
+        // StaticEffects.coroutines.StartGame();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.H))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            TakeDamage(5);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             TakeDamage(20);
         }
@@ -161,28 +171,41 @@ public class MC_HealthManager : MonoBehaviour
     private IEnumerator DieCoroutine()
     {
         pauseManager.SetGamePaused();
+        mainGameUIOperator.SetAllCanvasesInactive();
+        levelUpTextBehaviour.HideLevelUpText();
+        locationChangedTextRectTransform.localPosition = locationChangedTextStartPosition;
         mainGameUIOperator.mainCanvas.gameObject.SetActive(false);
-        StaticEffects.coroutines.ResetEffect();
+        // StaticEffects.coroutines.ResetEffect();
         // Minus money.
-        // Destroy all enemies and bosses.
         deathCanvas.gameObject.SetActive(true);
-        // Enter loss money value.
         animator.Play("Die");
+        // Enter loss money value.
         moneyLossText.text = $"Loss of money: {0}";
         if (RemainingRespawnTime <= 0)
         {
             RemainingRespawnTime = statisticsInfo.RespawnTime;
         }
-
         while (RemainingRespawnTime > 0)
         {
             RemainingRespawnTime -= Time.unscaledDeltaTime;
             remainingRespawnTimeText.text = $"You`ll respawn in {Mathf.CeilToInt(RemainingRespawnTime).ToString("f0")} seconds";
             yield return null;
         }
-
+        CloseCombatEnemy[] closeCombatEnemies = FindObjectsOfType<CloseCombatEnemy>();
+        for (int i = 0; i <  closeCombatEnemies.Length; i++)
+        {
+            closeCombatEnemies[i].Dissapear();
+        }
+        ForestDragon forestDragon = FindObjectOfType<ForestDragon>();
+        if (forestDragon != null)
+        {
+            forestDragon.Dissapear();
+        }
         deathCanvas.gameObject.SetActive(false);
         mainGameUIOperator.mainCanvas.gameObject.SetActive(true);
+        mainGameUIOperator.SetAllCanvasesInactive();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         bloodyBackgroundBehaviour.bloodyBackgroundImage.color = new Color(bloodyBackgroundBehaviour.bloodyBackgroundImage.color.r, bloodyBackgroundBehaviour.bloodyBackgroundImage.color.g, bloodyBackgroundBehaviour.bloodyBackgroundImage.color.b, 0f);
         pauseManager.SetGameNotPaused();
         Health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel] / 2;
@@ -190,7 +213,12 @@ public class MC_HealthManager : MonoBehaviour
         manaManager.Mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
         satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
         animator.Play("Idle");
-        // Set main character`s position.
+        movementManager.Respawn();
+        locationManager.ShowChangeLocationText();
+        if (!darkServant.activeSelf)
+        {
+            darkServant.SetActive(true);
+        }
         dieCoroutine = null;
         // StaticEffects.coroutines.CheckBlindness();
     }

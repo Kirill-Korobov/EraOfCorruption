@@ -12,7 +12,7 @@ public class MC_PerspectiveManager : MonoBehaviour
     [SerializeField] private GameObject aim, model;
     private Cinemachine3rdPersonFollow secondPersonVirtualCamera3rdPersonFollow, thirdPersonVirtualCamera3rdPersonFollow;
     private GameStats currentGameStats;
-    private float rotationY;
+    [HideInInspector] public float rotationY;
 
     private void Start()
     {

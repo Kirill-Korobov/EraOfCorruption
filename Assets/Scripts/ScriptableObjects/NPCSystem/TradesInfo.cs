@@ -21,6 +21,8 @@ public class TradeInfo
 [Serializable]
 public class Product
 {
+    // -2 index means, that product is experience
+    // -1 index means, that product is money
     public int productIndex;
     public int productQuantity;
 }

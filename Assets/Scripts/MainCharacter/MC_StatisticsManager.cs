@@ -4,6 +4,10 @@ public class MC_StatisticsManager : MonoBehaviour
 {
     [SerializeField] private GameStatsManager gameStatsManager;
     private GameStats currentGameStats;
+    [SerializeField] private StatisticsInfo statisticsInfo;
+    [SerializeField] MC_HealthManager healthManager;
+    [SerializeField] MC_EnergyManager energyManager;
+    [SerializeField] MC_ManaManager manaManager;
 
     private void Awake()
     {
@@ -229,5 +233,17 @@ public class MC_StatisticsManager : MonoBehaviour
         CloseCombatLevel = 0;
         RangedCombatLevel = 0;
         MagicCombatLevel = 0;
+        if (healthManager.Health > statisticsInfo.MaxHPValues[0])
+        {
+            healthManager.Health = statisticsInfo.MaxHPValues[0];
+        }
+        if (energyManager.Energy > statisticsInfo.MaxEnergyValues[0])
+        {
+            energyManager.Energy = statisticsInfo.MaxEnergyValues[0];
+        }
+        if (manaManager.Mana > statisticsInfo.ÑloseCombatAdditionalManaValues[0] + statisticsInfo.RangedCombatAdditionalManaValues[0] + statisticsInfo.MagicCombatAdditionalManaValues[0])
+        {
+            manaManager.Mana = statisticsInfo.ÑloseCombatAdditionalManaValues[0] + statisticsInfo.RangedCombatAdditionalManaValues[0] + statisticsInfo.MagicCombatAdditionalManaValues[0];
+        }
     }
 }

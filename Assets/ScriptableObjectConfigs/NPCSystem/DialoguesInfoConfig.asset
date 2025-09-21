@@ -14,34 +14,139 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialoguesInfo:
   - dialogue:
-    - replicaText: 111111111111111
-      speaker: 0
-    - replicaText: 2222222222222
+    - replicaText: Oh, what a misfortune befell us! Son, I ask you, deal with the
+        scoundrel who is causing all this to happen!
       speaker: 1
-    - replicaText: 3333333333
+    - replicaText: Necessarily!
       speaker: 0
-    - replicaText: 333333333333333333333333333333
-      speaker: 0
-    - replicaText: 44444444444
+    - replicaText: Please, take care of yourself!
       speaker: 1
-    - replicaText: 44
-      speaker: 1
-    - replicaText: 444444444444444444444444444444444
-      speaker: 1
-    - replicaText: 5555555
+    - replicaText: Agreed.
       speaker: 0
-    - replicaText: 6666666666666666
+  - dialogue:
+    - replicaText: Son, I'm proud of you. The main thing is to come back alive. I
+        hope this horror ends sooner or later. Have a successful trip!
+      speaker: 1
+    - replicaText: Right, thank you for everything, father.
       speaker: 0
-    - replicaText: 7777777777777777
+  - dialogue:
+    - replicaText: Hello, where are you going?
+      speaker: 1
+    - replicaText: I'm going after the head of the man who caused the apocalypse.
+      speaker: 0
+    - replicaText: Do you think someone is to blame for this?
+      speaker: 1
+    - replicaText: Sure. And I`m going to punish him no matter what.
+      speaker: 0
+    - replicaText: Hm, so where do you go first? I don`t think you know much about
+        other places besides Greenfield.
+      speaker: 1
+    - replicaText: Eh, you caught me.
+      speaker: 0
+    - replicaText: Nah, you are naive as always!
+      speaker: 1
+    - replicaText: Ahah.
+      speaker: 0
+    - replicaText: Are you sure about your decision to leave GreenField? I think
+        it's too dangerous, especially for you.
+      speaker: 1
+    - replicaText: No, I won`t stop only because of your warnings!
+      speaker: 0
+    - replicaText: I knew it. Okay, first of all, I suggest you going to Milgard.
+        It is quite a big town in the center of the field, where you will meet a
+        lot of interesting and strong people. They`ll help you to grow, but not for
+        free, of course.
+      speaker: 1
+    - replicaText: I`he heard about it. Sounds amazing!
+      speaker: 0
+    - replicaText: Yeap, just follow the road and you`ll get there. Good luck and
+        come back alive!
+      speaker: 1
+    - replicaText: Thank you, bye!
+      speaker: 0
+  - dialogue:
+    - replicaText: What do you want from me?
+      speaker: 1
+    - replicaText: You don`t look great, can I help you?
+      speaker: 0
+    - replicaText: It`s because of magic. Now leave me alone.
+      speaker: 1
+    - replicaText: Magic? Are you a magician?
+      speaker: 0
+    - replicaText: Not a professional, of course, but I can defend myself.
+      speaker: 1
+    - replicaText: I also have to be able to defend myself. Can you teach me magic?
+      speaker: 0
+    - replicaText: I also have to be able to defend myself. Can you teach me magic?
+      speaker: 0
+    - replicaText: 'Why are you so obsessive? I told you to get out of here! '
+      speaker: 1
+    - replicaText: Please. I want to change the world for the better.
+      speaker: 0
+    - replicaText: I said...
+      speaker: 1
+    - replicaText: Please ^-^
+      speaker: 0
+    - replicaText: Oh, I didn't know what to do with the extra wooden staff anyway.
+        Take it, then go to hell. I won`t teach you magic, I`m not good enough. The
+        only thing I`ll tell you - you have to use mana to attack really effective.
+        Bye.
       speaker: 1
   - dialogue:
-    - replicaText: aaaaa
+    - replicaText: Excuse me...
       speaker: 0
-    - replicaText: aaaoaaoaoaooao
+    - replicaText: Who are you and where are you from?
       speaker: 1
-    - replicaText: aaaaaaaAaaAaaaAaaa
+    - replicaText: I`m from Greenfield.
       speaker: 0
-    - replicaText: AAaAAAAaaAAAAAAA
+    - replicaText: Oh, Greenfield, our neighbours! How did you survive the black
+        tsunami?
       speaker: 1
-    - replicaText: AAAAAAAAAAAAAAAAAA
+    - replicaText: Half of our residents turned into monsters and fled in all directions.
       speaker: 0
+    - replicaText: We had the same situation.
+      speaker: 1
+    - replicaText: What a horror!
+      speaker: 1
+  - dialogue:
+    - replicaText: Buy delicious food cheap!
+      speaker: 1
+  - dialogue:
+    - replicaText: Professional Milgard shooter at your service.
+      speaker: 1
+  - dialogue:
+    - replicaText: You have a huge potential, man. Don`t be shy to ask to fix some
+        mistakes you have made.
+      speaker: 1
+  - dialogue:
+    - replicaText: Professional Milgard mage at your service.
+      speaker: 1
+  - dialogue:
+    - replicaText: Professional Milgard potion master at your service.
+      speaker: 1
+  - dialogue:
+    - replicaText: Good afternoon, sir.
+      speaker: 0
+    - replicaText: Good afternoon. What brought you to Milgard, young man?
+      speaker: 1
+    - replicaText: I want to become strong, I have to become strong to punish the
+        person who made led to the apocalypse.
+      speaker: 0
+    - replicaText: Well, so you are a novice monster slayer?
+      speaker: 1
+    - replicaText: Yes.
+      speaker: 0
+    - replicaText: Then I have some tasks for you to do. Of course, you will be rewarded.
+      speaker: 1
+    - replicaText: I would be very grateful. I just needed to start somewhere.
+      speaker: 0
+  - dialogue:
+    - replicaText: Professional Oakholme lumberjack master at your service.
+      speaker: 1
+  - dialogue:
+    - replicaText: Professional Oakholme blacksmith master at your service.
+      speaker: 1
+  - dialogue:
+    - replicaText: "Shh\u2026 the boss sleeps. Wake him, and you\u2019ll be nothing
+        but dust."
+      speaker: 1

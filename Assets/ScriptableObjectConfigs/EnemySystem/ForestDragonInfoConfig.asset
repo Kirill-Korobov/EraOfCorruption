@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 687352117981c3e4eb27c44dfcc562f1, type: 3}
+  m_Name: ForestDragonInfoConfig
+  m_EditorClassIdentifier: 
+  bossPrefab: {fileID: 3512269937182087021, guid: 620fa33ef109d2f45a9499d96d301e12, type: 3}
+  _name: Forest Dragon
+  spawnPosition: {x: 2620.89, y: 10.163027, z: 3055.23}
+  totalHP: 3000
+  generalDefense: 10
+  touchDamage: 30
+  changePhaseHPPersent: 0.3
+  firstPhaseStatsMultiplier: 1
+  secondPhaseStatsMultiplier: 1.5
+  averageAttackDuration: 15
+  minAttackDurationMultiplier: 0.5
+  maxAttackDurationMultiplier: 2
+  moneyDropAmount: 0
+  _XPDropAmount: 10000
+  walkSpeed: 5
+  biteDamage: 15
+  biteRadius: 8
+  biteRechargeTime: 1
+  fireballPrefab: {fileID: 1949376083282614, guid: 4dd6c2b5539220947a0c5938f0a39d20, type: 3}
+  fireballSpawnPosition: {x: -0.080960274, y: 6.2446494, z: 3.2200065}
+  fireballDamage: 10
+  fireballSpeed: 50
+  fireballDissapearTime: 15
+  orcIndex: 9
+  golemIndex: 10
+  enemySpawnPosition: {x: 2.1565876, y: 0.9579824, z: 2.8895862}
+  spawnEnemiesRechargeTime: 5
+  maxSpawnedEnemiesNumber: 10
+  spawnEnemiesDefenseMultiplier: 0
+  healSpeed: 100
+  healDefenseMultiplier: 0
+  dashSpeed: 20
+  dashTime: 10
+  dashStopTime: 5
+  dashDefenseMultiplier: 3
+  dashStopDefenseMultiplier: 0

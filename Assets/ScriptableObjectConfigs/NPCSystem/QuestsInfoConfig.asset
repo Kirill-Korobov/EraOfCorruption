@@ -13,18 +13,53 @@ MonoBehaviour:
   m_Name: QuestsInfoConfig
   m_EditorClassIdentifier: 
   questInfo:
-  - name: First quest
-    requirementDescription: Be alive
-    taskDescription: Kill a boss
-    rewardDescription: Nothing lol
-    reusability: 0
-  - name: Second quest
-    requirementDescription: 
-    taskDescription: Do blbalbalbablbalba
-    rewardDescription: 
-    reusability: 0
-  - name: Third quest
+  - name: Mother's Gift
     requirementDescription: 
     taskDescription: 
     rewardDescription: 
     reusability: 0
+  - name: Father's Gift
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 0
+  - name: Best Friend's Gift
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 0
+  - name: Mysterious Weirdo's Gift
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 0
+  - name: Reset Statistics
+    requirementDescription: '-'
+    taskDescription: '-'
+    rewardDescription: Resets all upgrades and brings all your statistic points back
+    reusability: 1
+  - name: Bandit Killer
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 1
+  - name: Hero Of The Forest
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 0
+  - name: Spore War
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 1
+  - name: Goblin Trouble
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 1
+  - name: Fight Boss
+    requirementDescription: 
+    taskDescription: 
+    rewardDescription: 
+    reusability: 1

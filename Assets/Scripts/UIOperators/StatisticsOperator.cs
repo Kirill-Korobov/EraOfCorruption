@@ -7,6 +7,7 @@ public class StatisticsOperator : MonoBehaviour
     [SerializeField] private MC_LevelManager levelManager;
     [SerializeField] private StatisticsInfo statisticsInfo;
     [SerializeField] private TMP_Text statisticPointsText, _HPLevelText, energyLevelText, movementLevelText, _XPMultiplierLevelText, closeCombatLevelText, rangedCombatLevelText, magicCombatLevelText;
+    [SerializeField] private PauseManager pauseManager;
     private int _HPLevelIncrease, energyLevelIncrease, movementLevelIncrease, _XPMultiplierLevelIncrease, closeCombatLevelIncrease, rangedCombatLevelIncrease, magicCombatLevelIncrease;
 
     private void OnEnable()
@@ -165,7 +166,8 @@ public class StatisticsOperator : MonoBehaviour
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        StaticEffects.coroutines.gameObject.SetActive(true);
+        pauseManager.SetGameNotPaused();
+        // StaticEffects.coroutines.gameObject.SetActive(true);
     }
 
     public void SaveButton()
@@ -203,6 +205,7 @@ public class StatisticsOperator : MonoBehaviour
         gameObject.SetActive(false);
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        StaticEffects.coroutines.gameObject.SetActive(true);
+        pauseManager.SetGameNotPaused();
+        // StaticEffects.coroutines.gameObject.SetActive(true);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine.UI;
 public class NPCQuestMenuOperator : MonoBehaviour
 {
     [SerializeField] private QuestStagesInfo questStagesInfo;
+    [SerializeField] private QuestRequirements questRequirements;
+    [SerializeField] private QuestTasks questTasks;
     [SerializeField] private QuestsInfo questsInfo;
     [SerializeField] private NPCsInfo _NPCsInfo;
     [SerializeField] private TMP_Text titleText;
@@ -12,15 +14,34 @@ public class NPCQuestMenuOperator : MonoBehaviour
     [SerializeField] private VerticalLayoutGroup contentVerticalLayoutGroup;
     [SerializeField] private QuestRewards questRewards;
     [SerializeField] private RequirementsNotMetTextBehaviour requirementsNotMetTextBehaviour;
+    [SerializeField] private float additionalSpace;
+    [SerializeField] private GameStatsManager gameStatsManager;
+    [SerializeField] private QuestTaskVariableValuesInfo questTaskVariableValuesInfo;
     private Coroutine showRequirementsNotMetTextCoroutine;
     private GameObject[] bufferQuests;
     private RectTransform contentRectTransform;
     private int interactingNPCID, questNumber, questIndex;
+    private GameStats currentGameStats;
 
     private void Awake()
     {
         interactingNPCID = -1;
         contentRectTransform = content.GetComponent<RectTransform>();
+        switch (GameStatsManager.currentGame)
+        {
+            case 1:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+            case 2:
+                currentGameStats = gameStatsManager.game2Stats;
+                break;
+            case 3:
+                currentGameStats = gameStatsManager.game3Stats;
+                break;
+            default:
+                currentGameStats = gameStatsManager.game1Stats;
+                break;
+        }
     }
 
     private void OnEnable()
@@ -36,6 +57,8 @@ public class NPCQuestMenuOperator : MonoBehaviour
     public void SpawnQuests(int _interactingNPCID)
     {
         interactingNPCID = _interactingNPCID;
+        questRequirements.UpdateRequirements();
+        questTasks.UpdateTasks();
         questNumber = 0;
         for (int i = 0; i < _NPCsInfo._NPCsInfo[interactingNPCID].questIndexes.Length; i++)
         {
@@ -45,7 +68,7 @@ public class NPCQuestMenuOperator : MonoBehaviour
             }
         }
         titleText.text = $"{_NPCsInfo._NPCsInfo[interactingNPCID].name}'s quests";
-        contentRectTransform.sizeDelta = new Vector2(contentRectTransform.sizeDelta.x, questNumber * (_NPCQuestPrefab.GetComponent<RectTransform>().sizeDelta.y + contentVerticalLayoutGroup.spacing) - contentVerticalLayoutGroup.spacing);
+        contentRectTransform.sizeDelta = new Vector2(contentRectTransform.sizeDelta.x, questNumber * (_NPCQuestPrefab.GetComponent<RectTransform>().sizeDelta.y + contentVerticalLayoutGroup.spacing) - contentVerticalLayoutGroup.spacing + additionalSpace);
         questIndex = 0;
         bufferQuests = new GameObject[questNumber];
         for (int i = 0; i < _NPCsInfo._NPCsInfo[interactingNPCID].questIndexes.Length; i++)
@@ -123,6 +146,18 @@ public class NPCQuestMenuOperator : MonoBehaviour
     private void RefuseQuest(int _questIndex)
     {
         questStagesInfo._QuestStages[_questIndex] = QuestStages.cantStart;
+        if (_questIndex == questTaskVariableValuesInfo.BanditKillerIndex)
+        {
+            currentGameStats.questVariableStats.banditKillerKilledBanditNumber = 0;
+        }
+        else if (_questIndex == questTaskVariableValuesInfo.SporeWarIndex)
+        {
+            currentGameStats.questVariableStats.sporeWarKilledMushroomNumber = 0;
+        }
+        else if (_questIndex == questTaskVariableValuesInfo.GoblinTroubleIndex)
+        {
+            currentGameStats.questVariableStats.goblinTroubleKilledGoblinNumber = 0;
+        }
         DeleteQuests();
         SpawnQuests(interactingNPCID);
     }
