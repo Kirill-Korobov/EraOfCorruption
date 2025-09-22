@@ -7,29 +7,30 @@ public class ArrowLogic : MonoBehaviour
     public int speed;
     public int range;
     public int attack;
-    private Transform transformStart;
+    private Vector3 transformStart;
 
     private void OnEnable()
     {
-        transformStart = GetComponent<Transform>();
+        transformStart = GetComponent<Transform>().position;
+
     }
     private void Update()
     {
         if (!LoadedSettings.ifAnyOpen && !LoadedSettings.ifInventoryOpen && !LoadedSettings.ifMapOpen && !LoadedSettings.ifQuestsOpen && !LoadedSettings.ifStatsOpen)
         {
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
-            if(Vector3.Distance(transform.position, transformStart.position) > range)
+            if (Vector3.Distance(transform.position, transformStart) > range)
             {
-                Debug.Log(Vector3.Distance(transform.position, transformStart.position));
                 Destroy(gameObject);
             }
         }
     }
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        Debug.Log(other.name);
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            collision.gameObject.GetComponent<AttackEnemy>().EnemyAttaked(attack);
+            other.gameObject.GetComponent<AttackEnemy>().EnemyAttaked(attack);
             if (StaticEffects.vampirismHP)
             {
                 StaticEffects.VampirismHPLogic(attack);
@@ -40,7 +41,7 @@ public class ArrowLogic : MonoBehaviour
             }
             Destroy(gameObject);
         }
-        else
+        else if(other.name != "item")
         {
             Destroy(gameObject);
         }

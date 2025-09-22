@@ -44,6 +44,19 @@ public class MoveSprites : MonoBehaviour, IPointerClickHandler
             image = gameObject.GetComponentsInChildren<Image>()[1];
         }
     }
+
+    public void Set()
+    {
+        if (wts == WhatTheSlot.Normal)
+        {
+            txt = gameObject.GetComponentsInChildren<TMP_Text>()[0];
+            image = gameObject.GetComponentsInChildren<Image>()[1];
+        }
+        else
+        {
+            image = gameObject.GetComponentsInChildren<Image>()[1];
+        }
+    }
     [System.Obsolete]
     void IPointerClickHandler.OnPointerClick(PointerEventData eventData)
     {

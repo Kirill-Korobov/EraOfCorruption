@@ -20,8 +20,8 @@ MonoBehaviour:
   min: 5
   max: 10
   buy: 0
-  itemType: 5
-  arrowDamage: 0
+  itemType: 3
+  arrowDamage: 10
   weaponName: 
   damage: 0
   reload: 0

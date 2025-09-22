@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ public class MagicAmmunitionLogic : MonoBehaviour
 
     private void OnEnable()
     {
+        Debug.Log("start?");
         StartCoroutine(Timer());
     }
     private IEnumerator Timer()
@@ -26,6 +28,7 @@ public class MagicAmmunitionLogic : MonoBehaviour
                 yield return a;
             }
         }
+        Debug.Log("destroy");
         Destroy(gameObject);
 
     }
@@ -39,7 +42,7 @@ public class MagicAmmunitionLogic : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Enemy"))
-        {
+        { 
             if (!ifMagicSplash)
             {
                 other.gameObject.GetComponent<AttackEnemy>().EnemyAttaked(attack);

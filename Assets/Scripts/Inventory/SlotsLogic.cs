@@ -237,7 +237,6 @@ public class SlotsLogic : MonoBehaviour
     private void Awake()
     {
         StaticDropTake.sl = this;
-        Debug.Log("sl was selected");
         path = $"{Application.persistentDataPath}/Inventory.json";
         ArmorSlors.Add(null);
         ArmorSlors.Add(null);

@@ -26,16 +26,16 @@ public static class LoadedSettings
     public static bool pause;
     public static LoadScripts_Meneger lsm;
 
-    public static KeyCode attack;
-    public static KeyCode mute;
-    public static KeyCode forward;
-    public static KeyCode right;
-    public static KeyCode left;
-    public static KeyCode back;
-    public static KeyCode run;
-    public static KeyCode jump;
-    public static KeyCode dash;
-    public static KeyCode teleport;
+    public static KeyCode attack; //
+    public static KeyCode mute; //
+    public static KeyCode forward; //
+    public static KeyCode right; //
+    public static KeyCode left; //
+    public static KeyCode back; //
+    public static KeyCode run; //
+    public static KeyCode jump; //
+    public static KeyCode dash; //
+    public static KeyCode teleport; //
     public static KeyCode take;
     public static KeyCode drop;
     public static KeyCode inventory1;

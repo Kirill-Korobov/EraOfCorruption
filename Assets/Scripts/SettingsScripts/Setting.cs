@@ -91,9 +91,9 @@ public class Setting : MonoBehaviour
         cursorSize.value = ss.cursorSizes.x;
         sensivity.value = ss.sensivity;
 
-
-        if (pause)
+        if (!ss.pause)
         {
+            Debug.Log(1);
             inventory.gameObject.SetActive(false);
             quests.gameObject.SetActive(false);
             map.gameObject.SetActive(false);
@@ -119,9 +119,11 @@ public class Setting : MonoBehaviour
             tx.LoadImage(Convert.FromBase64String(ss.imageCursor));
             Rect rt = new Rect(0, 0, tx.width, tx.height);
             sp = Sprite.Create(tx, rt, new Vector2(0.5f, 0.5f));
+            Cursor.lockState = CursorLockMode.None;
 
             cursor.rectTransform.sizeDelta = new Vector2(1 * LoadedSettings.cursorSizes.x, 1.2f * LoadedSettings.cursorSizes.y);
             cursor.sprite = sp;
+            Debug.Log(1);
         }
         else
         {
@@ -131,6 +133,8 @@ public class Setting : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             importCursor.gameObject.SetActive(false);
             customCursor.isOn = false;
+            cursor.gameObject.SetActive(false);
+            Debug.Log(2);
         }
     }
     public void Escape()
@@ -139,7 +143,7 @@ public class Setting : MonoBehaviour
     }
     public void CustomCursor()
     {
-        if (ifSpriteIs && customCursor.isOn != false)
+        if (ifSpriteIs && customCursor.isOn)
         {
             Cursor.visible = true;
             var extensions = new[] {new ExtensionFilter("Image Files", "png", "jpg")};
@@ -166,12 +170,16 @@ public class Setting : MonoBehaviour
 
                     if (customCursor.isOn)
                     {
+                        Debug.Log(1);
                         cursor.sprite = sp;
                         importCursor.gameObject.SetActive(true);
+                        cursor.gameObject.SetActive(true);
                     }
                     else
                     {
+                        Debug.Log(2);
                         importCursor.gameObject.SetActive(false);
+                        cursor.gameObject.SetActive(false);
                     }
                 }
             }
@@ -187,11 +195,13 @@ public class Setting : MonoBehaviour
             {
                 cursor.sprite = sp;
                 importCursor.gameObject.SetActive(true);
+                cursor.gameObject.SetActive(true);
                 Cursor.visible = false;
             }
             else
             {
                 importCursor.gameObject.SetActive(false);
+                cursor.gameObject.SetActive(false);
                 Cursor.visible = true;
             }
         }
@@ -342,7 +352,11 @@ public class Setting : MonoBehaviour
             ss.imageCursor = Convert.ToBase64String(cursor.sprite.texture.EncodeToPNG());
         else if (extension == ".jpg")
             ss.imageCursor = Convert.ToBase64String(cursor.sprite.texture.EncodeToJPG());
-        cursor.gameObject.SetActive(false);
+        if (!customCursor.isOn)
+        {
+            Cursor.visible = true;
+            cursor.gameObject.SetActive(false);
+        }
 
         string json = JsonUtility.ToJson(ss);
         using (var writer = new StreamWriter(path))

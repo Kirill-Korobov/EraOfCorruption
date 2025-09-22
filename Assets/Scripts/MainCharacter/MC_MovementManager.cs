@@ -44,68 +44,68 @@ public class MC_MovementManager : MonoBehaviour
 
             // Model rotation
 
-            if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D))
+            if (Input.GetKey(LoadedSettings.forward) && Input.GetKey(LoadedSettings.left) && Input.GetKey(LoadedSettings.back) && Input.GetKey(LoadedSettings.right))
             {
                 modelTransform.localEulerAngles = Vector3.zero;
             }
             else
             {
-                if (Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.S))
+                if (Input.GetKey(LoadedSettings.forward) && Input.GetKey(LoadedSettings.right) && !Input.GetKey(LoadedSettings.left) && !Input.GetKey(LoadedSettings.back))
                 {
                     modelTransform.localEulerAngles = new Vector3(0, 45, 0);
                 }
-                else if (Input.GetKey(KeyCode.D) && Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W))
+                else if (Input.GetKey(LoadedSettings.right) && Input.GetKey(LoadedSettings.back) && !Input.GetKey(LoadedSettings.left) && !Input.GetKey(LoadedSettings.forward))
                 {
                     modelTransform.localEulerAngles = new Vector3(0, 135, 0);
                 }
-                else if (Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.D))
+                else if (Input.GetKey(LoadedSettings.back) && Input.GetKey(LoadedSettings.left) && !Input.GetKey(LoadedSettings.forward) && !Input.GetKey(LoadedSettings.right))
                 {
                     modelTransform.localEulerAngles = new Vector3(0, 225, 0);
                 }
-                else if (Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.D))
+                else if (Input.GetKey(LoadedSettings.left) && Input.GetKey(LoadedSettings.forward) && !Input.GetKey(LoadedSettings.back) && !Input.GetKey(LoadedSettings.right))
                 {
                     modelTransform.localEulerAngles = new Vector3(0, 315, 0);
                 }
                 else
                 {
-                    if (Input.GetKey(KeyCode.W) && !Input.GetKey(KeyCode.S))
+                    if (Input.GetKey(LoadedSettings.forward) && !Input.GetKey(LoadedSettings.back))
                     {
                         modelTransform.localEulerAngles = Vector3.zero;
                     }
-                    else if (Input.GetKey(KeyCode.D) && !Input.GetKey(KeyCode.A))
+                    else if (Input.GetKey(LoadedSettings.right) && !Input.GetKey(LoadedSettings.left))
                     {
                         modelTransform.localEulerAngles = new Vector3(0, 90, 0);
                     }
-                    else if (Input.GetKey(KeyCode.S) && !Input.GetKey(KeyCode.W))
+                    else if (Input.GetKey(LoadedSettings.back) && !Input.GetKey(LoadedSettings.forward))
                     {
                         modelTransform.localEulerAngles = new Vector3(0, 180, 0);
                     }
-                    else if (Input.GetKey(KeyCode.A) && !Input.GetKey(KeyCode.D))
+                    else if (Input.GetKey(LoadedSettings.left) && !Input.GetKey(LoadedSettings.right))
                     {
                         modelTransform.localEulerAngles = new Vector3(0, 270, 0);
                     }
                 }
             }
 
-            bool isWalkingOrRunning = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.D)) && !(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.S) && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))) && !(Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.D) && !(Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))) && !(Input.GetKey(KeyCode.W) && Input.GetKey(KeyCode.A) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.D));
+            bool isWalkingOrRunning = (Input.GetKey(LoadedSettings.forward) || Input.GetKey(LoadedSettings.left) || Input.GetKey(LoadedSettings.back) || Input.GetKey(LoadedSettings.right)) && !(Input.GetKey(LoadedSettings.forward) && Input.GetKey(LoadedSettings.back) && !(Input.GetKey(LoadedSettings.left) || Input.GetKey(LoadedSettings.right))) && !(Input.GetKey(LoadedSettings.left) && Input.GetKey(LoadedSettings.right) && !(Input.GetKey(LoadedSettings.forward) || Input.GetKey(LoadedSettings.back))) && !(Input.GetKey(LoadedSettings.forward) && Input.GetKey(LoadedSettings.left) && Input.GetKey(LoadedSettings.back) && Input.GetKey(LoadedSettings.right));
 
             // Walking
 
-            if (!isDashing && !Input.GetKey(KeyCode.LeftShift) && !Input.GetKey(KeyCode.RightShift))
+            if (!isDashing && !Input.GetKey(LoadedSettings.run))
             {
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKey(LoadedSettings.forward))
                 {
                     characterController.Move(transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
                 }
-                if (Input.GetKey(KeyCode.A))
+                if (Input.GetKey(LoadedSettings.left))
                 {
                     characterController.Move(-transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
                 }
-                if (Input.GetKey(KeyCode.S))
+                if (Input.GetKey(LoadedSettings.back))
                 {
                     characterController.Move(-transform.forward * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
                 }
-                if (Input.GetKey(KeyCode.D))
+                if (Input.GetKey(LoadedSettings.right))
                 {
                     characterController.Move(transform.right * statisticsInfo.WalkingSpeedValue * Time.deltaTime * walkSpeed);
                 }
@@ -125,21 +125,21 @@ public class MC_MovementManager : MonoBehaviour
 
             // Running
 
-            if (!isDashing && (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) && energyManager.Energy >= statisticsInfo.RunningEnergySpendingMultiplier * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime)
+            if (!isDashing && (Input.GetKey(LoadedSettings.run)) && energyManager.Energy >= statisticsInfo.RunningEnergySpendingMultiplier * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime)
             {
-                if (Input.GetKey(KeyCode.W))
+                if (Input.GetKey(LoadedSettings.forward))
                 {
                     characterController.Move(transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
                 }
-                if (Input.GetKey(KeyCode.A))
+                if (Input.GetKey(LoadedSettings.left))
                 {
                     characterController.Move(-transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
                 }
-                if (Input.GetKey(KeyCode.S))
+                if (Input.GetKey(LoadedSettings.back))
                 {
                     characterController.Move(-transform.forward * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
                 }
-                if (Input.GetKey(KeyCode.D))
+                if (Input.GetKey(LoadedSettings.right))
                 {
                     characterController.Move(transform.right * statisticsInfo.RunningSpeedMultiplierValues[statisticsManager.MovementLevel] * Time.deltaTime * walkSpeed);
                 }
@@ -185,7 +185,7 @@ public class MC_MovementManager : MonoBehaviour
             {
                 currentJumpNumber = 0;
             }
-            if (!isDashing && ((Input.GetKey(KeyCode.Space) && characterController.isGrounded && energyManager.Energy >= statisticsInfo.JumpingEnergySpendingMultiplier) || (Input.GetKeyDown(KeyCode.Space) && energyManager.Energy >= statisticsInfo.JumpingEnergySpendingMultiplier * Mathf.Pow(statisticsInfo.EveryNextAdditionalJumpEnergySpendingMultiplier, currentJumpNumber))))
+            if (!isDashing && ((Input.GetKey(LoadedSettings.jump) && characterController.isGrounded && energyManager.Energy >= statisticsInfo.JumpingEnergySpendingMultiplier) || (Input.GetKeyDown(LoadedSettings.jump) && energyManager.Energy >= statisticsInfo.JumpingEnergySpendingMultiplier * Mathf.Pow(statisticsInfo.EveryNextAdditionalJumpEnergySpendingMultiplier, currentJumpNumber))))
             {
                 if (!characterController.isGrounded)
                 {
@@ -207,7 +207,7 @@ public class MC_MovementManager : MonoBehaviour
 
             if (statisticsManager.MovementLevel >= statisticsInfo.DashUnlockLevel)
             {
-                if (Input.GetKeyDown(KeyCode.Q) && currentDashRechargeTime <= 0f)
+                if (Input.GetKeyDown(LoadedSettings.dash) && currentDashRechargeTime <= 0f)
                 {
                     isDashing = true;
                     animator.SetBool("Dash", true);
@@ -252,7 +252,7 @@ public class MC_MovementManager : MonoBehaviour
 
             // Teleportation
 
-            if (Input.GetKeyDown(KeyCode.Tab) && statisticsManager.MovementLevel >= statisticsInfo.TeleportationUnlockLevel && currentTeleportationRechargeTime <= 0 && perspectiveManager.CurrentPerspective == 1)
+            if (Input.GetKeyDown(LoadedSettings.teleport) && statisticsManager.MovementLevel >= statisticsInfo.TeleportationUnlockLevel && currentTeleportationRechargeTime <= 0 && perspectiveManager.CurrentPerspective == 1)
             {
                 Ray ray = new Ray(head.transform.position, head.forward);
                 if (Physics.Raycast(ray, out RaycastHit hit))

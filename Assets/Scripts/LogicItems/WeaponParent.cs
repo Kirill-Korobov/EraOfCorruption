@@ -13,10 +13,11 @@ public abstract class WeaponParent : MonoBehaviour
     private void Awake()
     {
         dti = GetComponent<ScriptableObjectUsedItems>().dti;
+        attack = true;
     }
     private void Start()
     {
-        start = true;
+        start = false;
     }
 
     public abstract void Attack();
@@ -24,16 +25,18 @@ public abstract class WeaponParent : MonoBehaviour
     {
         if (start)
         {
-            Reload(dti.Reload - o);
+            StartCoroutine(Reload(dti.Reload - o));
         }
     }
     public IEnumerator Reload(int b)
     {
         attack = false;
         WaitForSeconds a = new WaitForSeconds(1);
+        start = true;
         o = 0;
         while (o < b)
         {
+            Debug.Log("reload");
             if(!LoadedSettings.ifAnyOpen && !LoadedSettings.ifInventoryOpen && !LoadedSettings.ifMapOpen && !LoadedSettings.ifQuestsOpen && !LoadedSettings.ifStatsOpen)
             {
                 yield return a;
@@ -42,5 +45,6 @@ public abstract class WeaponParent : MonoBehaviour
         }
         o = 0;
         attack = true;
+        start = false;
     }
 }

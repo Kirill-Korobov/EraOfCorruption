@@ -1,36 +1,29 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 [Serializable]
 public class BindButton : MonoBehaviour
 {
-    [SerializeField] private GameObject bindsSetting;
-    [SerializeField] private GameObject setting;
+    [SerializeField] private GameObject bIndsSettIng;
+    [SerializeField] private GameObject settIng;
+    [SerializeField] private GameObject[] contentBinds;
+
     private bool t = false;
     private int whatthenumber;
     private string path;
     private KeyBindsNames[] kbn;
 
-    private Binds binds = new Binds();
+    private Binds bInds = new Binds();
 
-    public Toggle[] images;
+    public Toggle[] Images;
     public TMP_Text[] texts;
 
     public Image cursor;
 
-    private void OnApplicationQuit()
-    {
-        Save();
-    }
-    private KeyBindsNames[] whatTheKeyBind =
+    private KeyBindsNames[] whatTheKeyBInd =
                 {
                     new KeyBindsNames(KeyCode.Mouse0, "LMB"),
                     new KeyBindsNames(KeyCode.Mouse1, "RMB"),
@@ -63,50 +56,63 @@ public class BindButton : MonoBehaviour
 
     public void Clicked(int a)
     {
+        Debug.Log(a);
         whatthenumber = a;
         t = true;
-        images[whatthenumber].isOn = true;
+        Images[whatthenumber].isOn = true;
     }
-    /*
-    public void PBFDG()
+
+    public void UILoading()
     {
-        
-        for (int i = 0; i < binds.allBinds.Length; i++)
-        {
-            if (binds.allBinds[i].ReturnString() == "Attack")
-            {
-                KeyCode attack = binds.allBinds[i].ReturnKeyCode();
-            }
-        }
+        LoadImageTogle();
     }
-    */
+
     public void Exit()
     {
-        bindsSetting.gameObject.SetActive(false);
-        setting.gameObject.SetActive(true);
+        bIndsSettIng.gameObject.SetActive(false);
+        settIng.gameObject.SetActive(true);
     }
     private void Awake()
     {
-        string json = "";
-        path = $"{Application.persistentDataPath}/KeyBinds.json";
-        using (var reader = new StreamReader(path))
-        {
-            string line;
-            while ((line = reader.ReadLine()) != null) { json += line; }
-        }
-        kbn = JsonUtility.FromJson<Binds>(json).allBinds;
+
+        LoadImageTogle();
+
+        Load();
+
         KeyBindsName(kbn);
     }
+    private void Load()
+    {
+        string json = "";
+        path = $"{Application.persistentDataPath}/KeyBInds.json";
+        using (var reader = new StreamReader(path))
+        {
+            string lIne;
+            while ((lIne = reader.ReadLine()) != null) { json += lIne; }
+        }
+        kbn = JsonUtility.FromJson<Binds>(json).allBinds;
+    }
+    private void LoadImageTogle()
+    {
+        texts = new TMP_Text[29];
+        Images = new Toggle[29];
+        for (int i = 0; i < contentBinds.Length; i++)
+        {
+            texts[i] = contentBinds[i].GetComponentsInChildren<TMP_Text>()[1];
+            Images[i] = contentBinds[i].GetComponentInChildren<Toggle>();
+        }
+    }
+
     private void Start()
     {
-        string cursorPath = $"{Application.persistentDataPath}/Settings.json";
+        string cursorPath = $"{Application.persistentDataPath}/SettIngs.json";
         SaveSetting ss = new SaveSetting();
         string json = "";
         
         using (var reader = new StreamReader(path))
         {
-            string line;
-            while ((line = reader.ReadLine()) != null) { json += line; }
+            string lIne;
+            while ((lIne = reader.ReadLine()) != null) { json += lIne; }
         }
         ss = JsonUtility.FromJson<SaveSetting>(json);
         if (ss.customCursor)
@@ -125,29 +131,30 @@ public class BindButton : MonoBehaviour
     }
     public void KeyBindsName(KeyBindsNames[] keys)
     {
-        bool stopIfs = false;
+        bool stopifs = false;
         for (int i = 0; i < keys.Length; i++)
         {
             KeyCode key = keys[i].ReturnKeyCode();
-            for (int j = 0; j < whatTheKeyBind.Length; j++)
+            for (int j = 0; j < whatTheKeyBInd.Length; j++)
             {
-                if (whatTheKeyBind[j].bind == key)
+                
+                if (whatTheKeyBInd[j].bind == key)
                 {
-                    texts[whatthenumber].text = whatTheKeyBind[j].name;
-                    stopIfs = true;
+                    texts[i].text = whatTheKeyBInd[j].name;
+                    stopifs = true;
                     break;
                 }
             }
-            if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0 && stopIfs) texts[whatthenumber].text = key.ToString().Replace("Keypad", "Numpad ");
-            else if (Input.GetMouseButtonDown(0) && stopIfs) texts[whatthenumber].text = "LMB";
-            else if (Input.GetMouseButtonDown(1) && stopIfs) texts[whatthenumber].text = "RMB";
-            else if (Input.GetMouseButtonDown(2) && stopIfs) texts[whatthenumber].text = "MB3";
-            else if (Input.GetMouseButtonDown(3) && stopIfs) texts[whatthenumber].text = "MB4";
-            else if (Input.GetMouseButtonDown(4) && stopIfs) texts[whatthenumber].text = "MB5";
-            else if (Input.GetMouseButtonDown(5) && stopIfs) texts[whatthenumber].text = "MB6";
-            else if (Input.GetMouseButtonDown(6) && stopIfs) texts[whatthenumber].text = "MB7";
-            else if (KeyCode.Alpha9 >= key && key >= KeyCode.Alpha0) texts[whatthenumber].text = key.ToString().Replace("Alpha", "");
-            else texts[whatthenumber].text = key.ToString();
+            if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0 && stopifs) texts[i].text = key.ToString().Replace("Keypad", "Numpad ");
+            else if (Input.GetMouseButtonDown(0) && stopifs) texts[i].text = "LMB";
+            else if (Input.GetMouseButtonDown(1) && stopifs) texts[i].text = "RMB";
+            else if (Input.GetMouseButtonDown(2) && stopifs) texts[i].text = "MB3";
+            else if (Input.GetMouseButtonDown(3) && stopifs) texts[i].text = "MB4";
+            else if (Input.GetMouseButtonDown(4) && stopifs) texts[i].text = "MB5";
+            else if (Input.GetMouseButtonDown(5) && stopifs) texts[i].text = "MB6";
+            else if (Input.GetMouseButtonDown(6) && stopifs) texts[i].text = "MB7";
+            else if (KeyCode.Alpha9 >= key && key >= KeyCode.Alpha0) texts[i].text = key.ToString().Replace("Alpha", "");
+            else texts[i].text = key.ToString();
         }
     }
 
@@ -159,7 +166,7 @@ public class BindButton : MonoBehaviour
             {
                 Check();
                 t = false;
-                images[whatthenumber].isOn = false;
+                Images[whatthenumber].isOn = false;
             }
         }
     }
@@ -170,11 +177,11 @@ public class BindButton : MonoBehaviour
         {
             if (Input.GetKeyDown(key))
             {
-                for(int i = 0; i < whatTheKeyBind.Length; i++)
+                for(int i = 0; i < whatTheKeyBInd.Length; i++)
                 {
-                    if (whatTheKeyBind[i].bind == key)
+                    if (whatTheKeyBInd[i].bind == key)
                     {
-                        texts[whatthenumber].text = whatTheKeyBind[i].name;
+                        texts[i].text = whatTheKeyBInd[i].name;
                     }
                 }
                 if (KeyCode.Keypad9 >= key && key >= KeyCode.Keypad0) texts[whatthenumber].text = key.ToString().Replace("Keypad", "Numpad ");
@@ -189,28 +196,34 @@ public class BindButton : MonoBehaviour
                 else texts[whatthenumber].text = key.ToString();
 
                 kbn[whatthenumber].SaveKeyCode(key);
-                binds.CheckAnothereBinds(key, texts, whatthenumber);
+                bInds.CheckAnothereBInds(key, texts, whatthenumber);
                 break;
             }
         }
 
     }
 
-    public void ResetKeyBinds()
+    public void ResetKeyBInds()
     {
-        binds.SetStandartKeyBind(texts);
-        Save();
+        bInds.SetStandartKeyBInd(texts);
+        kbn = bInds.allBinds;
+        using (var writer = new StreamWriter(path))
+        {
+            writer.WriteLine(JsonUtility.ToJson(bInds));
+        }
+        LoadedSettings.LoadBinds(bInds.allBinds);
+
     }
     public void Save()
     {
-        Binds bind = new();
-        bind.allBinds = kbn;
+        Binds bInd = new();
+        bInd.allBinds = kbn;
 
         using (var writer = new StreamWriter(path))
         {
-            writer.WriteLine(JsonUtility.ToJson(bind));
+            writer.WriteLine(JsonUtility.ToJson(bInd));
         }
-        LoadedSettings.LoadBinds(bind.allBinds);
+        LoadedSettings.LoadBinds(bInd.allBinds);
     }
 }
 
@@ -219,13 +232,11 @@ public class Binds
 {
     public KeyBindsNames[] allBinds = new KeyBindsNames[29];
 
-    private KeyCode[] standartBind = { KeyCode.Mouse0, KeyCode.F1, KeyCode.W, KeyCode.D, KeyCode.A, KeyCode.S, KeyCode.LeftShift, KeyCode.Space, KeyCode.Q, KeyCode.Tab, KeyCode.E, KeyCode.R, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9, KeyCode.Alpha0, KeyCode.F, KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.Return, KeyCode.Escape, KeyCode.F2 };
-    private string[] standartString = { "LMB", "F1", "W", "D", "A", "S", "LeftShift", "Space", "Q", "Tab", "E", "R", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "F", "Z", "X", "C", "Enter", "Esc","F2" };
+    private KeyCode[] standartBind = { KeyCode.W, KeyCode.S, KeyCode.D, KeyCode.A, KeyCode.LeftShift, KeyCode.Space, KeyCode.Q, KeyCode.Tab, KeyCode.Mouse0, KeyCode.E, KeyCode.R, KeyCode.Alpha1, KeyCode.Alpha2, KeyCode.Alpha3, KeyCode.Alpha4, KeyCode.Alpha5, KeyCode.Alpha6, KeyCode.Alpha7, KeyCode.Alpha8, KeyCode.Alpha9, KeyCode.Alpha0, KeyCode.Escape, KeyCode.F, KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.Return, KeyCode.F1, KeyCode.F2 };
+    private string[] standartString = { "W", "S", "D", "A", "LeftShift", "Space", "Q", "Tab", "LMB", "E", "R", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "Esc", "F", "Z", "X", "C", "Enter", "F1", "F2" };
+    private string[] standartname = { "Forward", "Back", "Right", "Left", "Run", "Jump", "Dash", "Teleport", "Use", "Take", "Drop", "1Inventory", "2Inventory", "3Inventory", "4Inventory", "5Inventory", "6Inventory", "7Inventory", "8Inventory", "9Inventory", "0Inventory", "Escape", "OpenInventory", "OpenMap", "OpenStats", "OpenQuests", "NPC", "Mute", "Perspective" };
 
-    private string[] standartname = {"Attack", "Mute", "Forward", "Right", "Left", "Back", "Run","Jump", "Dash", "Teleport", "Take", "Drop", "1Inventory", "2Inventory", "3Inventory", "4Inventory", "5Inventory", "6Inventory", "7Inventory", "8Inventory", "9Inventory", "0Inventory", "OpenInventory", "OpenMenu", "OpenStats", "OpenQuests", "NPC", "Escape", "Perspective"};
-    
-
-    public void CheckAnothereBinds(KeyCode key, TMP_Text[] text, int nowThis)
+    public void CheckAnothereBInds(KeyCode key, TMP_Text[] text, int nowThis)
     {
         for (int i = 0; i < allBinds.Length; i++)
         {
@@ -237,7 +248,7 @@ public class Binds
         }
     }
 
-    public bool CheckIfThisFirstPlay()
+    public bool CheckifThisFirstPlay()
     {
         int howMuchDontSave = 0;
         int i;
@@ -254,7 +265,7 @@ public class Binds
         }
         return false;
     }
-    public void SetStandartKeyBind(TMP_Text[] texts)
+    public void SetStandartKeyBInd(TMP_Text[] texts)
     {
         for(int i = 0; i <standartBind.Length; i++)
         {

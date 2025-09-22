@@ -36,7 +36,6 @@ public class CodeForMovingCursor : MonoBehaviour
             else
             {
                 cursor.sprite = LoadedSettings.imageCursor; 
-                cursor.rectTransform.localScale = new Vector3(LoadedSettings.cursorSizes.x, LoadedSettings.cursorSizes.y, 1);
                 Cursor.visible = false;
                 cursor.gameObject.SetActive(true);
             }

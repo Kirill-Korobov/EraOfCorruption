@@ -187,7 +187,7 @@ public class MC_HealthManager : MonoBehaviour
         pauseManager.SetGameNotPaused();
         Health = statisticsInfo.MaxHPValues[statisticsManager.HPLevel] / 2;
         energyManager.Energy = statisticsInfo.MaxEnergyValues[statisticsManager.EnergyLevel];
-        manaManager.Mana = statisticsInfo.CloseCombatStatsMultiplierValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
+        manaManager.Mana = statisticsInfo.ÑloseCombatAdditionalManaValues[statisticsManager.CloseCombatLevel] + statisticsInfo.RangedCombatAdditionalManaValues[statisticsManager.RangedCombatLevel] + statisticsInfo.MagicCombatAdditionalManaValues[statisticsManager.MagicCombatLevel];
         satietyManager.Satiety = statisticsInfo.SatietyMaxValue;
         animator.Play("Idle");
         // Set main character`s position.
