@@ -19,11 +19,9 @@ public class MusicManager : MonoBehaviour
         {
             PlayMusic(audioClipsInfo.LoadingMenuMusic);
         }
-        else
-        {
-            // test:
-            PlayMusic(audioClipsInfo.StartMenuMusic);
-            // .
+        else if (SceneManager.GetActiveScene().name == "MainGame")
+        {          
+            PlayMusic(audioClipsInfo.ForestLocationMusic);
         }
     }
 

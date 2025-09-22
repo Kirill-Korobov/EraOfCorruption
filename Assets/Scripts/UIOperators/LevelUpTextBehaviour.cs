@@ -25,6 +25,12 @@ public class LevelUpTextBehaviour : MonoBehaviour
         }
     }
 
+    public void HideLevelUpText()
+    {
+        levelUpText.color = transparentColor;
+        makeTransparent = false;
+    }
+
     public IEnumerator ShowLevelUpText()
     {
         levelUpText.color = new Color(textColor.r, textColor.g, textColor.b, 1f);

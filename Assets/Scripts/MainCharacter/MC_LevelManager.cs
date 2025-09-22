@@ -36,7 +36,7 @@ public class MC_LevelManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             IncreaseXP(100);
         }

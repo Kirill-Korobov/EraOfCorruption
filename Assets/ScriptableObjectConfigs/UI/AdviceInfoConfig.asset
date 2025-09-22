@@ -9,9 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 485d7fd3fa6af7541ab2d570db1ae68b, type: 3}
   m_Name: AdviceInfoConfig
-  m_EditorClassIdentifier: Assembly-CSharp::AdviceInfo
+  m_EditorClassIdentifier: 
   piecesOfAdvice:
-  - ja jest jabko
-  - ja jest jabko
+  - Well done is better than well said.
+  - You only live once but if you do it right, once is enough.
+  - Start wide, expand further, and never look back.
+  - You can't judge a book by its cover.
+  - The best way to predict the future is to create it.

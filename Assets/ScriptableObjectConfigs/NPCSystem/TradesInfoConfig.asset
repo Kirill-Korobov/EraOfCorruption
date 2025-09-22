@@ -14,14 +14,146 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tradeInfo:
   - price: []
-    priceDescription: lalala
+    priceDescription: money
     goods: []
-    goodsDescription: beeeeeeee
+    goodsDescription: apple
   - price: []
-    priceDescription: 3 lemons, 50 money
+    priceDescription: money
     goods: []
-    goodsDescription: ultra mega super puper sword
+    goodsDescription: bread
   - price: []
-    priceDescription: nothing
+    priceDescription: money
     goods: []
-    goodsDescription: nothing lol
+    goodsDescription: meat
+  - price: []
+    priceDescription: money
+    goods: []
+    goodsDescription: archer hat
+  - price: []
+    priceDescription: money
+    goods: []
+    goodsDescription: wooden bow
+  - price: []
+    priceDescription: money
+    goods: []
+    goodsDescription: wooden arrow
+  - price: []
+    priceDescription: money, wood, stone
+    goods: []
+    goodsDescription: makeshift crossbow
+  - price: []
+    priceDescription: money, wood, stone
+    goods: []
+    goodsDescription: stone arrow
+  - price: []
+    priceDescription: money, wood, stone, iron ore
+    goods: []
+    goodsDescription: professional crossbow
+  - price: []
+    priceDescription: money, wood, iron ore
+    goods: []
+    goodsDescription: iron arrow
+  - price: []
+    priceDescription: money, wood, iron ore, obsidian
+    goods: []
+    goodsDescription: cho-ko-nu
+  - price: []
+    priceDescription: money, wood, iron ore, obsidian
+    goods: []
+    goodsDescription: obsidian arrow
+  - price: []
+    priceDescription: money
+    goods: []
+    goodsDescription: stone warhammer
+  - price: []
+    priceDescription: money
+    goods: []
+    goodsDescription: leather boots
+  - price: []
+    priceDescription: money
+    goods: []
+    goodsDescription: leather breastplate
+  - price: []
+    priceDescription: money
+    goods: []
+    goodsDescription: wooden staff
+  - price: []
+    priceDescription: money, wood
+    goods: []
+    goodsDescription: forest staff
+  - price: []
+    priceDescription: money, wood, skull
+    goods: []
+    goodsDescription: staff of pain
+  - price: []
+    priceDescription: money, iron ore, obsidian
+    goods: []
+    goodsDescription: obsidian staff
+  - price: []
+    priceDescription: money, green slime
+    goods: []
+    goodsDescription: speed potion
+  - price: []
+    priceDescription: money, red slime, fang
+    goods: []
+    goodsDescription: regeneration potion
+  - price: []
+    priceDescription: money, iron ore
+    goods: []
+    goodsDescription: resistance potion
+  - price: []
+    priceDescription: money, watcher eye
+    goods: []
+    goodsDescription: mana potion
+  - price: []
+    priceDescription: money, fang, obsidian
+    goods: []
+    goodsDescription: strength potion
+  - price: []
+    priceDescription: wood
+    goods: []
+    goodsDescription: money
+  - price: []
+    priceDescription: wood
+    goods: []
+    goodsDescription: experience
+  - price: []
+    priceDescription: stone
+    goods: []
+    goodsDescription: experience
+  - price: []
+    priceDescription: iron ore
+    goods: []
+    goodsDescription: experience
+  - price: []
+    priceDescription: money, iron ore
+    goods: []
+    goodsDescription: iron boots
+  - price: []
+    priceDescription: money, iron ore
+    goods: []
+    goodsDescription: iron breastplate
+  - price: []
+    priceDescription: money, iron ore
+    goods: []
+    goodsDescription: iron helmet
+  - price: []
+    priceDescription: money, wood, iron ore
+    goods: []
+    goodsDescription: iron sword
+  - price: []
+    priceDescription: money, wood, iron ore
+    goods: []
+    goodsDescription: iron warhammer
+  - price: []
+    priceDescription: obsidian
+    goods: []
+    goodsDescription: money, experience
+  - price: []
+    priceDescription: money, wood, iron ore, obsidian
+    goods: []
+    goodsDescription: dragon slayer
+  - price: []
+    priceDescription: money, wood, iron ore, obsidian
+    goods: []
+    goodsDescription: dragon slayer

@@ -47,9 +47,9 @@ MonoBehaviour:
   - 75
   - 200
   - 300
-  - 400
-  - 500
-  - 600
+  - 50000
+  - 50000
+  - 50000
   - 700
   - 800
   - 900
@@ -66,16 +66,16 @@ MonoBehaviour:
   walkingSpeedValue: 5
   runningSpeedMultiplierValues:
   - 10
-  - 11
   - 12
-  - 13
   - 14
-  - 15
-  - 16
-  - 17
   - 18
-  - 19
-  - 20
+  - 22
+  - 26
+  - 30
+  - 35
+  - 40
+  - 45
+  - 50
   runningEnergySpendingMultiplier: 0.75
   jumpHeight: 0.04
   jumpDuration: 0.35
@@ -143,13 +143,13 @@ MonoBehaviour:
   - 1
   - 0.5
   dashingEnergySpendingMultiplier: 3
-  teleportationUnlockLevel: 1
+  teleportationUnlockLevel: 8
   teleportationMaxDistanceValues:
-  - 100
-  - 100
-  - 100
-  - 100
-  - 100
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
   - 0
   - 0
   - 0
@@ -157,16 +157,16 @@ MonoBehaviour:
   - 20
   - 50
   teleportationRechargeTimeValues:
-  - 5
-  - 4
-  - 3
-  - 1
   - 0
   - 0
   - 0
   - 0
-  - 15
+  - 0
+  - 0
+  - 0
+  - 0
   - 10
+  - 8
   - 5
   teleportationEnergySpendingMultiplier: 5
   closeCombatStatsMultiplierValues: []

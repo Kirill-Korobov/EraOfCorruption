@@ -16,33 +16,6 @@ public class GameStatsManager : MonoBehaviour
         game2StatsSavePath = $"{Application.persistentDataPath}/Game2Stats.json";
         game3StatsSavePath = $"{Application.persistentDataPath}/Game3Stats.json";
 
-        game1Stats.statisticsInfo = statisticsInfo;
-        game2Stats.statisticsInfo = statisticsInfo;
-        game3Stats.statisticsInfo = statisticsInfo;
-
-        game1Stats.questsInfo = questsInfo;
-        game2Stats.questsInfo = questsInfo;
-        game3Stats.questsInfo = questsInfo;
-
-        /*
-        // if someone needs to delete all stats:
-        game1Stats.SetAllStatsToZero();
-        using (var writer = new StreamWriter(game1StatsSavePath))
-        {
-            writer.WriteLine(JsonUtility.ToJson(game1Stats));
-        }
-        game2Stats.SetAllStatsToZero();
-        using (var writer = new StreamWriter(game2StatsSavePath))
-        {
-            writer.WriteLine(JsonUtility.ToJson(game2Stats));
-        }
-        game3Stats.SetAllStatsToZero();
-        using (var writer = new StreamWriter(game3StatsSavePath))
-        {
-            writer.WriteLine(JsonUtility.ToJson(game3Stats));
-        }
-        */
-
         if (File.Exists(game1StatsSavePath))
         {
             string json = string.Empty;
@@ -99,6 +72,33 @@ public class GameStatsManager : MonoBehaviour
                 writer.WriteLine(JsonUtility.ToJson(game3Stats));
             }
         }
+
+        game1Stats.statisticsInfo = statisticsInfo;
+        game2Stats.statisticsInfo = statisticsInfo;
+        game3Stats.statisticsInfo = statisticsInfo;
+
+        game1Stats.questsInfo = questsInfo;
+        game2Stats.questsInfo = questsInfo;
+        game3Stats.questsInfo = questsInfo;
+
+        /*
+        // if someone needs to delete all stats:
+        game1Stats.SetAllStatsToZero();
+        using (var writer = new StreamWriter(game1StatsSavePath))
+        {
+            writer.WriteLine(JsonUtility.ToJson(game1Stats));
+        }
+        game2Stats.SetAllStatsToZero();
+        using (var writer = new StreamWriter(game2StatsSavePath))
+        {
+            writer.WriteLine(JsonUtility.ToJson(game2Stats));
+        }
+        game3Stats.SetAllStatsToZero();
+        using (var writer = new StreamWriter(game3StatsSavePath))
+        {
+            writer.WriteLine(JsonUtility.ToJson(game3Stats));
+        }
+        */
     }
 
     public void SaveStats()
@@ -106,7 +106,6 @@ public class GameStatsManager : MonoBehaviour
         using (var writer = new StreamWriter(game1StatsSavePath))
         {
             writer.WriteLine(JsonUtility.ToJson(game1Stats));
-            // Debug.Log(JsonUtility.ToJson(game1Stats));
         }
         using (var writer = new StreamWriter(game2StatsSavePath))
         {
@@ -130,6 +129,8 @@ public class GameStats
     public SlotStats slotStats;
     public MainCharacterStats mainCharacterStats;
     public QuestStagesStats questStagesStats;
+    public QuestVariableStats questVariableStats;
+    public Sublocation currentSublocation;
 
     [HideInInspector] public StatisticsInfo statisticsInfo;
     [HideInInspector] public QuestsInfo questsInfo;
@@ -138,6 +139,8 @@ public class GameStats
         slotStats.SetAllStatsToZero();
         mainCharacterStats.statisticsInfo = statisticsInfo; mainCharacterStats.SetAllStatsToZero();
         questStagesStats.questsInfo = questsInfo; questStagesStats.SetAllStatsToZero();
+        questVariableStats.SetAllStatsToZero();
+        currentSublocation = Sublocation.Greenfield;
     }
 }
 
@@ -231,4 +234,19 @@ public enum QuestStages
     inProgress,
     canFinish,
     isFinished
+}
+
+[Serializable]
+public class QuestVariableStats
+{
+    public int banditKillerKilledBanditNumber, sporeWarKilledMushroomNumber, goblinTroubleKilledGoblinNumber;
+    public bool killedForestDragon;
+
+    public void SetAllStatsToZero()
+    {
+        banditKillerKilledBanditNumber = 0;
+        sporeWarKilledMushroomNumber = 0;
+        goblinTroubleKilledGoblinNumber = 0;
+        killedForestDragon = false;
+    }
 }

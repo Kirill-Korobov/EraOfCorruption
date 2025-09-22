@@ -29,9 +29,12 @@ public class NPCInteraction : MonoBehaviour
         {
             for (int i = 0; i < NPCs.Length; i++)
             {
-                if (i == 0 || Vector3.Distance(transform.position, NPCs[i].transform.position) < Vector3.Distance(transform.position, nearestNPC.transform.position))
+                if (NPCs[i].activeSelf)
                 {
-                    nearestNPC = NPCs[i];
+                    if (i == 0 || Vector3.Distance(transform.position, NPCs[i].transform.position) < Vector3.Distance(transform.position, nearestNPC.transform.position))
+                    {
+                        nearestNPC = NPCs[i];
+                    }
                 }
             }
             if (Vector3.Distance(transform.position, nearestNPC.transform.position) <= statisticsInfo.NPCMaxInteractionDistance)

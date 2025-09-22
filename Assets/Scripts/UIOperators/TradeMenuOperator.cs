@@ -10,6 +10,7 @@ public class TradeMenuOperator : MonoBehaviour
     [SerializeField] private GameObject tradePrefab, content;
     [SerializeField] private VerticalLayoutGroup contentVerticalLayoutGroup;
     [SerializeField] private NotEnoughResourcesTextBehaviour notEnoughResourcesTextBehaviour;
+    [SerializeField] private float additionalSpace;
     private Coroutine showNotEnoughResourcesTextCoroutine;
     private GameObject[] bufferTrades;
     private RectTransform contentRectTransform;
@@ -35,7 +36,7 @@ public class TradeMenuOperator : MonoBehaviour
     {
         interactingNPCID = _interactingNPCID;
         titleText.text = $"{_NPCsInfo._NPCsInfo[interactingNPCID].name}'s trades";
-        contentRectTransform.sizeDelta = new Vector2(contentRectTransform.sizeDelta.x, _NPCsInfo._NPCsInfo[interactingNPCID].tradesIndexes.Length * (tradePrefab.GetComponent<RectTransform>().sizeDelta.y + contentVerticalLayoutGroup.spacing) - contentVerticalLayoutGroup.spacing);
+        contentRectTransform.sizeDelta = new Vector2(contentRectTransform.sizeDelta.x, _NPCsInfo._NPCsInfo[interactingNPCID].tradesIndexes.Length * (tradePrefab.GetComponent<RectTransform>().sizeDelta.y + contentVerticalLayoutGroup.spacing) - contentVerticalLayoutGroup.spacing + additionalSpace);
         bufferTrades = new GameObject[_NPCsInfo._NPCsInfo[interactingNPCID].tradesIndexes.Length];
         for (int i = 0; i < bufferTrades.Length; i++)
         {
@@ -58,12 +59,12 @@ public class TradeMenuOperator : MonoBehaviour
         }
     }
 
-    private void MakeTradeButton(int _questIndex)
+    private void MakeTradeButton(int tradeIndex)
     {
         // Check if the player has enough resources.
         // if ()
         // {
-        //     MakeTrade(_questIndex);
+        //     MakeTrade(tradeIndex);
         // }
         // else if ()
         // {
@@ -75,7 +76,7 @@ public class TradeMenuOperator : MonoBehaviour
         // }
     }
 
-    private void MakeTrade(int _questIndex)
+    private void MakeTrade(int tradeIndex)
     {
         // Pay the price and get goods.
     }
